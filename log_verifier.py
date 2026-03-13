@@ -60,7 +60,7 @@ def main():
     ok, s, tres = is_primes_enough(primes, k)
 
     print(f"k = {k}")
-    print(f"valid primes = {primes}")
+    print(f"valid primes = {sorted(primes)}")
     print(f"log prod(primes) = {s}")
     print(f"log threshold    = {tres}")
     print("PROOF:", "YES" if ok else "NO")

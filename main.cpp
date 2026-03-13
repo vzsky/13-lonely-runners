@@ -529,32 +529,34 @@ int main()
   constexpr auto Force = [](int p) { return Config{Config::Type::Force, p}; };
   constexpr auto Maybe = [](int p) { return Config{Config::Type::Maybe, p}; };
 
-  // constexpr int K = 8;
-  // std::vector<int> primes = {
-  //     47,  53,  59,  61,  67,  71,  73,  79,  83,
-  //     89,  97,  101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151,
-  //     157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229,
-  //     233, 239, 241};
+  // constexpr int K             = 8;
+  // constexpr std::array primes = {47,  53,  59,  61,  67,  71,  73,  79,  83,  89,  97,  101, 103,
+  //                                107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173,
+  //                                179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241};
   // // unexpected but this is faster than mult={3,3},
-  // std::vector<Config> config = {Maybe(2), Maybe(2), Force(3), Force(3)};
+  // constexpr std::array config = {Maybe(2), Maybe(2), Force(3), Force(3)};
 
-  // constexpr int K =9;
-  // std::vector<int> primes = {19,  53,  59,  67,  71,  73,  79,  83,  89,  97,  101, 103, 107,
-  //                            109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179,
-  //                            181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
-  //                            257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317};
-  // std::vector<int> primes = {179, 181, 191};
-  // nothing stops us from using different config per prime
+  // constexpr int K             = 9;
+  // constexpr std::array primes = {19,  53,  59,  67,  71,  73,  79,  83,  89,  97,  101, 103, 107,
+  //                                109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179,
+  //                                181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
+  //                                257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317};
   // constexpr std::array config = {Force(2), Maybe(2), Maybe(3), Force(5)};
 
-  constexpr int K             = 11;
+  constexpr int K             = 10;
   constexpr std::array primes = {
-      577, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 331, 337, 347, 349, 353, 359, 367, 379,
-      383, 557, 563, 569, 571, 389, 149, 157, 181, 269, 23,  131, 137, 139, 151, 163, 167, 173, 179,
-      191, 193, 197, 199, 271, 277, 281, 283, 293, 307, 311, 313, 317, 373, 397, 401, 409, 419, 421,
-      431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547,
+      181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
   };
-  constexpr std::array config = {Force(2), Force(2), Maybe(2), Maybe(2), Force(3), Maybe(3)};
+  constexpr std::array config = {Maybe(2), Maybe(2), Maybe(3), Maybe(5), Maybe(7), Force(11)};
+
+  // constexpr int K             = 11;
+  // constexpr std::array primes = {
+  //     577, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 331, 337, 347, 349, 353, 359, 367, 379,
+  //     383, 557, 563, 569, 571, 389, 149, 157, 181, 269, 23,  131, 137, 139, 151, 163, 167, 173, 179,
+  //     191, 193, 197, 199, 271, 277, 281, 283, 293, 307, 311, 313, 317, 373, 397, 401, 409, 419, 421,
+  //     431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547,
+  // };
+  // constexpr std::array config = {Force(2), Force(2), Maybe(2), Maybe(2), Force(3), Maybe(3)};
 
   roll_works<K, primes, config>(std::make_index_sequence<primes.size()>{});
 }
