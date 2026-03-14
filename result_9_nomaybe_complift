@@ -1,0 +1,431 @@
+Execution start: 2026-03-14T10:58:29+00:00
+[THREAD 0] now=10:58:33.855644
+[THREAD 0] Parameters: p = 47, k = 8
+[THREAD 0] Step1 (n=1): S size = 15563
+Time elapsed: 0.6s
+[THREAD 0] trying 3: T size = 7852
+[THREAD 0] => (n=3): S size = 7852
+Time elapsed: 0.493s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.334s
+
+[THREAD 0] now=10:58:34.691808
+[THREAD 0] Parameters: p = 53, k = 8
+[THREAD 0] Step1 (n=1): S size = 2165
+Time elapsed: 0.0s
+[THREAD 0] trying 3: T size = 608
+[THREAD 0] => (n=3): S size = 608
+Time elapsed: 0.70s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.25s
+
+[THREAD 0] now=10:58:34.788196
+[THREAD 0] Parameters: p = 59, k = 8
+[THREAD 0] Step1 (n=1): S size = 23283
+Time elapsed: 0.3s
+[THREAD 0] trying 3: T size = 1240
+[THREAD 0] => (n=3): S size = 1240
+Time elapsed: 0.710s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.55s
+
+[THREAD 0] now=10:58:35.557074
+[THREAD 0] Parameters: p = 61, k = 8
+[THREAD 0] Step1 (n=1): S size = 11669
+Time elapsed: 0.2s
+[THREAD 0] trying 3: T size = 1028
+[THREAD 0] => (n=3): S size = 1028
+Time elapsed: 0.368s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.40s
+
+[THREAD 0] now=10:58:35.968499
+[THREAD 0] Parameters: p = 67, k = 8
+[THREAD 0] Step1 (n=1): S size = 14561
+Time elapsed: 0.3s
+[THREAD 0] trying 3: T size = 816
+[THREAD 0] => (n=3): S size = 816
+Time elapsed: 0.492s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.34s
+
+[THREAD 0] now=10:58:36.499195
+[THREAD 0] Parameters: p = 71, k = 8
+[THREAD 0] Step1 (n=1): S size = 4430
+Time elapsed: 0.2s
+[THREAD 0] trying 3: T size = 192
+[THREAD 0] => (n=3): S size = 192
+Time elapsed: 0.150s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.10s
+
+[THREAD 0] now=10:58:36.662629
+[THREAD 0] Parameters: p = 73, k = 8
+[THREAD 0] Step1 (n=1): S size = 53084
+Time elapsed: 0.8s
+[THREAD 0] trying 3: T size = 1076
+[THREAD 0] => (n=3): S size = 1076
+Time elapsed: 1.746s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.50s
+
+[THREAD 0] now=10:58:38.468316
+[THREAD 0] Parameters: p = 79, k = 8
+[THREAD 0] Step1 (n=1): S size = 5265
+Time elapsed: 0.2s
+[THREAD 0] trying 3: T size = 176
+[THREAD 0] => (n=3): S size = 176
+Time elapsed: 0.178s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.11s
+
+[THREAD 0] now=10:58:38.660799
+[THREAD 0] Parameters: p = 83, k = 8
+[THREAD 0] Step1 (n=1): S size = 30320
+Time elapsed: 0.7s
+[THREAD 0] trying 3: T size = 208
+[THREAD 0] => (n=3): S size = 208
+Time elapsed: 0.998s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.12s
+
+[THREAD 0] now=10:58:39.679377
+[THREAD 0] Parameters: p = 89, k = 8
+[THREAD 0] Step1 (n=1): S size = 2904
+Time elapsed: 0.3s
+[THREAD 0] trying 3: T size = 112
+[THREAD 0] => (n=3): S size = 112
+Time elapsed: 0.113s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.9s
+
+[THREAD 0] now=10:58:39.806486
+[THREAD 0] Parameters: p = 97, k = 8
+[THREAD 0] Step1 (n=1): S size = 6389
+Time elapsed: 0.6s
+[THREAD 0] trying 3: T size = 64
+[THREAD 0] => (n=3): S size = 64
+Time elapsed: 0.238s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.5s
+
+[THREAD 0] now=10:58:40.057530
+[THREAD 0] Parameters: p = 101, k = 8
+[THREAD 0] Step1 (n=1): S size = 14962
+Time elapsed: 0.16s
+[THREAD 0] trying 3: T size = 96
+[THREAD 0] => (n=3): S size = 96
+Time elapsed: 0.546s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.9s
+
+[THREAD 0] now=10:58:40.630422
+[THREAD 0] Parameters: p = 103, k = 8
+[THREAD 0] Step1 (n=1): S size = 9455
+Time elapsed: 0.13s
+[THREAD 0] trying 3: T size = 64
+[THREAD 0] => (n=3): S size = 64
+Time elapsed: 0.343s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.7s
+
+[THREAD 0] now=10:58:40.994486
+[THREAD 0] Parameters: p = 107, k = 8
+[THREAD 0] Step1 (n=1): S size = 1795
+Time elapsed: 0.9s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.75s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.7s
+
+[THREAD 0] now=10:58:41.085803
+[THREAD 0] Parameters: p = 109, k = 8
+[THREAD 0] Step1 (n=1): S size = 32218
+Time elapsed: 0.26s
+[THREAD 0] trying 3: T size = 80
+[THREAD 0] => (n=3): S size = 80
+Time elapsed: 1.255s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.7s
+
+[THREAD 0] now=10:58:42.375798
+[THREAD 0] Parameters: p = 113, k = 8
+[THREAD 0] Step1 (n=1): S size = 9820
+Time elapsed: 0.19s
+[THREAD 0] trying 3: T size = 48
+[THREAD 0] => (n=3): S size = 48
+Time elapsed: 0.380s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.6s
+
+[THREAD 0] now=10:58:42.781540
+[THREAD 0] Parameters: p = 127, k = 8
+[THREAD 0] Step1 (n=1): S size = 13888
+Time elapsed: 0.41s
+[THREAD 0] trying 3: T size = 80
+[THREAD 0] => (n=3): S size = 80
+Time elapsed: 0.541s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.8s
+
+[THREAD 0] now=10:58:43.373331
+[THREAD 0] Parameters: p = 131, k = 8
+[THREAD 0] Step1 (n=1): S size = 3012
+Time elapsed: 0.33s
+[THREAD 0] trying 3: T size = 48
+[THREAD 0] => (n=3): S size = 48
+Time elapsed: 0.136s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.6s
+
+[THREAD 0] now=10:58:43.549429
+[THREAD 0] Parameters: p = 137, k = 8
+[THREAD 0] Step1 (n=1): S size = 5432
+Time elapsed: 0.44s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.236s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.4s
+
+[THREAD 0] now=10:58:43.834971
+[THREAD 0] Parameters: p = 139, k = 8
+[THREAD 0] Step1 (n=1): S size = 2230
+Time elapsed: 0.38s
+[THREAD 0] trying 3: T size = 32
+[THREAD 0] => (n=3): S size = 32
+Time elapsed: 0.98s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.5s
+
+[THREAD 0] now=10:58:43.977355
+[THREAD 0] Parameters: p = 149, k = 8
+[THREAD 0] Step1 (n=1): S size = 1520
+Time elapsed: 0.44s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.68s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.7s
+
+[THREAD 0] now=10:58:44.097079
+[THREAD 0] Parameters: p = 151, k = 8
+[THREAD 0] Step1 (n=1): S size = 775
+Time elapsed: 0.40s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.29s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.4s
+
+[THREAD 0] now=10:58:44.171501
+[THREAD 0] Parameters: p = 157, k = 8
+[THREAD 0] Step1 (n=1): S size = 844
+Time elapsed: 0.58s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.32s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.7s
+
+[THREAD 0] now=10:58:44.269639
+[THREAD 0] Parameters: p = 163, k = 8
+[THREAD 0] Step1 (n=1): S size = 3482
+Time elapsed: 0.94s
+[THREAD 0] trying 3: T size = 48
+[THREAD 0] => (n=3): S size = 48
+Time elapsed: 0.128s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.8s
+
+[THREAD 0] now=10:58:44.500691
+[THREAD 0] Parameters: p = 167, k = 8
+[THREAD 0] Step1 (n=1): S size = 537
+Time elapsed: 0.63s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.22s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.8s
+
+[THREAD 0] now=10:58:44.595438
+[THREAD 0] Parameters: p = 173, k = 8
+[THREAD 0] Step1 (n=1): S size = 821
+Time elapsed: 0.95s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.36s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.5s
+
+[THREAD 0] now=10:58:44.732323
+[THREAD 0] Parameters: p = 179, k = 8
+[THREAD 0] Step1 (n=1): S size = 73
+Time elapsed: 0.71s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.4s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.8s
+
+[THREAD 0] now=10:58:44.816699
+[THREAD 0] Parameters: p = 181, k = 8
+[THREAD 0] Step1 (n=1): S size = 1068
+Time elapsed: 0.119s
+[THREAD 0] trying 3: T size = 48
+[THREAD 0] => (n=3): S size = 48
+Time elapsed: 0.44s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.8s
+
+[THREAD 0] now=10:58:44.988217
+[THREAD 0] Parameters: p = 191, k = 8
+[THREAD 0] Step1 (n=1): S size = 617
+Time elapsed: 0.167s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.27s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.5s
+
+[THREAD 0] now=10:58:45.189435
+[THREAD 0] Parameters: p = 193, k = 8
+[THREAD 0] Step1 (n=1): S size = 215
+Time elapsed: 0.137s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.12s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.5s
+
+[THREAD 0] now=10:58:45.344153
+[THREAD 0] Parameters: p = 197, k = 8
+[THREAD 0] Step1 (n=1): S size = 161
+Time elapsed: 0.130s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.9s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.5s
+
+[THREAD 0] now=10:58:45.490245
+[THREAD 0] Parameters: p = 199, k = 8
+[THREAD 0] Step1 (n=1): S size = 812
+Time elapsed: 0.216s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.39s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.5s
+
+[THREAD 0] now=10:58:45.751911
+[THREAD 0] Parameters: p = 211, k = 8
+[THREAD 0] Step1 (n=1): S size = 259
+Time elapsed: 0.207s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.26s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.6s
+
+[THREAD 0] now=10:58:45.991507
+[THREAD 0] Parameters: p = 223, k = 8
+[THREAD 0] Step1 (n=1): S size = 43
+Time elapsed: 0.216s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.3s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.9s
+
+[THREAD 0] now=10:58:46.221228
+[THREAD 0] Parameters: p = 227, k = 8
+[THREAD 0] Step1 (n=1): S size = 168
+Time elapsed: 0.297s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.10s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.9s
+
+[THREAD 0] now=10:58:46.538826
+[THREAD 0] Parameters: p = 229, k = 8
+[THREAD 0] Step1 (n=1): S size = 76
+Time elapsed: 0.285s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.5s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.5s
+
+[THREAD 0] now=10:58:46.835744
+[THREAD 0] Parameters: p = 233, k = 8
+[THREAD 0] Step1 (n=1): S size = 9
+Time elapsed: 0.237s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.1s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.6s
+
+[THREAD 0] now=10:58:47.081720
+[THREAD 0] Parameters: p = 239, k = 8
+[THREAD 0] Step1 (n=1): S size = 50
+Time elapsed: 0.332s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.4s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.6s
+
+[THREAD 0] now=10:58:47.424680
+[THREAD 0] Parameters: p = 241, k = 8
+[THREAD 0] Step1 (n=1): S size = 33
+Time elapsed: 0.348s
+[THREAD 0] trying 3: T size = 16
+[THREAD 0] => (n=3): S size = 16
+Time elapsed: 0.3s
+[THREAD 0] trying 3: T size = 0
+[THREAD 0] => (n=9): S size = 0
+Time elapsed: 0.6s
+
+Time: 2026-03-14T10:58:47+00:00

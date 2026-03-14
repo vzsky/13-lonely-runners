@@ -160,27 +160,6 @@ template <int K, int P> static SetOfSpeedSets<K> run_dfs(const CoverageArray<P>&
   return d.solutions;
 }
 
-template <int K, int P> static SpeedSet<K> multiply_solution(const SpeedSet<K>& sol, int c)
-{
-  SpeedSet<K> result;
-  for (int i = 0; i < K; ++i)
-  {
-    int v = (int)((1LL * sol.mSet[i] * c) % P);
-    if (v > P / 2) v = P - v;
-    result.insert(v);
-  }
-  return result.get_sorted_set();
-}
-
-template <int K, int P> static SetOfSpeedSets<K> expand_by_symmetry(const SetOfSpeedSets<K>& base_solutions)
-{
-  SetOfSpeedSets<K> all;
-  all.reserve(base_solutions.size() * (P / 2));
-  for (const auto& sol : base_solutions)
-    for (int c = 1; c <= P / 2; ++c) all.insert(multiply_solution<K, P>(sol, c));
-  return all;
-}
-
 template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel(const CoverageArray<P>& cov)
 {
   std::array<int, P / 2> remaining0{};
@@ -258,8 +237,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel(const 
   SetOfSpeedSets<K> base_solutions;
   for (unsigned int t = 0; t < nthreads; ++t) base_solutions.merge(thread_results[t]);
 
-  std::cout << "Base solutions (containing 1): " << base_solutions.size() << std::endl;
-  return expand_by_symmetry<K, P>(base_solutions);
+  return base_solutions;
 }
 
 } // namespace find_cover
@@ -488,6 +466,11 @@ template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
   int current_n = 1;
   for (auto [type, mult] : config)
   {
+    if ((mult == 7 && S.size() > 100) || (mult == 11 && S.size() > 10))
+    {
+      std::cout << std::format("[THREAD {}] SKIPPED", thread_id);
+      continue;
+    }
     if (mult == last_skip) continue;
     timeit([&]
     {
@@ -535,19 +518,20 @@ int main()
   //                                179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241};
   // // unexpected but this is faster than mult={3,3},
   // constexpr std::array config = {Maybe(2), Maybe(2), Force(3), Force(3)};
+  // // constexpr std::array config = {Force(3), Force(3)};
 
-  // constexpr int K             = 9;
-  // constexpr std::array primes = {19,  53,  59,  67,  71,  73,  79,  83,  89,  97,  101, 103, 107,
-  //                                109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179,
-  //                                181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
-  //                                257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317};
-  // constexpr std::array config = {Force(2), Maybe(2), Maybe(3), Force(5)};
+  constexpr int K             = 9;
+  constexpr std::array primes = {19,  53,  59,  67,  71,  73,  79,  83,  89,  97,  101, 103, 107,
+                                 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179,
+                                 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
+                                 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317};
+  constexpr std::array config = {Force(2), Maybe(2), Maybe(3), Force(5)};
 
-  constexpr int K             = 10;
-  constexpr std::array primes = {
-      181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
-  };
-  constexpr std::array config = {Maybe(2), Maybe(2), Maybe(3), Maybe(5), Maybe(7), Force(11)};
+  // constexpr int K             = 10;
+  // constexpr std::array primes = {
+  //     193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
+  // };
+  // constexpr std::array config = {Maybe(2), Maybe(2), Maybe(3), Maybe(5), Maybe(7), Force(11)};
 
   // constexpr int K             = 11;
   // constexpr std::array primes = {
