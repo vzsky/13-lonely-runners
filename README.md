@@ -7,7 +7,7 @@ See [here](https://github.com/t-tanupat/nine-and-ten-lonely-runners) for the ori
 ## Accompanying files: 
 - `main.cpp` the source code 
 - `run.sh` just the compilation guide
-- `result_{k+1}` result of running the source
+- `results/result_{k+1}_{description}` result of running the source
     - for `k=11` it's a combination of many runs
 - `log_verifier.py` read `result_k` and verify the proof (size of primes).
-
+- `article/` the source of the article.
