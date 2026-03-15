@@ -352,11 +352,43 @@ Context make_context(int p, int k, int n, bool fullRange)
 // Step 2 & 3: Lifting seeds from prior level to next level (n -> m*n)
 // This function performs parallel lifting over the seed list and applies
 // subset-GCD sieve and coverage test
-template <int K> SetOfSpeedSets<K> lift(const Context& C, const SpeedSet<K>& seed, int multiplier)
-{
 
+template <int K> struct Dfs
+{
+  const Context& C;
+  SpeedSet<K> elem;
+  std::array<int, K> order;
+  std::array<std::vector<int>, K> cand;
   SetOfSpeedSets<K> result;
 
+  Dfs(const Context& ctx, const std::array<int, K>& ord, const std::array<std::vector<int>, K>& cnd)
+      : C{ctx}, order{ord}, cand{cnd} { }
+
+  void run(int depth)
+  {
+    if (depth == K)
+    {
+      WordBitset acc(C.bitlen);
+      for (auto v : elem) acc.orWith(C.vec[v]);
+      if (acc.count() != C.bitlen) return;
+
+      if (elem.subset_gcd_implies_proper(C.n)) return;
+
+      result.insert(elem.get_sorted_set());
+      return;
+    }
+    int pos = order[depth];
+    for (int candidate : cand[pos])
+    {
+      elem.insert(candidate);
+      run(depth + 1);
+      elem.remove(candidate);
+    }
+  }
+};
+
+template <int K> SetOfSpeedSets<K> lift(const Context& C, const SpeedSet<K>& seed, int multiplier)
+{
   auto cand = [&] { // "superposition/shadow" of all candidate speedsets
     std::array<std::vector<int>, K> cand{};
     int j = 0;
@@ -377,36 +409,10 @@ template <int K> SetOfSpeedSets<K> lift(const Context& C, const SpeedSet<K>& see
   std::iota(order.begin(), order.end(), 0);
   std::sort(order.begin(), order.end(), [&](int A, int B) { return cand[A].size() < cand[B].size(); });
 
-  std::array<int, K> idx;
-  idx.fill(-1);
+  Dfs<K> runner {C, order, cand};
+  runner.run(0);
 
-  std::function<void(int)> dfs = [&](int depth)
-  {
-    if (depth == K)
-    {
-      // construct final_idx in natural order
-      WordBitset acc(C.bitlen);
-      for (int t = 0; t < K; ++t) acc.orWith(C.vec[idx[t]]);
-      if (acc.count() != C.bitlen) return;
-
-      SpeedSet<K> out = idx;
-      if (out.subset_gcd_implies_proper(C.n)) return;
-
-      result.insert(out.get_sorted_set());
-      return;
-    }
-    int pos = order[depth];
-    for (int candidate : cand[pos])
-    {
-      idx[pos] = candidate;
-      dfs(depth + 1);
-    }
-    idx[pos] = -1;
-  }; // end dfs
-
-  dfs(0);
-
-  return result;
+  return runner.result;
 };
 
 template <int K>
@@ -564,7 +570,8 @@ int main()
 
   constexpr int K             = 10;
   constexpr std::array primes = {// 131, 137, 139, 149, 151, 157, 107, 109, 127, 163,
-                                 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241,
+                                 // 167, 173, 179, 181,
+                                 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241,
                                  251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337,
                                  347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431,
                                  433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499};
