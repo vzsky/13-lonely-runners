@@ -1,7 +1,7 @@
 #include <algorithm>
+#include <bitset>
 #include <cassert>
 #include <climits>
-#include <bitset>
 #include <cstdint>
 #include <functional>
 #include <iostream>
@@ -217,7 +217,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel(const 
 
       for (size_t idx = 0; idx < lo; ++idx)
       {
-        int j = top_candidates[idx];
+        int j   = top_candidates[idx];
         elim[j] = 1;
         for (int pos = 0; pos < P / 2; ++pos)
           if (cov[j][pos]) rem[pos]--;
@@ -255,6 +255,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel(const 
 namespace lift
 {
 
+// todo: get rid of this struct
 struct WordBitset
 {
 private:
@@ -313,6 +314,7 @@ public:
 
 // Context struct encapsulates the lifting level (mod Q = np) and bitset
 // precomputations
+// todo: get rid of this struct
 struct Context
 {
   int p{}, n{}, Q{};
@@ -489,6 +491,7 @@ template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
       auto T           = lift::find_lifted_covers_parallel(C2, S, mult);
       std::cout << std::format("[THREAD {}] trying {}: T size = {}", thread_id, mult, T.size()) << std::endl;
       // std::cout << T << std::endl;
+      // todo: project need not intersect. just project it down.
       if (type == Config::Type::Project)
       {
         SetOfSpeedSets<K> A, B, I;
@@ -560,13 +563,11 @@ int main()
   // constexpr std::array config = {Force(2), Maybe(2), Maybe(3), Force(5)};
 
   constexpr int K             = 10;
-  constexpr std::array primes = {
-      // 131, 137, 139, 149, 151, 157, 
-      107, 109, 113, 127,
-      163, 167, 173, 179, 181, 191,
-      193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
-      257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 
-  };
+  constexpr std::array primes = {// 131, 137, 139, 149, 151, 157, 107, 109, 127, 163,
+                                 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241,
+                                 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337,
+                                 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431,
+                                 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499};
   constexpr std::array config = {Maybe(2), Project(2), Maybe(3),   Project(3),
                                  Maybe(5), Project(5), Project(7), Force(11)};
 
