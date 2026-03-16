@@ -571,20 +571,12 @@ int main()
   // constexpr std::array config = {Force(2), Maybe(2), Maybe(3), Force(5)};
 
   constexpr int K             = 10;
-  constexpr std::array primes = {// 103,
-                                 // 131, 137, 139, 149, 151, 157, 107, 109, 127, 163,
-                                 // 167, 173, 179, 433 191, 193, 197, 199, 211, 223, 227, 229, 233, 239,
-                                 // 257, 263, 269, 277, 281, 283, 307 311, 313, 433, 439, 443, 449, 457, 461
-                                 // potentially try again 181,
-                                 241, 251, 271, 293, 293, 317, 331, 337, 347, 349, 353, 359,
-                                 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431};
+  constexpr std::array primes = {103, 131, 137, 139, 149, 151, 157, 107, 109, 127, 163, 167, 173,
+                                 179, 433, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 251,
+                                 257, 263, 269, 271, 277, 281, 283, 307, 311, 313, 347, 379, 433,
+                                 439, 443, 449, 457, 461, 241, 293, 293, 317, 331, 337, 349, 353,
+                                 359, 367, 373, 383, 389, 397, 401, 409, 419, 421, 431};
   constexpr std::array config = {Force(2), Force(2), Project(2), Force(3), Project(3), Project(5), Force(11)};
-
-  // needs it's own config
-  // constexpr int K             = 10;
-  // constexpr std::array primes = { 31 };
-  // constexpr std::array config = {Force(2), Force(2), Force(2), Project(2), Force(3), Project(3),
-  // Project(5), Force(11)};
 
   // constexpr int K             = 11;
   // constexpr std::array primes = {

@@ -1,0 +1,93 @@
+Execution start: 2026-03-15T11:01:44-09:00
+[THREAD 0] now=20:02:00.759333836
+[THREAD 0] Parameters: p = 307, k = 10
+[THREAD 0] Step1 (n=1): S size = 30
+Time elapsed: 78.550s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.8s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.29s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.37s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 4.778s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 181.6s
+20:06:25.171229475 begining lift 11 with: ( 1 38 39 76 77 78 114 115 116 153  ), ( 1 30 31 61 62 92 93 122 123 153  ), ( 1 33 34 35 68 69 102 103 136 137  ), ( 1 2 60 61 62 63 121 122 123 124  ), ( 1 2 3 4 5 149 150 151 152 153  ), ( 1 2 3 99 100 101 102 103 104 105  ), ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 2 75 76 77 78 79 151 152 153  ), ( 1 50 51 52 101 102 103 104 152 153  ), ( 1 43 44 45 87 88 89 131 132 133  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 23418.276s
+
+[THREAD 0] now=02:36:43.448143768
+[THREAD 0] Parameters: p = 311, k = 10
+[THREAD 0] Step1 (n=1): S size = 100
+Time elapsed: 204.310s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.11s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.32s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.59s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 5.116s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 183.26s
+02:43:16.005000647 begining lift 11 with: ( 1 51 52 53 102 103 104 105 154 155  ), ( 1 38 39 40 77 78 79 116 117 155  ), ( 1 31 32 62 63 93 94 124 125 155  ), ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 2 61 62 63 64 123 124 125 126  ), ( 1 2 3 4 5 151 152 153 154 155  ), ( 1 43 44 45 88 89 90 132 133 134  ), ( 1 2 3 101 102 103 104 105 106 107  ), ( 1 34 35 68 69 70 103 104 138 139  ), ( 1 2 76 77 78 79 80 153 154 155  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 23803.668s
+
+[THREAD 0] now=09:19:59.673690314
+[THREAD 0] Parameters: p = 313, k = 10
+[THREAD 0] Step1 (n=1): S size = 80
+Time elapsed: 178.451s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.10s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.30s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.41s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 5.84s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 184.830s
+09:26:08.122583886 begining lift 11 with: ( 1 34 35 69 70 104 105 138 139 140  ), ( 1 51 52 53 103 104 105 106 155 156  ), ( 1 44 45 46 88 89 90 133 134 135  ), ( 1 2 76 77 78 79 80 154 155 156  ), ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 2 61 62 63 64 124 125 126 127  ), ( 1 31 32 62 63 93 94 125 126 156  ), ( 1 2 3 101 102 103 104 105 106 107  ), ( 1 38 39 40 77 78 79 117 118 156  ), ( 1 2 3 4 5 152 153 154 155 156  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 23735.296s
+
+[THREAD 0] now=16:01:43.419548023
+[THREAD 0] Parameters: p = 317, k = 10
+[THREAD 0] Step1 (n=1): S size = 50
+Time elapsed: 126.311s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.11s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.31s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.38s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 5.217s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 187.37s
+16:07:02.068129885 begining lift 11 with: ( 1 31 32 63 64 95 96 126 127 158  ), ( 1 52 53 54 104 105 106 107 157 158  ), ( 1 2 3 103 104 105 106 107 108 109  ), ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 35 36 70 71 105 106 140 141 142  ), ( 1 2 77 78 79 80 81 156 157 158  ), ( 1 2 62 63 64 65 125 126 127 128  ), ( 1 2 3 4 5 154 155 156 157 158  ), ( 1 39 40 78 79 80 118 119 120 158  ), ( 1 44 45 46 90 91 92 135 136 137  ),

@@ -346,16 +346,19 @@ with assistance from AI-based tools, to improve performance and scalability.
 
 Using the improvements proposed, I managed to complete the proof of $k=8$ in 12 seconds and $k=9$ in 181 seconds on 
 a 10-core Apple M4 processor (Macbook Air 2025). 
-The proof of $k=10$ and $k=11$ were run in multiple batches which makes it more difficult to pinpoint exact time taken.
-Rough estimates would be 65 hours and 30 hours for $k=10$ and $k=11$ respectively. % \sorry check
-The source of the computation can be found in \cite{mycode}
+The proof of $k=10$ and $k=11$ were run in multiple batches, multiple versions, and multiple machines, thus 
+making the exact time taken incomarable with other cases. 
+The source of the computation, along with log files, can be found in \cite{mycode}
 
 For the eleven runners case, let \[ P_{10} := \set{ \begin{aligned} 
-    \sorry
+    103, 131, 137, 139, 149, 151, 157, 107, 109, 127, 163, 167, 173, \\
+    179, 433, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, \\
+    251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, \\ 
+    331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 401, 409, \\
+    419, 421, 431, 433, 439, 443, 449, 457, 461 \\
     \end{aligned}
   } \]
-
-For the twelve runners case, let \[ P_{11} := \set{ \begin{aligned} 
+and for the twelve runners case, let \[ P_{11} := \set{ \begin{aligned} 
       23, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, \\ 
       193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, \\
       269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, \\
@@ -365,30 +368,32 @@ For the twelve runners case, let \[ P_{11} := \set{ \begin{aligned}
     \end{aligned}
   } \]
 
-\sorry for eleven runner
-
-Using the algorithm described in the previous section, I have verified
-that for every prime $p \in P_{11}$ there exists $l \in \set{12, 24, 36}$ such that the set $I(11, l, p)$ is empty.
-Equivalently, any counterexample to the $12$-runner case of the
+Using the algorithm described in the previous section, we can verify
+that for every prime $p \in P_{10}$ there exists $l$ such that 
+the set $I(10, l, p)$ is empty.
+Equivalently, any counterexample to the 11 runners case of the
 Lonely Runner Conjecture must have speeds divisible by each prime in
-$P_{11}$. Consequently, if such a counterexample exists, its product of speeds must be
-divisible by the product $\prod_{p \in P_{11}} p$
+$P_{10}$. Consequently, if such a counterexample exists, its product of speeds must be
+divisible by the product $\prod_{p \in P_{10}} p$
+
+Similarly, we can also verify that for every $p \in P_{11}$ there exists $l$ that makes $I(11, l, p)$ empty. Therefore, 
+if a counterexample of the Lonely Runner Conjecture exists for the $k=11$ case, the product of speeds must be divisible by 
+$\prod_{p \in P_{11}} p$.
 
 \begin{theorem}
-  The Lonely Runner Conjecture for $k=11$ holds if the Lonely Runner Conjecture for $k=10$ holds. 
+  The Lonely Runner Conjecture holds for $k=10$ and $k=11$
 \end{theorem}
 \begin{proof}
-  If the conjecture holds for eleven runners, then the result of \cite{Rosenfeld} asserts that it suffices 
-  to check integral solutions up to $B_{11}$.
+  As Trakulthongchai has shown in \cite{Trakulthongchai} that the Lonely Runner Conjecture holds for $k=9$, it follows 
+  from the result of Rosenfeld~\cite{Rosenfeld} that it suffices to check that the conjecture holds for integral speeds
+  up to $B_{10}$ to conclude that the conjecture holds for $k=10$. From computation 
+  \[ B_{10} < e^{337.65} < e^{339} < \prod_{p \in P_{10}} p \]
+  it can be concluded that the Lonely Runner Conjecture holds for $k=10$.
 
-  As $B_{11}$, the bound needed to reduce the problem of twelve runners to eleven runners, is less than $e^{434.5}$ and 
-  \[ \prod_{p \in P_{11}} p > e^{435} > e^{434.5} > B_{11} = \paren{\frac{\binom{k+1}{2}^{k-1}}{k}}^k \] 
-  There is no counterexample to the 12 runners case.
+  Since it holds for $k=10$, it suffices to check if the conjecture holds for integral speeds up to $B_{11}$, and we achieved 
+  \[ B_{11} <  e^{434.5} < e^{435} < \prod_{p \in P_{11}} p \]
+  form the described algorithm. Hence, the Lonely Runner Conjecture holds for $k=11$.
 \end{proof}
-
-\section*{Further work}
-The case of 11 runners remains unsolved. Since 11 is prime, the bottleneck of the computation is not at finding $I(k, 1, p)$ but at 
-lifting $I(k, 1, p)$ to $I(k, 11, p)$. Similar arguments may potentially speed up calculation but will require more careful consideration.
 
 \section*{Acknowledgement}
 I am grateful for Tanupat Trakulthongchai for his help and guidance throughout the preparation of this article.
