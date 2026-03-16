@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <bitset>
 #include <cassert>
 #include <climits>
 #include <cstdint>
@@ -17,7 +18,8 @@ struct Config
   enum class Type
   {
     Force,
-    Maybe
+    Maybe,
+    Project
   } type;
   int prime;
 };
@@ -213,6 +215,14 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel(const 
       std::vector<char> elim     = base_eliminated;
       std::array<int, P / 2> rem = base_remaining;
 
+      for (size_t idx = 0; idx < lo; ++idx)
+      {
+        int j   = top_candidates[idx];
+        elim[j] = 1;
+        for (int pos = 0; pos < P / 2; ++pos)
+          if (cov[j][pos]) rem[pos]--;
+      }
+
       for (size_t idx = lo; idx < hi; ++idx)
       {
         int i = top_candidates[idx];
@@ -245,6 +255,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel(const 
 namespace lift
 {
 
+// todo: get rid of this struct
 struct WordBitset
 {
 private:
@@ -303,6 +314,7 @@ public:
 
 // Context struct encapsulates the lifting level (mod Q = np) and bitset
 // precomputations
+// todo: get rid of this struct
 struct Context
 {
   int p{}, n{}, Q{};
@@ -340,11 +352,45 @@ Context make_context(int p, int k, int n, bool fullRange)
 // Step 2 & 3: Lifting seeds from prior level to next level (n -> m*n)
 // This function performs parallel lifting over the seed list and applies
 // subset-GCD sieve and coverage test
-template <int K> SetOfSpeedSets<K> lift(const Context& C, const SpeedSet<K>& seed, int multiplier)
-{
 
+template <int K> struct Dfs
+{
+  const Context& C;
+  SpeedSet<K> elem;
+  std::array<int, K> order;
+  std::array<std::vector<int>, K> cand;
   SetOfSpeedSets<K> result;
 
+  Dfs(const Context& ctx, const std::array<int, K>& ord, const std::array<std::vector<int>, K>& cnd)
+      : C{ctx}, order{ord}, cand{cnd}
+  {
+  }
+
+  void run(int depth)
+  {
+    if (depth == K)
+    {
+      WordBitset acc(C.bitlen);
+      for (auto v : elem) acc.orWith(C.vec[v]);
+      if (acc.count() != C.bitlen) return;
+
+      if (elem.subset_gcd_implies_proper(C.n)) return;
+
+      result.insert(elem.get_sorted_set());
+      return;
+    }
+    int pos = order[depth];
+    for (int candidate : cand[pos])
+    {
+      elem.insert(candidate);
+      run(depth + 1);
+      elem.remove(candidate);
+    }
+  }
+};
+
+template <int K> SetOfSpeedSets<K> lift(const Context& C, const SpeedSet<K>& seed, int multiplier)
+{
   auto cand = [&] { // "superposition/shadow" of all candidate speedsets
     std::array<std::vector<int>, K> cand{};
     int j = 0;
@@ -365,36 +411,10 @@ template <int K> SetOfSpeedSets<K> lift(const Context& C, const SpeedSet<K>& see
   std::iota(order.begin(), order.end(), 0);
   std::sort(order.begin(), order.end(), [&](int A, int B) { return cand[A].size() < cand[B].size(); });
 
-  std::array<int, K> idx;
-  idx.fill(-1);
+  Dfs<K> runner{C, order, cand};
+  runner.run(0);
 
-  std::function<void(int)> dfs = [&](int depth)
-  {
-    if (depth == K)
-    {
-      // construct final_idx in natural order
-      WordBitset acc(C.bitlen);
-      for (int t = 0; t < K; ++t) acc.orWith(C.vec[idx[t]]);
-      if (acc.count() != C.bitlen) return;
-
-      SpeedSet<K> out = idx;
-      if (out.subset_gcd_implies_proper(C.n)) return;
-
-      result.insert(out.get_sorted_set());
-      return;
-    }
-    int pos = order[depth];
-    for (int candidate : cand[pos])
-    {
-      idx[pos] = candidate;
-      dfs(depth + 1);
-    }
-    idx[pos] = -1;
-  }; // end dfs
-
-  dfs(0);
-
-  return result;
+  return runner.result;
 };
 
 template <int K>
@@ -471,13 +491,35 @@ template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
       std::cout << std::format("[THREAD {}] SKIPPED", thread_id);
       continue;
     }
+    if (mult == 11) std::cout << print_time() << " begining lift 11 with: " << S << std::endl;
     if (mult == last_skip) continue;
     timeit([&]
     {
       lift::Context C2 = lift::make_context(P, K, current_n * mult, true);
       auto T           = lift::find_lifted_covers_parallel(C2, S, mult);
       std::cout << std::format("[THREAD {}] trying {}: T size = {}", thread_id, mult, T.size()) << std::endl;
-      if (type == Config::Type::Force || T.size() <= S.size())
+      // std::cout << T << std::endl;
+      // todo: project need not intersect. just project it down.
+      if (type == Config::Type::Project)
+      {
+        SetOfSpeedSets<K> A, B, I;
+        for (auto elem : S)
+        {
+          A.insert(elem.project(P).get_sorted_set());
+        }
+        for (auto elem : T)
+        {
+          B.insert(elem.project(P).get_sorted_set());
+        }
+        for (auto elem : A)
+        {
+          if (B.count(elem)) I.insert(elem);
+        }
+        S = std::move(I);
+        // std::cout << S << std::endl;
+        current_n = 1;
+      }
+      else if (type == Config::Type::Force || T.size() <= S.size())
       {
         S = std::move(T);
         current_n *= mult;
@@ -509,8 +551,9 @@ void roll_works(std::index_sequence<Is...>)
 
 int main()
 {
-  constexpr auto Force = [](int p) { return Config{Config::Type::Force, p}; };
-  constexpr auto Maybe = [](int p) { return Config{Config::Type::Maybe, p}; };
+  constexpr auto Force   = [](int p) { return Config{Config::Type::Force, p}; };
+  constexpr auto Maybe   = [](int p) { return Config{Config::Type::Maybe, p}; };
+  constexpr auto Project = [](int p) { return Config{Config::Type::Project, p}; };
 
   // constexpr int K             = 8;
   // constexpr std::array primes = {47,  53,  59,  61,  67,  71,  73,  79,  83,  89,  97,  101, 103,
@@ -520,18 +563,20 @@ int main()
   // constexpr std::array config = {Maybe(2), Maybe(2), Force(3), Force(3)};
   // // constexpr std::array config = {Force(3), Force(3)};
 
-  constexpr int K             = 9;
-  constexpr std::array primes = {19,  53,  59,  67,  71,  73,  79,  83,  89,  97,  101, 103, 107,
-                                 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179,
-                                 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
-                                 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317};
-  constexpr std::array config = {Force(2), Maybe(2), Maybe(3), Force(5)};
+  // constexpr int K             = 9;
+  // constexpr std::array primes = {19,  53,  59,  67,  71,  73,  79,  83,  89,  97,  101, 103, 107,
+  //                                109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179,
+  //                                181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
+  //                                257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317};
+  // constexpr std::array config = {Force(2), Maybe(2), Maybe(3), Force(5)};
 
-  // constexpr int K             = 10;
-  // constexpr std::array primes = {
-  //     193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251,
-  // };
-  // constexpr std::array config = {Maybe(2), Maybe(2), Maybe(3), Maybe(5), Maybe(7), Force(11)};
+  constexpr int K             = 10;
+  constexpr std::array primes = {103, 131, 137, 139, 149, 151, 157, 107, 109, 127, 163, 167, 173,
+                                 179, 433, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 251,
+                                 257, 263, 269, 271, 277, 281, 283, 307, 311, 313, 347, 379, 433,
+                                 439, 443, 449, 457, 461, 241, 293, 293, 317, 331, 337, 349, 353,
+                                 359, 367, 373, 383, 389, 397, 401, 409, 419, 421, 431};
+  constexpr std::array config = {Force(2), Force(2), Project(2), Force(3), Project(3), Project(5), Force(11)};
 
   // constexpr int K             = 11;
   // constexpr std::array primes = {

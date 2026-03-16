@@ -1,0 +1,146 @@
+Execution start: 2026-03-15T22:47:29+00:00
+[THREAD 0] now=22:47:36.754620065
+[THREAD 0] Parameters: p = 433, k = 10
+[THREAD 0] Step1 (n=1): S size = 10
+Time elapsed: 315.633s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.2s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.6s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.13s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 1.953s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 76.39s
+22:54:10.403890897 begining lift 11 with: ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 47 48 49 96 97 144 145 192 193  ), ( 1 2 85 86 87 88 172 173 174 175  ), ( 1 71 72 73 143 144 145 146 215 216  ), ( 1 43 44 86 87 129 130 173 174 216  ), ( 1 2 106 107 108 109 110 214 215 216  ), ( 1 2 3 141 142 143 144 145 146 147  ), ( 1 53 54 55 107 108 109 162 163 216  ), ( 1 61 62 63 123 124 125 185 186 187  ), ( 1 2 3 4 5 212 213 214 215 216  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 9593.206s
+
+[THREAD 0] now=01:34:03.610770558
+[THREAD 0] Parameters: p = 439, k = 10
+[THREAD 0] Step1 (n=1): S size = 10
+Time elapsed: 253.149s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.2s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.7s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.13s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 1.993s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 77.337s
+01:39:36.114346545 begining lift 11 with: ( 1 2 3 4 5 215 216 217 218 219  ), ( 1 43 44 87 88 131 132 175 176 219  ), ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 72 73 74 145 146 147 148 218 219  ), ( 1 54 55 56 109 110 111 164 165 219  ), ( 1 2 86 87 88 89 174 175 176 177  ), ( 1 48 49 97 98 146 147 194 195 196  ), ( 1 2 3 143 144 145 146 147 148 149  ), ( 1 2 108 109 110 111 112 217 218 219  ), ( 1 62 63 64 124 125 126 187 188 189  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 9949.595s
+
+[THREAD 0] now=04:25:25.710182957
+[THREAD 0] Parameters: p = 443, k = 10
+[THREAD 0] Step1 (n=1): S size = 40
+Time elapsed: 357.948s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.2s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.6s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.13s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 1.958s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 73.393s
+04:32:39.033038299 begining lift 11 with: ( 1 62 63 64 126 127 128 189 190 191  ), ( 1 73 74 75 146 147 148 149 220 221  ), ( 1 49 50 98 99 147 148 196 197 198  ), ( 1 55 56 110 111 112 165 166 167 221  ), ( 1 2 3 4 5 217 218 219 220 221  ), ( 1 2 109 110 111 112 113 219 220 221  ), ( 1 44 45 88 89 132 133 177 178 221  ), ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 2 87 88 89 90 176 177 178 179  ), ( 1 2 3 145 146 147 148 149 150 151  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 9785.993s
+
+[THREAD 0] now=07:15:45.026579143
+[THREAD 0] Parameters: p = 449, k = 10
+[THREAD 0] Step1 (n=1): S size = 10
+Time elapsed: 286.26s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.2s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.6s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.14s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 2.87s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 81.74s
+07:21:54.238325925 begining lift 11 with: ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 2 88 89 90 91 178 179 180 181  ), ( 1 49 50 51 99 100 149 150 199 200  ), ( 1 2 3 4 5 220 221 222 223 224  ), ( 1 2 110 111 112 113 114 222 223 224  ), ( 1 44 45 89 90 134 135 179 180 224  ), ( 1 55 56 57 111 112 113 168 169 224  ), ( 1 63 64 65 127 128 129 191 192 193  ), ( 1 2 3 147 148 149 150 151 152 153  ), ( 1 74 75 76 148 149 150 151 223 224  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 11562.475s
+
+[THREAD 0] now=10:34:36.713896270
+[THREAD 0] Parameters: p = 457, k = 10
+[THREAD 0] Step1 (n=1): S size = 10
+Time elapsed: 435.854s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.2s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.7s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.14s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 2.102s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 78.411s
+10:43:13.106481149 begining lift 11 with: ( 1 2 112 113 114 115 116 226 227 228  ), ( 1 56 57 58 113 114 115 171 172 228  ), ( 1 2 90 91 92 93 181 182 183 184  ), ( 1 50 51 101 102 152 153 202 203 204  ), ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 45 46 91 92 137 138 182 183 228  ), ( 1 2 3 149 150 151 152 153 154 155  ), ( 1 64 65 66 130 131 132 195 196 197  ), ( 1 2 3 4 5 224 225 226 227 228  ), ( 1 75 76 77 151 152 153 154 227 228  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 10069.791s
+
+[THREAD 0] now=13:31:02.897916688
+[THREAD 0] Parameters: p = 461, k = 10
+[THREAD 0] Step1 (n=1): S size = 10
+Time elapsed: 374.429s
+[THREAD 0] trying 2: T size = 10
+[THREAD 0] => (n=2): S size = 10
+Time elapsed: 0.2s
+[THREAD 0] trying 2: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.7s
+[THREAD 0] trying 3: T size = 20
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 0.13s
+[THREAD 0] trying 5: T size = 40
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 2.65s
+[THREAD 0] trying 7: T size = 60
+[THREAD 0] => (n=1): S size = 10
+Time elapsed: 77.471s
+13:38:36.887703090 begining lift 11 with: ( 1 2 3 4 5 6 7 8 9 10  ), ( 1 2 113 114 115 116 117 228 229 230  ), ( 1 76 77 78 152 153 154 155 229 230  ), ( 1 2 3 151 152 153 154 155 156 157  ), ( 1 57 58 114 115 116 172 173 174 230  ), ( 1 2 91 92 93 94 183 184 185 186  ), ( 1 2 3 4 5 226 227 228 229 230  ), ( 1 46 47 92 93 138 139 184 185 230  ), ( 1 51 52 102 103 153 154 204 205 206  ), ( 1 65 66 67 131 132 133 197 198 199  ),
+[THREAD 0] trying 11: T size = 0
+[THREAD 0] => (n=11): S size = 0
+Time elapsed: 10413.506s
+
+Time: 2026-03-16T16:32:10+00:00
