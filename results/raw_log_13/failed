@@ -1,0 +1,120 @@
+Execution start: 2026-03-22T08:38:17+00:00
+[THREAD 0] now=08:38:20.346145
+[THREAD 0] Parameters: p = 101, k = 12
+[THREAD 0] Step1 (n=1): S size = 5415408
+Time elapsed: 1.694s
+[THREAD 0] trying 2: T size = 7253023
+[THREAD 0] => (n=2): S size = 7253023
+Time elapsed: 209.939s
+[THREAD 0] trying 2: T size = 5228811
+[THREAD 0] => (n=4): S size = 5228811
+Time elapsed: 387.98s
+[THREAD 0] trying 2: T size = 18521858
+[THREAD 0] => (n=1): S size = 1031490
+Time elapsed: 343.562s
+
+Execution start: 2026-03-22T09:29:48+00:00
+[THREAD 0] now=09:29:50.982606
+[THREAD 0] Parameters: p = 103, k = 12
+[THREAD 0] Step1 (n=1): S size = 3237504
+Time elapsed: 1.88s
+[THREAD 0] trying 2: T size = 2593988
+[THREAD 0] => (n=2): S size = 2593988
+Time elapsed: 96.80s
+[THREAD 0] trying 2: T size = 2254705
+[THREAD 0] => (n=4): S size = 2254705
+Time elapsed: 109.493s
+[THREAD 0] trying 2: T size = 8416896
+[THREAD 0] => (n=1): S size = 486066
+Time elapsed: 116.791s
+
+Execution start: 2026-03-22T10:04:30+00:00
+[THREAD 0] now=10:04:33.503184
+[THREAD 0] Parameters: p = 107, k = 12
+[THREAD 0] Step1 (n=1): S size = 31970062
+Time elapsed: 12.384s
+
+Execution start: 2026-03-22T10:05:24+00:00
+[THREAD 0] now=10:05:27.454456
+[THREAD 0] Parameters: p = 109, k = 12
+[THREAD 0] Step1 (n=1): S size = 27792610
+Time elapsed: 10.681s
+
+Execution start: 2026-03-22T10:06:54+00:00
+[THREAD 0] now=10:06:57.074223
+[THREAD 0] Parameters: p = 113, k = 12
+[THREAD 0] Step1 (n=1): S size = 9401582
+Time elapsed: 3.418s
+[THREAD 0] trying 2: T size = 4599278
+[THREAD 0] => (n=2): S size = 4599278
+Time elapsed: 295.984s
+[THREAD 0] trying 2: T size = 592018
+[THREAD 0] => (n=4): S size = 592018
+Time elapsed: 165.966s
+[THREAD 0] trying 2: T size = 2268688
+[THREAD 0] => (n=8): S size = 2268688
+Time elapsed: 36.622s
+[THREAD 0] trying 2: T size = 9057056
+[THREAD 0] => (n=8): S size = 2268688
+Time elapsed: 165.543s
+[THREAD 0] trying 2: T size = 9057056
+[THREAD 0] => (n=8): S size = 2268688
+Time elapsed: 164.962s
+
+Execution start: 2026-03-22T10:23:49+00:00
+[THREAD 0] now=10:23:52.091830
+[THREAD 0] Parameters: p = 127, k = 12
+[THREAD 0] Step1 (n=1): S size = 4687040
+Time elapsed: 2.669s
+[THREAD 0] trying 2: T size = 723530
+[THREAD 0] => (n=2): S size = 723530
+Time elapsed: 144.2s
+[THREAD 0] trying 2: T size = 456602
+[THREAD 0] => (n=4): S size = 456602
+Time elapsed: 25.667s
+[THREAD 0] trying 2: T size = 1806728
+[THREAD 0] => (n=8): S size = 1806728
+Time elapsed: 21.596s
+[THREAD 0] trying 2: T size = 7214416
+[THREAD 0] => (n=8): S size = 1806728
+Time elapsed: 127.717s
+[THREAD 0] trying 2: T size = 7214416
+[THREAD 0] => (n=8): S size = 1806728
+Time elapsed: 125.941s
+[THREAD 0] trying 2: T size = 7214416
+[THREAD 0] => (n=1): S size = 111902
+Time elapsed: 127.136s
+[THREAD 0] trying 3: T size = 454424
+[THREAD 0] => (n=3): S size = 454424
+Time elapsed: 521.514s
+
+Execution start: 2026-03-22T11:24:55+00:00
+[THREAD 0] now=11:25:02.778209
+[THREAD 0] Parameters: p = 131, k = 12
+[THREAD 0] Step1 (n=1): S size = 52699270
+Time elapsed: 55.625s
+
+Execution start: 2026-03-22T11:26:51+00:00
+[THREAD 0] now=11:26:59.035073
+[THREAD 0] Parameters: p = 137, k = 12
+[THREAD 0] Step1 (n=1): S size = 12154084
+Time elapsed: 16.344s
+[THREAD 0] => squeezing (n=2): S size = 1982457, T size = 0, U size = 1418298
+[THREAD 0] => squeezing (n=4): S size = 2129833, T size = 0, U size = 462426
+[THREAD 0] => squeezing (n=8): S size = 8030132, T size = 0, U size = 459708
+
+[THREAD 0] now=12:14:56.257901
+[THREAD 0] Parameters: p = 163, k = 12
+[THREAD 0] Step1 (n=1): S size = 15527918
+Time elapsed: 33.291s
+Time elapsed: 713.408s
+[THREAD 0] => squeezing (n=2): S size = 526088, U size = 497606
+Time elapsed: 26.262s
+[THREAD 0] => squeezing (n=4): S size = 303304, U size = 73454
+Time elapsed: 20.676s
+[THREAD 0] => squeezing (n=8): S size = 1209008, U size = 73334
+Time elapsed: 140.811s
+Time elapsed: 902.777s
+[THREAD 0] => (n=1): S size = 73334
+Time elapsed: 377.356s
+[THREAD 0] => squeezing (n=3): S size = 303064, U size = 73334

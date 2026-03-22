@@ -1,0 +1,47 @@
+[THREAD 0] now=16:56:46.967857594
+[THREAD 0] Parameters: p = 617, k = 12
+[THREAD 0] Step1 (n=1): S size = 12
+Time elapsed: 49930.347s
+[THREAD 0] trying 2: T size = 12
+[THREAD 0] => (n=2): S size = 12
+Time elapsed: 0.4s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.11s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.43s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.110s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.398s
+seeds: ( 1 2 3 4 5 6 303 304 305 306 307 308  ), ( 1 2 3 152 153 154 155 156 157 306 307 308  ), ( 1 2 101 102 103 104 204 205 206 207 307 308  ), ( 1 51 52 102 103 154 155 205 206 257 258 308  ), ( 1 87 88 89 175 176 177 178 263 264 265 266  ), ( 1 68 69 136 137 138 205 206 207 273 274 275  ), ( 1 2 121 122 123 124 125 245 246 247 248 249  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 76 77 78 153 154 155 230 231 232 307 308  ), ( 1 2 3 4 202 203 204 205 206 207 208 209  ), ( 1 55 56 57 112 113 168 169 224 225 280 281  ), ( 1 61 62 123 124 184 185 186 246 247 248 308  ), 
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.0s
+
+[THREAD 0] now=06:48:57.885197671
+[THREAD 0] Parameters: p = 619, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 40902.989s
+[THREAD 0] trying 2: T size = 12
+[THREAD 0] => (n=2): S size = 12
+Time elapsed: 0.4s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.11s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.40s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.94s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.328s
+seeds: ( 1 2 102 103 104 105 205 206 207 208 308 309  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 2 3 152 153 154 155 156 157 307 308 309  ), ( 1 61 62 63 123 124 125 185 186 247 248 309  ), ( 1 56 57 112 113 168 169 224 225 226 281 282  ), ( 1 68 69 70 137 138 205 206 207 274 275 276  ), ( 1 2 3 4 203 204 205 206 207 208 209 210  ), ( 1 76 77 78 154 155 156 231 232 233 308 309  ), ( 1 87 88 89 90 176 177 178 264 265 266 267  ), ( 1 2 122 123 124 125 126 246 247 248 249 250  ), ( 1 51 52 103 104 154 155 206 207 257 258 309  ), ( 1 2 3 4 5 6 304 305 306 307 308 309  ),
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.0s

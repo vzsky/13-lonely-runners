@@ -1,0 +1,23 @@
+[THREAD 0] now=21:10:55.609655887
+[THREAD 0] Parameters: p = 569, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 67566.935s
+[THREAD 0] trying 2: T size = 12
+[THREAD 0] => (n=2): S size = 12
+Time elapsed: 0.31s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.108s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.426s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.443s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 1.652s
+seeds: ( 1 2 93 94 95 96 188 189 190 191 283 284  ), ( 1 2 3 4 5 6 279 280 281 282 283 284  ), ( 1 2 3 140 141 142 143 144 145 282 283 284  ), ( 1 2 112 113 114 115 116 226 227 228 229 230  ), ( 1 2 3 4 186 187 188 189 190 191 192 193  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 51 52 103 104 155 156 206 207 208 258 259  ), ( 1 62 63 64 126 127 189 190 191 252 253 254  ), ( 1 47 48 94 95 142 143 189 190 237 238 284  ), ( 1 70 71 72 141 142 143 212 213 214 283 284  ), ( 1 56 57 58 113 114 115 170 171 227 228 284  ), ( 1 80 81 82 83 161 162 163 164 243 244 245  ), 
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.0s

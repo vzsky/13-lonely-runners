@@ -1,13 +1,13 @@
-#pragma once 
+#pragma once
 
 #include <algorithm>
 #include <cassert>
 #include <chrono>
 #include <climits>
 #include <cstdint>
+#include <format>
 #include <functional>
 #include <iostream>
-#include <format>
 #include <numeric>
 #include <thread>
 #include <utility>
@@ -44,7 +44,7 @@ inline std::string print_time()
   return std::format("{:%H:%M:%S}", now);
 }
 
-template <typename Func> auto timeit(Func&& f)
+template <typename Func> auto timeit(std::string s, Func&& f)
 {
   using namespace std::chrono;
   auto start = high_resolution_clock::now();
@@ -53,5 +53,7 @@ template <typename Func> auto timeit(Func&& f)
 
   auto end      = high_resolution_clock::now();
   auto duration = duration_cast<milliseconds>(end - start).count();
-  std::cout << "Time elapsed: " << duration / 1000 << "." << duration % 1000 << "s" << std::endl;
+  std::cout << s << "Time elapsed: " << duration / 1000 << "." << duration % 1000 << "s" << std::endl;
 }
+
+template <typename Func> auto timeit(Func&& f) { timeit("", f); }

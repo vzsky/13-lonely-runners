@@ -46,7 +46,7 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{claim}[theorem]{Claim}
 
-\title{Eleven, twelve and thirteen lonely runners}
+\title{Eleven, twelve lonely runners}
 \author[T. Sungkawichai]{Touch Sungkawichai}
 \date{\today}
 \address{London, UK}
@@ -128,12 +128,13 @@ Section~\ref{sec:algo} summarizes the algorithm implemented, the results of whic
 Lastly, we discuss in Section~\ref{sec:further} how this method may be further extended. 
 
 The article adopts following choices for notation: $\Int{n}$ denotes the additive group modulo $n$,
-$\Unit{n}$ is the multiplicative group modulo $n$, and $\Int{n,l} = \Int{ln} \setminus n\Int{l}$
-hence in particular $\Int{n,1}=\Unit{n}$.
+$\Unit{n}$ is the multiplicative group modulo $n$, and $\Int{n,l} := Int{ln} - \set{ n, 2n, \dots, ln }$ as a subset of $\Int{ln}$,
+hence in particular $\Int{n,1} = \Unit{n}$ as set.
 Moreover, let $\pi_{m \to n}:\Int{m} \to \Int{n}$ denote the natural projection map when $n\mid m$
 and $\pi_n: \Z \to \Int{n}$ denote the projection modulo $n$.
 All scalar functions are also extended component-wise when applied with any vectors. 
-For an operation $f$ on a set $S$ We may also write $fS$ to mean $\set{f(s) : s \in S}$. % to prevent polluting the article with parentheses.
+For an operation $f$ on a set $S$ We may also write $fS$ to mean $\set{f(s) : s \in S}$. 
+% TODO: fS thing is to prevent polluting the article with parentheses, not sure how else or if people do this in math, see %anchor%
 
 \section{Overview}
 We follow the computational framework laid by Rosenfeld~\cite{Rosenfeld}
@@ -163,8 +164,8 @@ These small proofs are obtained computationally with the help of the following L
 \end{definition}
 
 One of the Rosenfeld's \cite{Rosenfeld} key insights is restricting time $t$ to be a rational number with denominator $lp$.
-% one can apply this time solution to every speed set $\ubf$ such that $\pi_{lp}(\ubf) = \vbf$. 
-% TODO: what are u, v
+By doing so, the time solution $t$ to a speed set $\vbf \in \Int{lp}^k$ is applicable to all speed set $\ubf$ in the 
+preimage $\pi^{-1}_{lp}(\vbf)$.
 
 \begin{lemma}[Lemma 3.3, \cite{Trakulthongchai}] \label{divp}
     For $k\geq3$, if $LRC(k-1)$ holds and $I(k,p,l)$ is empty for some $l$, then any counterexample
@@ -211,6 +212,7 @@ it is enough that they are all eventually proper.
   \[ \vbf \notin (\pi_{l_\vbf p \to p}) I(k, p, l_\vbf) \]
   From there, pick $l$ to be the least common multiple of all the $l_\vbf$'s.
   By Lemma \ref{shadowing}, 
+  %anchor%
   \[ (\pi_{l_\vbf p \to p}) (\pi_{lp \to l_\vbf p}) I(k, p, lp) \subseteq (\pi_{l_\vbf p \to p}) I(k, p, l_\vbf p) \]
   Hence as $\vbf$ is not in the right hand side, it follows that, $\vbf \notin \pi_{lp \to p} I(k, p, lp)$.
   As this applies to all $\vbf$, it must follow that $I(k, p, lp)$ is empty, thus Lemma~\ref{divp} yields the needed conclusion. 
@@ -243,7 +245,7 @@ Let $p,l\ge1$ and let $\ubf,\vbf$ be speed sets.
   \[\gcd(lp, u_1, \dots, \widehat{u_i}, \dots, u_k) = \gcd(lp,av_1,\ldots,\widehat{av_{i}},\ldots,v_k) = \gcd(lp, v_1, \dots, \widehat{v_i}, \dots, v_k) = 1,\]
   thus the gcd condition of definition~\ref{def:improper} is preserved.
   Moreover, for any $t \in \Int{lp}$,
-  \[ \norm{\frac{t u_i}{p}} = \norm{\frac{t(av_i)}{p}} = \norm{\frac{(at)v_i}{p}}, \]
+  \[ \norm*{\frac{t u_i}{p}} = \norm*{\frac{t(av_i)}{p}} = \norm*{\frac{(at)v_i}{p}}, \]
   and since $at \in \Int{lp}$, the distance condition holds for $\ubf$ if and only if it holds for $\vbf$.
   Thus $\ubf$ is improper if and only if $\vbf$ is improper.
 
@@ -299,7 +301,7 @@ A lifting diagram always starts with $S_1=I'(k,p,1)$. A horizontal arrow pointin
 Vertical arrows indicate set operations. 
 The process is always performed from top to bottom, and left to right. In this notation, Scheme A is just 
 \begin{center}
-  \begin{tikzpicture}[ node distance=1.5cm and 1.5cm, every node/.style={inner sep=2pt} ]
+  \begin{tikzpicture}[ node distance=0.5cm and 1.5cm, every node/.style={inner sep=2pt} ]
     \node (S1) {$S_1$};
     \node (S2) [right=of S1] {$S_2$};
     \node (S4) [right=of S2] {$S_4$};
@@ -309,7 +311,7 @@ The process is always performed from top to bottom, and left to right. In this n
 \end{center}
 and Scheme B is as follows:
 \begin{center}
-  \begin{tikzpicture}[ node distance=1.5cm and 1.5cm, every node/.style={inner sep=2pt} ]
+  \begin{tikzpicture}[ node distance=1cm and 1.5cm, every node/.style={inner sep=2pt} ]
     \node (S1) {$S_1$};
     \node (S2) [right=of S1] {$S_2$};
     \node (S4) [right=of S2] {$S_4$};
@@ -348,7 +350,7 @@ The difference is more pronounced for $k=9$ where Scheme A is defined to be
 \end{center}
 and Scheme B is defined as
 \begin{center}
-\begin{tikzpicture}[ node distance=1.5cm and 1.5cm, every node/.style={inner sep=2pt} ]
+\begin{tikzpicture}[ node distance=0.5cm and 1.5cm, every node/.style={inner sep=2pt} ]
     \node (S1) {$S_1$};
     \node (S2) [right=of S1] {$S_2$};
     \node (S4) [right=of S2] {$S_4$};
@@ -413,10 +415,7 @@ $11\nmid s$; what is perhaps surprising is that no other speed sets survive the 
 As mentioned, confirming that these speed sets are eventually proper requires a $c=11$ lift, which is relatively computationally expensive.
 However, it is possible to exploit another structure of these speed sets to do so more efficiently.
 
-% TODO: any reason why A? make it R? also can just defined down with rbf i think
-Here, we write $\fracpart{x}$ for the fractional part of $x \in \R$ and let $A_n(x)=\lfloor n \fracpart{x}\rfloor$.
-Equivalently, $A_n(x)$ is the number $k$ such that $\fracpart{x} \in [k/n, (k+1)/n)$, that is $A_n(x)$ refers to the
-position on a unit cycle subdivided into $n$ parts,
+Here, we write $\fracpart{x}$ for the fractional part of $x \in \R$.
 
 We recall the following folklore result
 \begin{lemma}[folklore]
@@ -433,7 +432,8 @@ We recall the following folklore result
   By considering time of the form $t=T+\frac{r}{p}$ for $r \in \Zp$, we have that 
   \[ \norm{tv_i} = \norm{Tv_i} \ge \frac{1}{m+1} \quad \text{for all } i \le m \] as $p$ divides $v_i$. 
   For $i > m$, on the other hand, 
-  \[ \set{ \fracpart*{(T + \frac{r}{p}) v_i} : r \in \Zp } = \set{ \fracpart*{Tv_i + \frac{r}{p}} : r \in \Zp } \]
+  % TODO: while it's less common should we use <x> for fracpart? not really a real issue
+  \[ \set{ \fracpart*{\paren{T + \frac{r}{p}} v_i} : r \in \Zp } = \set{ \fracpart*{Tv_i + \frac{r}{p}} : r \in \Zp } \]
   as multiplication by $v_i$ permutes elements in $\Zp$.
 
   Clearly, the latter set is the set of $p$ evenly spaced points on the unit circle, 
@@ -447,26 +447,29 @@ We recall the following folklore result
 
 \begin{definition}
 \label{def:resolvable}
-    Let $\vbf \in \Zko^k$ and $r \in \Zp$. 
-    We write \[ \rbf(x)=\left(A_{k+1}(x), \; A_{k+1}(2x), \; \ldots, \; A_{k+1}(kx)\right) \] for $x\in\R$ and 
-    say that $\vbf$ is $(k,p)$-\emph{resolvable} if any of the following holds:
-    \begin{itemize}
-        \item (scattered) $\vbf$ contains no zero component
-        \item (divisible) $\vbf$ contains at least $\frac{k+1}{2}$ zero components
-        \item (lonely) there is $s \in \Zko$ and $r \in \Zp$ for which
-        \[ s\vbf + \rbf(r/p) \in \{1,\ldots,k-1\}^k\] when considered modulo $k+1$.
-    \end{itemize}
-    Let $J(k,p)$ be the set of speed sets that are not $(k,p)$-resolvable.
+  Let $R_n(x)=\lfloor n \fracpart{x}\rfloor$.
+  Equivalently, $R_n(x)$ is the number $k$ such that $\fracpart{x} \in [k/n, (k+1)/n)$, that is $R_n(x)$ refers to the
+  position on a unit cycle subdivided into $n$ parts,
+
+  Let $\vbf \in \Zko^k$ and $r \in \Zp$. 
+  We write \[ \rbf(x)=\left(R_{k+1}(x), \; R_{k+1}(2x), \; \ldots, \; R_{k+1}(kx)\right) \] for $x\in\R$ and 
+  say that $\vbf$ is $(k,p)$-\emph{resolvable} if any of the following holds:
+  \begin{itemize}
+      \item (scattered) $\vbf$ contains no zero component
+      \item (divisible) $\vbf$ contains at least $\frac{k+1}{2}$ zero components
+      \item (lonely) there is $s \in \Zko$ and $r \in \Zp$ for which
+      \[ s\vbf + \rbf(r/p) \in \{1,\ldots,k-1\}^k\] when considered modulo $k+1$.
+  \end{itemize}
+  Let $J(k,p)$ be the set of speed sets that are not $(k,p)$-resolvable.
 \end{definition}
 
-% TODO easy !? please help me i'm too stupid
-If not formally, at least intuitively, it is easy to see that this is just a reformulation of the previously
-defined shadow of $(1,2,\ldots,k)$, and we can replace $(1,2,\ldots,k)$ with any $\wbf\in\Zp^k$ and change the definition
-of the remainder vector analogously. The advantage of this formulation is that, by isolating $\rbf$ first, 
-we can \emph{decouple} times of the form $t=\frac{q}{(k+1)p}$ to a partial fraction $t=\frac{s}{k+1}+\frac{r}{p}$ and only 
-the first term influences the $a_ip$ term; the second term's effect is fully captured by $\rbf$. 
-% TODO till here
+If not formally, at least intuitively, this is just a reformulation of the previously
+defined shadow of $(1,2,\ldots,k)$ according to its definition in \cite{Trakulthongchai}, 
+and we can replace $(1,2,\ldots,k)$ with any speed set $\wbf\in\Zp^k$ and change the definition
+of the remainder vector analogously to \[ \rbf(x) := (R_{k+1}(w_1 x), \dots, R_{k+1}(w_k x)) . \] 
 
+The advantage of this formulation is that, by isolating $\rbf$ first, 
+we can \emph{decouple} time points of the form $t=\frac{q}{(k+1)p}$ as partial fraction $t=\frac{s}{k+1}+\frac{r}{p}$.
 Consequently, all dependence on $p$ has been eliminated except for that arising from $\rbf(\frac{1}{p} \Zp)$
 in the lonely condition. As will be mentioned in \ref{corlarge}, even this dependence can be dropped when $p$ 
 is sufficiently large.
@@ -499,15 +502,17 @@ cannot be a counterexample.
           holds),
           $\ubf$ has the LR property.
         \item $\ubf'$ is lonely.
-          % TODO this is confusing
-          There is a choice of $r$ and $s$ such that $ s\ubf' + \rbf(r/p) \in \{1,\ldots,k-1\}^k$ considered modulo $k+1$. 
-          This means that $\fracpart{\frac{sv_i}{k+1}}=\frac{A_i}{k+1}$ and 
-          $\fracpart{\frac{ri}{p}}\in\left[\frac{B_i}{k+1},\frac{B_i+1}{k+1}\right)$, where $C_i:=A_i+B_i\mod{k+1}$ 
-          is in $\{1,\ldots,k-1\}$. Therefore,
+          If this is the case, there is a choice of $r$ and $s$ such that 
+          \[ s\ubf' + \rbf(r/p) \in \{1,\ldots,k-1\}^k \]
+          when considered modulo $k+1$. 
+          This means that for each coordinate $i$, there are $A_i$ and $B_i$ such that 
+          $\fracpart{\frac{sv_i}{k+1}}=\frac{A_i}{k+1}$ and 
+          $\fracpart{\frac{ri}{p}}\in\left[\frac{B_i}{k+1},\frac{B_i+1}{k+1}\right)$ where
+          where $C_i:=A_i+B_i$ is in $\set{1,\ldots,k-1}$ when considered modulo $k+1$. 
+          Therefore,
           \[\fracpart{tu_i}=\fracpart*{\frac{su_i'}{k+1}+\frac{ri}{p}}\in\left[\frac{C_i}{k+1},\frac{C_i+1}{k+1}\right)\]
-          and in particular the last set does not intersect $[0,\frac{1}{k+1})\cup(\frac{k}{k+1},1)$.  
+          and in particular the set on the right hand side does not intersect with $[0,\frac{1}{k+1}) \cup (\frac{k}{k+1},1)$.  
           Since this holds for every $i$, $\ubf$ has the LR property.
-          % END TODO
     \end{itemize}
     
     As all $\ubf$ in the preimage of $\vbf$ has the LR property, $\vbf$ must be eventually proper.
@@ -519,131 +524,160 @@ cannot be a counterexample.
 Empirically, checking for emptiness of $J(k,p)$ is the most demanding step.
 We show here that running this step once is conclusive for all sufficiently large $p$.
 
-% TODO 
+\begin{lemma}
+  \label{lem:subsetresolve}
+  % TODO \Z should just work? \rbf(\frac{1}{q} \Z) one less "dependence" of p and clearer notation.
+  If $\rbf(\frac{1}{q} \Z_q) \subseteq \rbf(\frac{1}{p} \Zp)$ and $\vbf$ is $(k, q)$-resolvable, 
+  then it is also $(k, p)$-resolvable.
+\end{lemma}
+\begin{proof}
+  As $\vbf$ is $(k, q)$-resolvable, there are three cases to consider. That is, $\vbf$ can be either scattered, divisible, or lonely.
+  For the first two cases, it immediately follows that $\vbf$ is $(k, p)$-resolvable.
+  If $\vbf$ is lonely, in particular, $(k, q)$-lonely. Then there is $r$ and $s$ such that 
+    \[ s\ubf' + \rbf(r/q) \in \{1,\ldots,k-1\}^k \]
+  as $\rbf(\frac{1}{q} \Z_q) \subseteq \rbf(\frac{1}{p} \Zp)$, we know that there is $r' \in \Z_q$ such that 
+  \[ \rbf\paren{\frac{r'}{p}} = \rbf\paren{\frac{r}{q}}. \]
+  Hence, there is $r'$ and $s$ satisfying the loneliness property, concluding that $\vbf$ is $(k, p)$-lonely, 
+  and thus is $(k, p)$-resolvable.
+\end{proof}
+
 \begin{corollary}
     \label{corlarge}
-    Suppose that $J(k,q)$ is empty for some prime $q$. 
+    Suppose that $J(k,q) = \emptyset$ for some prime $q$. 
     Then $(\pm1,\pm2,\ldots,\pm k)$ is eventually $(k,p)$-proper for every $p\geq k(k^2-1)$.
 \end{corollary}
 \begin{proof}
-    Note that the only condition that depends on $p$ in Definition~\ref{def:resolvable} is the lonely condition. 
-    Specifically, it only depends on $\rbf(\frac{1}{p}\Zp)$: if $\rbf(\frac{1}{q}\Z_q)\subseteq\rbf(\frac{1}{p}\Zp)$,
-    then being $(k,q)$-happy is stronger than being $(k,p)$-happy.
+    First, we claim that for every $p \ge k(k^2 - 1)$, it follows that $\rbf(\frac{1}{p}\Zp)=\rbf([0,1])$.
 
-    To show that this holds for any $p\geq k(k^2-1)$, we will show for such $p$, $\rbf(\frac{1}{p}\Zp)=\rbf([0,1])$.
-    By pigeonhole, it suffices to show that the gaps between discontinuities in $\rbf([0,1])$ has length at least $1/p$
-    because $\rbf$ only takes discrete value. Notice that $x\in[0,1]$ is a point of discontinuity only if $A_{k+1}(ix)\in\Z$ 
-    for some $i\in\{1,\ldots,k\}$, that is $(k+1)ix=a$ for some $a\in\Z$. 
-    Then if $x_1=\frac{a_1}{i_1(k+1)}$ and $x_2=\frac{a_2}{i_2(k+1)}$ are two distinct points of discontinuity with $x_1\neq x_2$ and
+    As $\rbf$ outputs discrete vectors, there will be discountinuity points $x$ such that $\rbf(x - \epsilon) \ne \rbf(x + \epsilon)$
+    for any small real $\epsilon$. Notice that $x$ is a point of discountinuity only if there is some $i \in \set{1, \dots, k}$ 
+    such that $R_{k+1}(ix) \in \Z$, that is $(k+1) i x = a$ for some integer $a$. 
+    Hence, $x$ must have the form of $\frac{a}{i(k+1)}$.
+
+    If $x_1=\frac{a_1}{i_1(k+1)}$ and $x_2=\frac{a_2}{i_2(k+1)}$ are two distinct points of discontinuity where 
     $a_1,a_2,i_1,i_2$ integers, we have
     \[\begin{split}
         |x_1-x_2|&=\left|\frac{a_1}{i_1(k+1)}-\frac{a_2}{i_2(k+1)}\right|=\frac{1}{k+1}\left|\frac{a_1}{i_1}-\frac{a_2}{i_2}\right|\\ 
         &\geq\frac{1}{k+1}\cdot\frac{1}{k(k-1)}=\frac{1}{k(k^2-1)}\geq\frac{1}{p}.
     \end{split}\]
 
-    Hence we conclude that $\rbf(\frac{1}{p}\Zp)=\rbf([0,1])$, and since $\frac{1}{q}\Z_q\subseteq[0,1]$, 
-    we have the inclusion \[\rbf(\tfrac{1}{q}\Z_q)\subseteq\rbf([0,1])=\rbf(\displaystyle\tfrac{1}{p}\Zp).\]
-    This shows that $J(k,p)$ is empty if $J(k,q)$ is empty, and the consequences follow from Lemma \ref{lem:resolvable}.
+    By the pigeonhole principle, % TODO how?  
+    Hence, $\rbf(\frac{1}{p}\Zp)=\rbf([0,1])$. 
+
+    Since $\frac{1}{q}\Z_q\subseteq[0,1]$, 
+    we have the inclusion 
+    \[ \rbf(\tfrac{1}{q}\Z_q) \subseteq \rbf([0,1]) = \rbf(\displaystyle\tfrac{1}{p}\Zp). \]
+    By Lemma~\ref{lem:subsetresolve}, $J(k, p)$ is empty if $J(k, q)$ is empty, and the statement follows directly 
+    from Lemma~\ref{lem:resolvable}
 \end{proof}
-% END TODO
 
 \section{Algorithms for verification}
-% TODO: without happy is already possible
-% TODO: note that cor large is not used
 \label{sec:algo}
-From Lemmas \ref{evenpropdivp} and \ref{lem:simpreserve}, to show that $p\mid u_1\cdots u_k$ for any 
+From Lemma~\ref{evenpropdivp}~and~\ref{lem:simpreserve}, to show that $p\mid u_1\cdots u_k$ for any 
 counterexample $\ubf$ to $LRC(k)$, it suffices to check that every speed set in $\Int{p,1}^k$ is eventually proper.
 
-The lifting diagram for the case $k=11$ is
+For $k=11$, the algorithm has two main steps: computing $I'(k, p, 1)$ and lifting.  
+We provide a description of the lifting step in the following lifting diagram.
 \begin{center}
-    \begin{tikzpicture}[
-    node distance=1.5cm and 1.5cm,
-    every node/.style={inner sep=2pt}
-]
-    % Top Row (S nodes)
-    \node (S1) {$S_1$};
-    \node (S2) [right=of S1] {$S_2$};
-    \node (S4) [right=of S2] {$S_4$};
-    \node (S8) [right=of S4] {$S_8$};
-    \node (S16) [right=of S8] {$S_{16}$};
+  \begin{tikzpicture}[ node distance=0.5cm and 1.5cm, every node/.style={inner sep=2pt} ]
 
-    % Horizontal Arrows (with dotted last arrow)
-    \draw[->] (S1) -- (S2);
-    \draw[->] (S2) -- (S4);
-    \draw[->] (S4) -- (S8);
-    \draw[->, dotted] (S8) -- (S16); % Dotted arrow
+  % Top Row (S nodes)
+  \node (S1) {$S_1$};
+  \node (S2) [right=of S1] {$S_2$};
+  \node (S4) [right=of S2] {$S_4$};
+  \node (S8) [right=of S4] {$S_8$};
+  \node (S16) [right=of S8] {$S_{16}$};
 
-    % Define merge points below the S nodes
-    \coordinate (M4) at ($(S4)!0.5!(S4 |- 0,-2)$); % point below S4
-    \coordinate (M8) at ($(S8)!0.5!(S8 |- 0,-2)$); % point below S8
-    \coordinate (M16) at ($(S16)!0.5!(S16 |- 0,-2)$); % point below S16
+  % Horizontal Arrows (with dotted last arrow)
+  \draw[->] (S1) -- (S2);
+  \draw[->] (S2) -- (S4);
+  \draw[->] (S4) -- (S8);
+  \draw[->, dotted] (S8) -- (S16); % Dotted arrow
 
-    % Second Row (T nodes) starting centered under the merge
-    % T1 is placed 1.5cm directly below S8 (the middle of the S4-S16 range)
-    \node (T1) [below=1.5cm of S8] {$T_1$};
-    \node (T3) [right=of T1] {$T_3$};
-    \node (T9) [right=of T3] {$T_9$};
+  % Define merge points below the S nodes
+  \coordinate (M4) at ($(S4)!0.5!(S4 |- 0,-2)$); % point below S4
+  \coordinate (M8) at ($(S8)!0.5!(S8 |- 0,-2)$); % point below S8
+  \coordinate (M16) at ($(S16)!0.5!(S16 |- 0,-2)$); % point below S16
 
-    % Define the merge horizontal line at y=-1cm relative to S row
-    \draw (S4) |- (M8); % Line down and then to center
-    \draw (S8) -- (M8);  % Direct line down
-    \draw (S16) |- (M8); % Line down and then to center
+  % Second Row (T nodes) starting centered under the merge
+  % T1 is placed 1.5cm directly below S8 (the middle of the S4-S16 range)
+  \node (T1) [below=1.5cm of S8] {$T_1$};
+  \node (T3) [right=of T1] {$T_3$};
+  \node (T9) [right=of T3] {$T_9$};
 
-    % Single arrow dropping to T1, with "min" label
-    \draw[->] (M8) -- node[right=2pt] {$\min$} (T1);
+  % Define the merge horizontal line at y=-1cm relative to S row
+  \draw (S4) |- (M8); % Line down and then to center
+  \draw (S8) -- (M8);  % Direct line down
+  \draw (S16) |- (M8); % Line down and then to center
+
+  % Single arrow dropping to T1, with "min" label
+  \draw[->] (M8) -- node[right=2pt] {$\min$} (T1);
     
-    % Horizontal Arrows in Second Row
-    \draw[->] (T1) -- (T3);
-    \draw[->] (T3) -- (T9);
+  % Horizontal Arrows in Second Row
+  \draw[->] (T1) -- (T3);
+  \draw[->] (T3) -- (T9);
 
 \end{tikzpicture}
 \end{center}
-The dotted arrow indicates that we only proceed to compute $S_{16}$ if the previous lift was productive,
-that is, if $|I'(11,p,8)|<|I'(11,p,4)|$. Note that for most primes we did not have to compute $T_9$ because $T_3$ is already empty.
-In any case, if $T_3$ or $T_9$ is empty, we conclude that $p$ divides the product $u_1\cdots u_k$ of a counterexample. 
+The dotted arrow indicates that we early exit before computing $I'(11, p, 16)$ if the previous lift does not make progress,
+that is, if $|I'(11,p,8)| < |I'(11,p,4)|$. This is a quirk in the implementation that is not needed nor did it provide meaningful speedup.
+On that note, we did not have to compute $T_9$ for most prime because $T_3$ is already empty but we use this scheme so that it is applicable 
+to all primes. The theoretical results did not limit us from using different scheme for different prime. 
+In any case, if $T_3$ or $T_9$ is empty, we obtain that $p$ divides the product $u_1\cdots u_k$ of any counterexample. 
 
-The case $k=10$ is more involved. The goal of lifting here is not to show that the last set is completely empty, 
-but that there are 10 equivalence classes of speed sets remaining, and in that case we know that they must be of the form
-$(\pm1,\pm2,\ldots,\pm10)$. With this in mind, the lifting diagram in this case is as follows:
+The case $k=10$ is more involved and can be thought of as having three phases: computing $I'(k, p, 1)$, lifting, and resolving. 
+The goal of lifting here is not to show that the last set is completely empty but that there are $10$ equivalence classes of speed 
+sets remaining. With that information, it follows that the speed sets must be of the form $(\pm1, \pm2, \ldots, \pm 10)$ because 
+we know that they cannot be resolved without a $c=11$ lift. Thus, we can follow up in the resolving phase by checking that $J(k, p)$ is 
+empty.
+In this case, the lifting phase can be described as follow: 
 \begin{center}
-    \begin{tikzpicture}[
-    node distance=1.5cm and 1.5cm,
-    every node/.style={inner sep=2pt}
-]
-    % Top Row (S nodes)
-    \node (S1) {$S_1$};
-    \node (S2) [right=of S1] {$S_2$};
-    \node (S4) [right=of S2] {$S_4$};
-    \node (S8) [right=of S4] {$S_8$};
+  \begin{tikzpicture}[ node distance=1cm and 1.5cm, every node/.style={inner sep=2pt} ]
+  % Top Row (S nodes)
+  \node (S1) {$S_1$};
+  \node (S2) [right=of S1] {$S_2$};
+  \node (S4) [right=of S2] {$S_4$};
+  \node (S8) [right=of S4] {$S_8$};
+  \draw[->] (S1) -- (S2);
+  \draw[->] (S2) -- (S4);
+  \draw[->] (S4) -- (S8);
 
-    % Middle Row (T nodes) - Vertical spacing set to 1.5cm
-    \node (T1) [below=1.5cm of S8] {$T_1$};
-    \node (T3) [right=of T1] {$T_3$};
-    \node (T9) [right=of T3] {$T_9$};
+  % Middle Row (T nodes)
+  \node (T1) [below=of S8] {$T_1$};
+  \node (T3) [right=of T1] {$T_3$};
+  \node (T9) [right=of T3] {$T_9$};
+  \draw[->] (T1) -- (T3);
+  \draw[->] (T3) -- (T9);
 
-    % Define the midpoint between T1 and T9
+  % Bottom Row (U node)
+  \node (U1) [below=of T9] {$U_1$};
 
-    % Bottom Row (U node) - Vertical spacing set to 1.5cm
-    \node (U1) [below=1.5cm of T9] {$U_1$};
+  % Project S8 down to T1 and T9 down to U1
+  \draw[->] (S8) -- node[right=2pt] {$\pi_{\to p}$} (T1);
+  \draw[->] (T9) -- node[right=2pt] {$\pi_{\to p}$} (U1);
 
-    % Horizontal Arrows for S Row
-    \draw[->] (S1) -- (S2);
-    \draw[->] (S2) -- (S4);
-    \draw[->] (S4) -- (S8);
-
-    % Horizontal Arrows for T Row
-    \draw[->] (T1) -- (T3);
-    \draw[->] (T3) -- (T9);
-
-    % Merge S1 and S8 down to T1
-    \draw[->] (S8) -- node[right=2pt] {$\pi_{\to p}$} (T1);
-    \draw[->] (T9) -- node[right=2pt] {$\pi_{\to p}$} (U1);
-
-    \end{tikzpicture}
+  \end{tikzpicture}
 \end{center}
 
-If $U_1$ contains $10$ elements, then we check that $J(10,p)$ is empty. 
-If $J(10,p)$ is, from Lemma \ref{lem:resolvable} these remaining speed sets are eventually proper.
+\subsection{Implementation details}
+Rosenfeld wrote \cite{rosenfeldcode} to verify the conjecture for $k=7$ and the second author developed \cite{tanupatcode}
+to verify the case of $k=8,9$. The latter code takes 15 minutes for $k=8$ and approximately 23 hours for $k=9$. 
+The first author developed \cite{mycode} to implement the algorithms in Section \ref{sec:algo}, with assistance from AI-based tools, 
+to improve performance and scalability. In addition to the mathematical improvements described in Sections \ref{sec:quotient}, 
+\ref{sec:sieves} and \ref{sec:onetok}, the practical aspect was also improved by refactoring the implementation to support parallel
+execution and introducing more memory-efficient data structures.
+
+These refinements dramatically improve runtime. Compared to the second author's original implementation in \cite{Trakulthongchai}, 
+we proved $k=8$ in 12 seconds and $k=9$ in 181 seconds on a 10-core Apple M4 processor. 
+The proofs of $k=10$ and $k=11$ were run in multiple batches, with multiple versions, and on multiple machines, 
+thus making the exact time taken incomparable to other cases. The source of the computation, along with the log files, 
+can be found in the first author's GitHub repository \cite{mycode}.
+
+We note here that the third phase of computation for $k=10$ can be replaced by just lifting normally with $c=11$. In fact, we 
+almost completed the proof of $k=10$ without using Lemma~\ref{lem:resolvable}. However, as lifting is especially expensive with 
+large primes, the technique put forth by Lemma~\ref{lem:resolvable} drastically speeds up the proof.
+
+% TODO: k=12 is looking reallllly feasible
 
 \section{Results}
 \label{sec:result}
@@ -665,14 +699,15 @@ and for the case $k=11$, let \[ P_{11} := \set{ \begin{aligned}
     \end{aligned}
   } \]
 
-Using the algorithms described in the previous section, we found that for $k\in\{10,11\}$ and $p\in P_k$, 
+Using the algorithms described in the previous section, we verified that for $k \in \set{10, 11}$ and $p\in P_k$, 
 every $\vbf\in\Int{p,1}^k$ is eventually $(k,p)$-proper. 
 
 \begin{theorem}
   The Lonely Runner Conjecture holds for $k=10$ and $k=11$.
 \end{theorem}
 \begin{proof}
-  Recall that $LRC(k)$ holds for $k\leq 9$. By Lemma \ref{evenpropdivp} and the above computer verification, 
+  Recall that $LRC(k)$ holds for $k\leq 9$ \cite{Trakulthongchai}. 
+  By Lemma \ref{evenpropdivp} and the above computer verification, 
   any counterexample $\ubf$ to $LRC(10)$ must be divisible by \[\prod_{p \in P_{10}} p > e^{339} > e^{337.7} > B_{10}\] 
   where $B_{10}$ is the constant in Lemma \ref{ublemma}.
   But by the same lemma this is impossible, so no such $\ubf$ exists and $LRC(10)$ holds. 
@@ -682,23 +717,9 @@ every $\vbf\in\Int{p,1}^k$ is eventually $(k,p)$-proper.
   and $LRC(11)$ follows.
 \end{proof}
 
-\subsection{Implementation details}
-Rosenfeld wrote \cite{rosenfeldcode} to verify $k=7$ and the second author developed \cite{tanupatcode} to verify $k=8,9$. 
-The latter code takes 
-15 minutes for $k=8$ and approximately 23 hours for $k=9$. 
-The first author developed \cite{mycode} to implement the algorithms in Section \ref{sec:algo}, with assistance from AI-based tools, 
-to improve performance and scalability. In addition to the mathematical improvements described in Sections \ref{sec:quotient}, 
-\ref{sec:sieves} and \ref{sec:onetok}, the practical aspect was also improved by refactoring the implementation to support parallel
-execution and introducing more memory-efficient data structures.
-
-These refinements dramatically improve runtime. Compared to the second author's original implementation in \cite{Trakulthongchai}, 
-we proved $k=8$ in 12 seconds and $k=9$ in 181 seconds on a 10-core Apple M4 processor. 
-The proofs of $k=10$ and $k=11$ were run in multiple batches, with multiple versions, and on multiple machines, 
-thus making the exact time taken incomparable to other cases. The source of the computation, along with the log files, 
-can be found in the first author's GitHub \cite{mycode}.
-
 \section{Further work}
 \label{sec:further}
+% TODO: wait until really done to see what's left
 It is feasible, via a natural extension of the algorithm for $k=10$, to verify the conjecture for $k=12$.
 The main bottleneck in the case $k=12$ is verifying that $J(k,p)$ is empty which now takes 2 days for each $p$ on a 14-core
 Apple M3 Max processor. The size of $\Z_{k+1}^k$ is $(k+1)^k$, and this constant when $k=12$ is $10^3$ times that when $k=10$.
@@ -706,6 +727,8 @@ Nonetheless, the case $k=12$ should be practically verifiable given enough compu
 
 For $k=13$, the main bottleneck will return back to the first phase of computation, but actually might even be "more possible"
 and the $k=12$ variant. 
+
+% TODO: note that cor large is not used in this work and can be useful
 
 \bibliographystyle{amsplain}
 \bibliography{ref}
