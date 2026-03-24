@@ -169,3 +169,168 @@ seeds: ( 1 2 31 32 33 34 64 65 66 67 97 98  ), ( 1 2 37 38 39 40 41 77 78 79 80 
 Time elapsed: 0.0s
 [THREAD 0] => (n=1): S size = 12
 [THREAD 0] Counter Example Mod 197
+
+Execution start: 2026-03-23T19:10:00+00:00
+[THREAD 0] now=19:10:03.446088
+[THREAD 0] Parameters: p = 449, k = 12
+[THREAD 0] Step1 (n=1): S size = 120
+Time elapsed: 10871.371s
+	squeeze Time elapsed: 0.9s
+[THREAD 0] => squeezing (n=2): S size = 36, U size = 36
+	squeeze Time elapsed: 0.7s
+[THREAD 0] => squeezing (n=4): S size = 24, U size = 12
+	squeeze Time elapsed: 0.13s
+Time elapsed: 0.31s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.110s
+Time elapsed: 0.110s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 49 50 51 99 100 101 149 150 151 199 200  ), ( 1 2 3 110 111 112 113 114 115 222 223 224  ), ( 1 55 56 57 111 112 113 167 168 169 223 224  ), ( 1 2 3 4 5 6 219 220 221 222 223 224  ), ( 1 37 38 74 75 112 113 149 150 187 188 224  ), ( 1 2 3 4 146 147 148 149 150 151 152 153  ), ( 1 40 41 81 82 122 123 163 164 203 204 205  ), ( 1 63 64 65 127 128 129 130 191 192 193 194  ), ( 1 2 73 74 75 76 148 149 150 151 223 224  ), ( 1 2 88 89 90 91 92 178 179 180 181 182  ), ( 1 44 45 46 89 90 91 134 135 179 180 224  ),
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 449
+
+[THREAD 0] now=22:11:15.082117
+[THREAD 0] Parameters: p = 457, k = 12
+[THREAD 0] Step1 (n=1): S size = 168
+Time elapsed: 13550.529s
+	squeeze Time elapsed: 0.12s
+[THREAD 0] => squeezing (n=2): S size = 24, U size = 24
+	squeeze Time elapsed: 0.5s
+[THREAD 0] => squeezing (n=4): S size = 24, U size = 12
+	squeeze Time elapsed: 0.14s
+Time elapsed: 0.33s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.105s
+Time elapsed: 0.105s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 38 39 76 77 114 115 152 153 190 191 228  ), ( 1 41 42 82 83 84 124 125 166 167 207 208  ), ( 1 2 3 4 5 6 223 224 225 226 227 228  ), ( 1 2 3 112 113 114 115 116 117 226 227 228  ), ( 1 45 46 91 92 136 137 138 182 183 184 228  ), ( 1 50 51 52 101 102 151 152 153 202 203 204  ), ( 1 2 75 76 77 78 151 152 153 154 227 228  ), ( 1 2 89 90 91 92 93 181 182 183 184 185  ), ( 1 2 3 4 149 150 151 152 153 154 155 156  ), ( 1 64 65 66 67 129 130 131 132 195 196 197  ), ( 1 56 57 58 113 114 115 170 171 172 227 228  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ),
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 457
+
+[THREAD 0] now=01:57:05.922709
+[THREAD 0] Parameters: p = 461, k = 12
+[THREAD 0] Step1 (n=1): S size = 144
+Time elapsed: 11450.862s
+	squeeze Time elapsed: 0.11s
+[THREAD 0] => squeezing (n=2): S size = 24, U size = 24
+	squeeze Time elapsed: 0.5s
+[THREAD 0] => squeezing (n=4): S size = 24, U size = 12
+	squeeze Time elapsed: 0.14s
+Time elapsed: 0.31s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.122s
+Time elapsed: 0.122s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 65 66 67 130 131 132 133 196 197 198 199  ), ( 1 2 90 91 92 93 94 182 183 184 185 186  ), ( 1 2 3 4 5 6 225 226 227 228 229 230  ), ( 1 2 3 4 150 151 152 153 154 155 156 157  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 2 75 76 77 78 152 153 154 155 229 230  ), ( 1 2 3 113 114 115 116 117 118 228 229 230  ), ( 1 41 42 43 83 84 125 126 167 168 209 210  ), ( 1 38 39 76 77 115 116 153 154 192 193 230  ), ( 1 50 51 52 102 103 153 154 155 204 205 206  ), ( 1 57 58 59 114 115 116 172 173 174 229 230  ), ( 1 45 46 47 91 92 93 138 139 184 185 230  ),
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 461
+
+Execution start: 2026-03-24T18:22:11+00:00
+[THREAD 0] now=18:22:13.954158
+[THREAD 0] Parameters: p = 467, k = 12
+[THREAD 0] Step1 (n=1): S size = 12
+Time elapsed: 9759.720s
+	squeeze Time elapsed: 0.4s
+Time elapsed: 0.4s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.111s
+Time elapsed: 0.111s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 66 68 133 200 67 134 135 199 65 201 132  ), ( 1 58 116 176 174 57 232 117 175 59 233 118  ), ( 1 52 155 157 105 103 208 104 156 207 51 53  ), ( 1 42 169 212 85 84 127 43 128 170 213 86  ), ( 1 2 228 230 5 231 4 233 3 232 6 229  ), ( 1 38 155 117 116 233 39 194 195 156 78 77  ), ( 1 2 11 9 7 12 5 8 3 10 4 6  ), ( 1 2 115 114 116 3 117 233 118 231 232 119  ), ( 1 2 152 153 156 159 3 157 4 155 158 154  ), ( 1 2 76 78 77 79 157 155 156 154 233 232  ), ( 1 46 139 141 140 187 186 93 188 233 47 94  ), ( 1 2 189 94 93 186 187 92 95 185 91 188  ),
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 467
+
+[THREAD 0] now=21:04:53.911479
+[THREAD 0] Parameters: p = 479, k = 12
+[THREAD 0] Step1 (n=1): S size = 12
+Time elapsed: 10718.255s
+	squeeze Time elapsed: 0.4s
+Time elapsed: 0.4s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.116s
+Time elapsed: 0.116s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 68 137 69 205 138 136 207 204 67 206 70  ), ( 1 60 179 121 181 59 61 119 238 239 120 180  ), ( 1 44 175 218 43 87 174 131 130 217 88 86  ), ( 1 40 159 39 200 79 120 239 80 160 199 119  ), ( 1 52 159 161 213 54 107 160 212 214 53 106  ), ( 1 2 11 9 7 12 5 8 3 10 4 6  ), ( 1 2 78 159 161 238 79 158 239 160 80 81  ), ( 1 48 143 97 95 144 49 192 96 47 239 191  ), ( 1 2 234 237 4 239 235 3 236 238 6 5  ), ( 1 2 117 119 122 238 3 121 118 120 239 237  ), ( 1 2 156 162 157 158 160 4 159 3 161 163  ), ( 1 2 193 194 192 96 95 191 97 190 94 98  ),
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 479
+
+[THREAD 0] now=00:03:32.414602
+[THREAD 0] Parameters: p = 487, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 14853.749s
+	squeeze Time elapsed: 0.5s
+[THREAD 0] => squeezing (n=2): S size = 12, U size = 12
+	squeeze Time elapsed: 0.5s
+Time elapsed: 0.10s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.128s
+Time elapsed: 0.128s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 48 49 97 98 145 146 147 194 195 196 243  ), ( 1 60 61 62 121 122 123 182 183 184 242 243  ), ( 1 2 80 81 82 83 161 162 163 164 242 243  ), ( 1 2 3 4 5 6 238 239 240 241 242 243  ), ( 1 2 95 96 97 98 99 193 194 195 196 197  ), ( 1 44 45 88 89 132 133 176 177 178 221 222  ), ( 1 40 41 81 82 121 122 162 163 202 203 243  ), ( 1 2 3 4 159 160 161 162 163 164 165 166  ), ( 1 53 54 55 107 108 109 161 162 163 216 217  ), ( 1 2 3 119 120 121 122 123 124 241 242 243  ), ( 1 68 69 70 71 138 139 140 207 208 209 210  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ),
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 487
+
+[THREAD 0] now=04:11:06.480486
+[THREAD 0] Parameters: p = 491, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 11693.263s
+	squeeze Time elapsed: 0.4s
+[THREAD 0] => squeezing (n=2): S size = 12, U size = 12
+	squeeze Time elapsed: 0.5s
+Time elapsed: 0.9s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.113s
+Time elapsed: 0.113s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 60 61 62 122 123 124 183 184 185 244 245  ), ( 1 40 41 81 82 122 123 163 164 204 205 245  ), ( 1 2 3 120 121 122 123 124 125 243 244 245  ), ( 1 44 45 89 90 133 134 135 178 179 223 224  ), ( 1 2 96 97 98 99 100 194 195 196 197 198  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 2 3 4 5 6 240 241 242 243 244 245  ), ( 1 48 49 50 97 98 99 147 148 196 197 245  ), ( 1 69 70 71 139 140 141 142 209 210 211 212  ), ( 1 2 80 81 82 83 162 163 164 165 244 245  ), ( 1 54 55 108 109 110 163 164 165 217 218 219  ), ( 1 2 3 4 160 161 162 163 164 165 166 167  ),
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 491
+
+Execution start: 2026-03-25T21:20:53+00:00
+[THREAD 0] now=21:20:55.352364
+[THREAD 0] Parameters: p = 499, k = 12
+[THREAD 0] Step1 (n=1): S size = 72
+Time elapsed: 18576.571s
+	squeeze Time elapsed: 0.6s
+[THREAD 0] => squeezing (n=2): S size = 24, U size = 24
+	squeeze Time elapsed: 0.6s
+[THREAD 0] => squeezing (n=4): S size = 24, U size = 12
+	squeeze Time elapsed: 0.16s
+Time elapsed: 0.29s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.104s
+Time elapsed: 0.104s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 70 71 72 73 141 142 143 144 213 214 215  ), ( 1 2 3 4 163 164 165 166 167 168 169 170  ), ( 1 49 50 51 99 100 101 149 150 199 200 249  ), ( 1 2 82 83 84 85 165 166 167 168 248 249  ), ( 1 45 46 90 91 135 136 137 181 182 226 227  ), ( 1 41 42 83 84 124 125 166 167 207 208 249  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 55 56 110 111 112 165 166 167 221 222 223  ), ( 1 2 3 122 123 124 125 126 127 247 248 249  ), ( 1 2 3 4 5 6 244 245 246 247 248 249  ), ( 1 2 98 99 100 101 102 198 199 200 201 202  ), ( 1 61 62 63 124 125 126 186 187 188 248 249  ),
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 499
+
+Execution start: 2026-03-28T13:34:23+00:00
+[THREAD 0] now=13:34:25.069255
+[THREAD 0] Parameters: p = 463, k = 12
+[THREAD 0] Step1 (n=1): S size = 108
+Time elapsed: 11389.700s
+	squeeze Time elapsed: 0.9s
+[THREAD 0] => squeezing (n=2): S size = 24, U size = 24
+	squeeze Time elapsed: 0.6s
+[THREAD 0] => squeezing (n=4): S size = 24, U size = 12
+	squeeze Time elapsed: 0.14s
+Time elapsed: 0.30s
+[THREAD 0] => (n=1): S size = 12
+	squeeze Time elapsed: 0.109s
+Time elapsed: 0.109s
+[THREAD 0] => (n=1): S size = 12
+seeds: ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 41 42 43 84 85 126 127 168 169 210 211  ), ( 1 2 3 113 114 115 116 117 118 229 230 231  ), ( 1 2 3 4 151 152 153 154 155 156 157 158  ), ( 1 38 39 77 78 115 116 154 155 192 193 231  ), ( 1 46 47 92 93 138 139 140 184 185 186 231  ), ( 1 57 58 59 115 116 117 173 174 175 230 231  ), ( 1 65 66 67 131 132 133 134 197 198 199 200  ), ( 1 2 3 4 5 6 226 227 228 229 230 231  ), ( 1 2 76 77 78 79 153 154 155 156 230 231  ), ( 1 51 52 102 103 104 153 154 155 205 206 207  ), ( 1 2 91 92 93 94 95 183 184 185 186 187  ), 
+Time elapsed: 0.0s
+[THREAD 0] => (n=1): S size = 12
+[THREAD 0] Counter Example Mod 463
+
+Time: 2026-03-28T16:44:15+00:00

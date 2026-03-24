@@ -128,12 +128,12 @@ Section~\ref{sec:algo} summarizes the algorithm implemented, the results of whic
 Lastly, we discuss in Section~\ref{sec:further} how this method may be further extended. 
 
 The article adopts following choices for notation: $\Int{n}$ denotes the additive group modulo $n$,
-$\Unit{n}$ is the multiplicative group modulo $n$, and $\Int{n,l} := Int{ln} - \set{ n, 2n, \dots, ln }$ as a subset of $\Int{ln}$,
+$\Unit{n}$ is the multiplicative group modulo $n$, and $\Int{n,l} := \Int{ln} - \set{ n, 2n, \dots, ln }$ as a subset of $\Int{ln}$,
 hence in particular $\Int{n,1} = \Unit{n}$ as set.
 Moreover, let $\pi_{m \to n}:\Int{m} \to \Int{n}$ denote the natural projection map when $n\mid m$
 and $\pi_n: \Z \to \Int{n}$ denote the projection modulo $n$.
 All scalar functions are also extended component-wise when applied with any vectors. 
-For an operation $f$ on a set $S$ We may also write $fS$ to mean $\set{f(s) : s \in S}$. 
+For an operation $f$ on a set $S$, we may also write $fS$ to mean $\set{f(s) : s \in S}$. 
 % TODO: fS thing is to prevent polluting the article with parentheses, not sure how else or if people do this in math, see %anchor%
 
 \section{Overview}
@@ -381,7 +381,7 @@ and Scheme B is defined as
 
 \end{tikzpicture}
 \end{center}
-In this case, it takes under 5 seconds to run Scheme B for a specidic $p=53$ while Scheme A does not finish in 15 minutes.
+In this case, it takes under 5 seconds to run Scheme B for a specific $p=53$ while Scheme A does not finish in 15 minutes.
 
 \subsection{Backward projection}
 

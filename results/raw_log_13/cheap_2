@@ -1,0 +1,148 @@
+Execution start: 2026-03-21T21:10:52+00:00
+[THREAD 0] now=21:11:14.744909959
+[THREAD 0] Parameters: p = 643, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 107194.280s
+[THREAD 0] trying 2: T size = 12
+[THREAD 0] => (n=2): S size = 12
+Time elapsed: 0.38s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.131s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.516s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.451s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 1.703s
+seeds: ( 1 2 106 107 108 109 213 214 215 216 320 321  ), ( 1 2 3 158 159 160 161 162 163 319 320 321  ), ( 1 2 3 4 5 6 316 317 318 319 320 321  ), ( 1 2 127 128 129 130 131 255 256 257 258 259  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 53 54 107 108 160 161 214 215 267 268 321  ), ( 1 64 65 128 129 192 193 194 256 257 258 321  ), ( 1 79 80 81 160 161 162 240 241 242 320 321  ), ( 1 71 72 142 143 144 213 214 215 285 286 287  ), ( 1 91 92 93 182 183 184 185 274 275 276 277  ), ( 1 2 3 4 211 212 213 214 215 216 217 218  ), ( 1 58 59 116 117 118 175 176 233 234 292 293  ), 
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.0s
+
+[THREAD 0] now=02:57:51.868657277
+[THREAD 0] Parameters: p = 647, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 80491.365s
+[THREAD 0] trying 2: T size = 12
+[THREAD 0] => (n=2): S size = 12
+Time elapsed: 0.42s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.136s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.529s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.493s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 2.245s
+seeds: ( 1 2 127 128 129 130 131 257 258 259 260 261  ), ( 1 2 3 159 160 161 162 163 164 321 322 323  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 71 72 73 143 144 145 215 216 217 287 288  ), ( 1 58 59 117 118 176 177 235 236 293 294 295  ), ( 1 2 3 4 212 213 214 215 216 217 218 219  ), ( 1 91 92 93 94 184 185 186 276 277 278 279  ), ( 1 64 65 129 130 193 194 195 258 259 260 323  ), ( 1 2 106 107 108 109 214 215 216 217 322 323  ), ( 1 53 54 107 108 161 162 215 216 269 270 323  ), ( 1 80 81 82 161 162 163 242 243 244 322 323  ), ( 1 2 3 4 5 6 318 319 320 321 322 323  ), 
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.1s
+
+[THREAD 0] now=02:57:51.868657277
+[THREAD 0] Parameters: p = 653, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 136847.707s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=2): S size = 24
+Time elapsed: 0.37s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.130s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.342s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.429s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 1.482s
+seeds: ( 1 2 3 4 214 215 216 217 218 219 220 221  ), ( 1 2 129 130 131 132 133 259 260 261 262 263  ), ( 1 54 55 108 109 163 164 217 218 272 273 326  ), ( 1 2 107 108 109 110 216 217 218 219 325 326  ), ( 1 59 60 118 119 177 178 179 237 238 296 297  ), ( 1 92 93 94 95 185 186 187 188 279 280 281  ), ( 1 2 3 161 162 163 164 165 166 324 325 326  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 65 66 130 131 195 196 197 260 261 262 326  ), ( 1 2 3 4 5 6 321 322 323 324 325 326  ), ( 1 72 73 144 145 146 217 218 219 289 290 291  ), ( 1 81 82 83 162 163 164 244 245 246 325 326  ), 
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.0s
+
+Execution start: 2026-03-27T14:25:53+00:00
+[THREAD 0] now=14:26:09.136768252
+[THREAD 0] Parameters: p = 541, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 41972.843s
+[THREAD 0] trying 2: T size = 12
+[THREAD 0] => (n=2): S size = 12
+Time elapsed: 0.27s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.94s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.244s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.373s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 1.330s
+seeds: ( 1 2 3 133 134 135 136 137 138 268 269 270  ), ( 1 53 54 55 107 108 109 162 163 216 217 270  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 2 89 90 91 92 179 180 181 182 269 270  ), ( 1 2 3 4 5 6 265 266 267 268 269 270  ), ( 1 67 68 69 134 135 136 202 203 204 269 270  ), ( 1 2 106 107 108 109 110 214 215 216 217 218  ), ( 1 2 3 4 177 178 179 180 181 182 183 184  ), ( 1 49 50 98 99 147 148 196 197 245 246 247  ), ( 1 59 60 61 119 120 121 179 180 181 240 241  ), ( 1 45 46 90 91 135 136 180 181 225 226 270  ), ( 1 76 77 78 79 153 154 155 156 231 232 233  ), 
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.0s
+
+[THREAD 0] now=02:05:44.051936333
+[THREAD 0] Parameters: p = 547, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 84346.575s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=2): S size = 24
+Time elapsed: 0.27s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.65s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.292s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.374s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 1.583s
+seeds: ( 1 2 107 108 109 110 111 217 218 219 220 221  ), ( 1 2 90 91 92 93 181 182 183 184 272 273  ), ( 1 60 61 62 121 122 181 182 183 242 243 244  ), ( 1 2 3 4 179 180 181 182 183 184 185 186  ), ( 1 2 3 4 5 6 268 269 270 271 272 273  ), ( 1 67 68 69 136 137 138 204 205 206 272 273  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 49 50 99 100 149 150 198 199 200 248 249  ), ( 1 2 3 134 135 136 137 138 139 271 272 273  ), ( 1 54 55 109 110 163 164 165 218 219 220 273  ), ( 1 77 78 79 155 156 157 158 233 234 235 236  ), ( 1 45 46 91 92 136 137 182 183 227 228 273  ), 
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.0s
+
+Execution start: 2026-03-29T07:34:25+00:00
+[THREAD 0] now=07:34:34.905586994
+[THREAD 0] Parameters: p = 677, k = 12
+[THREAD 0] Step1 (n=1): S size = 24
+Time elapsed: 163111.482s
+[THREAD 0] trying 2: T size = 12
+[THREAD 0] => (n=2): S size = 12
+Time elapsed: 0.22s
+[THREAD 0] trying 2: T size = 24
+[THREAD 0] => (n=4): S size = 24
+Time elapsed: 0.80s
+[THREAD 0] trying 2: T size = 48
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 0.310s
+[THREAD 0] trying 3: T size = 24
+[THREAD 0] => (n=3): S size = 24
+Time elapsed: 0.246s
+[THREAD 0] trying 3: T size = 72
+[THREAD 0] => (n=1): S size = 12
+Time elapsed: 1.205s
+seeds: ( 1 95 96 97 98 192 193 194 195 289 290 291  ), ( 1 2 3 167 168 169 170 171 172 336 337 338  ), ( 1 2 133 134 135 136 137 269 270 271 272 273  ), ( 1 2 3 4 5 6 7 8 9 10 11 12  ), ( 1 67 68 135 136 202 203 204 270 271 272 338  ), ( 1 56 57 112 113 169 170 225 226 282 283 338  ), ( 1 61 62 122 123 124 184 185 246 247 307 308  ), ( 1 2 111 112 113 114 224 225 226 227 337 338  ), ( 1 84 85 86 168 169 170 253 254 255 337 338  ), ( 1 2 3 4 5 6 333 334 335 336 337 338  ), ( 1 2 3 4 222 223 224 225 226 227 228 229  ), ( 1 74 75 76 150 151 225 226 227 300 301 302  ), 
+[THREAD 0] trying 0: T size = 0
+[THREAD 0] => (n=0): S size = 0
+Time elapsed: 0.0s
+
+Time: 2026-03-31T04:53:08+00:00
