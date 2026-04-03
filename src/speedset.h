@@ -1,11 +1,9 @@
-#pragma once 
+#pragma once
 
 #include <array>
 #include <unordered_set>
 
 #include "utils.h"
-
-template <int K> struct SpeedSetHasher;
 
 template <int K> struct SpeedSet
 {
@@ -30,6 +28,34 @@ template <int K> struct SpeedSet
     SpeedSet tmp(*this);
     std::sort(tmp.mSet.begin(), tmp.mSet.begin() + tmp.mSize);
     return tmp;
+  }
+
+  SpeedSet get_canonical_representation(int prime) const
+  {
+    std::array<SpeedSet, K> candidates;
+
+    assert(mSize == K);
+    for (int i = 0; i < K; ++i)
+    {
+      int inv = mod_inverse(mSet[i], prime);
+
+      auto tmp = mSet;
+      for (int j = 0; j < K; ++j)
+      {
+        tmp[j] = (tmp[j] * inv) % prime;
+        tmp[j] = std::min(tmp[j], prime - tmp[j]);
+      }
+
+      candidates[i] = SpeedSet(tmp).get_sorted_set();
+    }
+
+    std::sort(candidates.begin(), candidates.end(), [](const SpeedSet& a, const SpeedSet& b)
+    {
+      for (int i = 0; i < K; ++i)
+        if (a.mSet[i] != b.mSet[i]) return a.mSet[i] < b.mSet[i];
+      return false;
+    });
+    return candidates[0];
   }
 
   bool subset_gcd_implies_proper(long long n) const
@@ -57,14 +83,12 @@ template <int K> struct SpeedSet
 
   bool operator==(const SpeedSet& o) const = default;
 
-  SpeedSet<K> project (int p) const {
-    SpeedSet<K> result (mSet);
+  SpeedSet<K> project(int p) const
+  {
+    SpeedSet<K> result(mSet);
     for (int i = 0; i < K; i++) result.mSet[i] %= p;
     return result;
   }
-
-private:
-  friend struct SpeedSetHasher<K>;
 };
 
 template <int K> std::ostream& operator<<(std::ostream& os, const SpeedSet<K>& s)
@@ -78,7 +102,7 @@ template <int K> struct SpeedSetHasher
   size_t operator()(const SpeedSet<K>& v) const noexcept
   {
     size_t h = 0;
-    for (int x : v.mSet)
+    for (int x : v)
     {
       h ^= std::hash<int>{}(x) + 0x9e3779b97f4a7c15ULL + (h << 6) + (h >> 2);
     }
@@ -90,9 +114,6 @@ template <int K> using SetOfSpeedSets = std::unordered_set<SpeedSet<K>, SpeedSet
 
 template <int K> std::ostream& operator<<(std::ostream& os, const SetOfSpeedSets<K>& s)
 {
-  for (auto x : s) os << "( "<< x << " ), ";
+  for (auto x : s) os << "( " << x << " ), ";
   return os;
 }
-
-
-

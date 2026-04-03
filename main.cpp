@@ -17,9 +17,40 @@ struct Config
     Project,
     Squeeze,
     Print,
+    LargeResolve
   } type;
   int prime;
 };
+
+std::ostream& operator<<(std::ostream& os, const Config& c)
+{
+  const char* type_str = "";
+
+  switch (c.type)
+  {
+  case Config::Type::Force:
+    type_str = "Force";
+    break;
+  case Config::Type::Maybe:
+    type_str = "Maybe";
+    break;
+  case Config::Type::Project:
+    type_str = "Project";
+    break;
+  case Config::Type::Squeeze:
+    type_str = "Squeeze";
+    break;
+  case Config::Type::Print:
+    type_str = "Print";
+    break;
+  case Config::Type::LargeResolve:
+    type_str = "LargeResolve";
+    break;
+  }
+
+  os << "Strategy [ type=" << type_str << ", argument=" << c.prime << "]";
+  return os;
+}
 
 // Main driver: constructs and applies the lifting sieve over levels
 template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
@@ -34,19 +65,40 @@ template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
   {
     find_cover::CoverageArray<P> cov = find_cover::make_stationary_runner_coverage_mask<K, P>();
     S                                = find_cover::find_all_covers_parallel<K, P>(cov);
-    std::cout << std::format("[THREAD {}] Step1 (n=1): S size = {}", thread_id, S.size()) << std::endl;
+    std::cout << std::format("[THREAD {}] Step 1 (n=1): S size = {}", thread_id, S.size()) << std::endl;
+  });
+
+  timeit([&]
+  {
+    SetOfSpeedSets<K> T;
+    for (auto seed : S) T.insert(seed.get_canonical_representation(P));
+    S = std::move(T);
+    std::cout << std::format("[THREAD {}] Step 1.5 (n=1): S size = {}", thread_id, S.size()) << std::endl;
   });
 
   // Step 2 to N: Lift each seed from S using multiplier p, m =
   int last_skip = 1;
   int current_n = 1;
-  for (auto [type, mult] : config)
+  for (const auto& strat : config)
   {
+    if (S.size() == 0) break;
+    std::cout << "Doing " << strat << std::endl;
+    const auto [type, mult] = strat;
     timeit([&]
     {
       if (type == Config::Type::Print)
       {
         std::cout << "seeds: " << S << std::endl;
+        return;
+      }
+      if (type == Config::Type::LargeResolve)
+      {
+        if (P < K * (K - 1)) return;
+        if (S.size() != 1) return;
+        const SpeedSet<K> s = *S.begin();
+        for (int i = 0; i < K; i++)
+          if (s.mSet[i] != i + 1) return;
+        S.clear();
         return;
       }
       if (type == Config::Type::Project)
@@ -116,11 +168,12 @@ void roll_works(std::index_sequence<Is...>)
 
 int main()
 {
-  constexpr auto Force   = [](int p) { return Config{Config::Type::Force, p}; };
-  constexpr auto Maybe   = [](int p) { return Config{Config::Type::Maybe, p}; };
-  constexpr auto Squeeze = [](int p) { return Config{Config::Type::Squeeze, p}; };
-  constexpr auto Project = [] { return Config{Config::Type::Project, 0}; };
-  constexpr auto Print   = [] { return Config{Config::Type::Print, 0}; };
+  constexpr auto Force        = [](int p) { return Config{Config::Type::Force, p}; };
+  constexpr auto Maybe        = [](int p) { return Config{Config::Type::Maybe, p}; };
+  constexpr auto Squeeze      = [](int p) { return Config{Config::Type::Squeeze, p}; };
+  constexpr auto Project      = [] { return Config{Config::Type::Project, 0}; };
+  constexpr auto Print        = [] { return Config{Config::Type::Print, 0}; };
+  constexpr auto LargeResolve = [] { return Config{Config::Type::LargeResolve, 0}; };
 
   // constexpr int K             = 8;
   // constexpr std::array primes = {47,  53,  59,  61,  67,  71,  73,  79,  83,  89,  97,  101, 103,
