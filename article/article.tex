@@ -8,9 +8,6 @@
 \usepackage{comment}
 \usetikzlibrary{positioning,calc}
 
-% TODO
-\hbadness=10000
-
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \DeclarePairedDelimiter\fracpart{\{}{\}}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
@@ -52,7 +49,7 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{claim}[theorem]{Claim}
 
-\title{Eleven, twelve, thirteen lonely runners}
+\title{Eleven, twelve, and thirteen lonely runners}
 \author[T. Sungkawichai]{Touch Sungkawichai}
 \date{\today}
 \address{London, UK}
@@ -68,7 +65,7 @@
     Wills stated the Lonely Runner Conjecture: if $k+1$ runners run with distinct and constant speeds around a unit circle from a 
     common starting point, each runner is at least $1/(k+1)$ away from every other runner at some point in time.
     A computational method developed by Rosenfeld and the second author verified the conjecture for up to $10$ runners.
-    We further refined this method and provided a computer-assisted proofs of the Lonely Runner Conjecture for up to $13$ runners.
+    We further refined this method and provided a computer-assisted proof of the Lonely Runner Conjecture for up to $13$ runners.
 \end{abstract}
 \maketitle
 
@@ -83,56 +80,54 @@ constant speeds around a unit circle, each of them will be \emph{lonely} at some
 Here, a runner is said to be lonely if every other runner is at a distance at least $\tfrac{1}{k+1}$ from them along the circle.
 
 \begin{conjecture} \label{lonelyconj}
-  Let $u_1,\ldots,u_{k+1}$ be distinct real numbers. For each $i\in\{1,\ldots,k+1\}$, there is a real number $t$ such that
-  \[
-    \norm{t u_i-tu_j} \ge \frac{1}{k+1} \quad \text{for all } i \neq j.
-  \]
+  Let $u_1,\ldots,u_{k+1}$ be distinct real numbers. For each $i \in\{1,\ldots,k+1\}$, there is a real number $t$ such that
+  \[ \norm{t u_i-tu_j} \ge \frac{1}{k+1} \quad \text{for all } j \ne i \]
 \end{conjecture}
 
 The conjecture at each specific value of $k$ is called the Lonely Runner Conjecture for $k+1$ runners.
 
 The Lonely Runner Conjecture is currently known to hold for cases of up to 10 runners.
-The two smallest cases for $k$ are trivial. 
+The cases for the two smallest values of $k$ are trivial. 
 Betke~and~Wills~\cite{fourrunners} gave the proof for $k=3$ (the 4 runners case), 
 and Cusick~and~Pomerance~\cite{cusick1984view} verified the conjecture for $k=4$ (the 5 runners case).
 In the same paper that proved the case $k=5$, Bohman,~Holzman,~and~Kleitman~\cite{Bohman} showed that it suffices 
 to consider integer speeds, transforming the problem from a continuous one to a discrete one. 
 This reduction, combined with fixing the speed of one runner to $0$, produces the following
-equivalent statement to Conjecture~\ref{lonelyconj}.
+statement equivalent to Conjecture~\ref{lonelyconj}.
 
 \begin{conjecture}
-    Any $\ubf\in\Z_{>0}^k$ has the \emph{LR property}, that is, there is a real number $t$ such that
+    All $\ubf\in\Z_{>0}^k$ have the \emph{LR property}, meaning that for each $\ubf$, there is a real number $t$ such that
     \[\norm{tu_i}\geq\frac{1}{k+1} \quad \text{for all } i = 1,\dots,k.\] 
     
     We denote this statement by $LRC(k)$.
 \end{conjecture}
 
-To match the conjecture's settings, we refer to the vector $\ubf = (u_1,\ldots,u_k)$ as a \emph{speed set}.
-
 Before 2025, the conjecture was known to be true for $k\leq6$, where the final case was proven by 
 Barajas~and~Serra~\cite{barajas_lonely_2008} in 2008. In September 2025, Rosenfeld~\cite{Rosenfeld} introduced a computational 
-method that settled $k=7$ (and later $k=8$ \cite{rosenfeld_lonely_2026}). In doing so, he relies on the finite-checking
+method that settled $k=7$ (and $k=8$ later in 2026 \cite{rosenfeld_lonely_2026}). In doing so, he relied on the finite-checking
 result of Malikiosis, Santos, and Schymura~\cite{Malikiosis}, which follows from similar results of Tao~\cite{Tao} and
 Giri~and~Kravitz~\cite{giri_structure_2026}. 
-The~second~author~\cite{Trakulthongchai} subsequently refined this method to prove the conjecture for the case of $k\in\{8,9\}$ in November 2025.
+The~second~author~\cite{Trakulthongchai} subsequently refined this method to prove the conjecture for the case of
+$k\in\{8,9\}$ in November 2025.
 
-In this paper, we further develop this computational method to verify the Lonely Runner Conjecture for $k\in\{10,11,12\}$. 
-Our overall strategy is outlined in the next section within the context of the computational method of \cite{Rosenfeld} 
+In this paper, we build upon this computational framework to verify the Lonely Runner Conjecture for $k\in\{10,11,12\}$. 
+Our overall strategy is outlined in the next section, along with the context of the computational method of \cite{Rosenfeld} 
 and \cite{Trakulthongchai}. 
-Sections~\ref{sec:quotient}, \ref{sec:sieves} and \ref{sec:onetok} explain the techniques that help simplify verification.
+Sections~\ref{sec:quotient}, \ref{sec:sieves}, and \ref{sec:onetok} explain the techniques that help simplify verification.
 Section~\ref{sec:algo} describes the algorithms used for each $k\in\{10,11,12\}$, 
 the results and implementation of which are presented in Sections~\ref{sec:result} and \ref{sec:implement}, respectively. 
 % Lastly, we discuss in Section~\ref{sec:further} how this method may be further extended. 
 
-The article adopts the following choices for notation: $\Int{n}$ denotes the additive group modulo $n$,
-$\Unit{n}$ is the multiplicative group modulo $n$, and $\Int{n,l} := \Int{ln} \setminus n\Int{l}$ is a subset of $\Int{ln}$.
+This article adopts the following choices of notation: $\Int{n}$ denotes the additive group modulo $n$,
+$\Unit{n}$ is the multiplicative group modulo $n$, and 
+$\Int{p, l} = \pi_{pl \to p}^{-1} (\Unit{p}) = \set{1, 2, \dots, lp} \setminus \set{p, 2p, \dots, lp}$ for any prime $p$.
 Moreover, let $\pi_{m \to n}:\Int{m} \to \Int{n}$ denote the natural projection map when $n\mid m$
-and $\pi_n: \Z \to \Int{n}$ denote the projection modulo $n$.
-The application of a scalar function to vectors is coordinate-wise. $\widehat{\cdot}$ indicates the omission of a 
-certain coordinate in a vector. The fractional part of $x\in\R$ is denoted by $\fracpart{x}$.
+and $\pi_n: \Z \to \Int{n}$ denote the projection modulo $n$ of integers.
+The application of a scalar function to vectors is coordinate-wise. The fractional part of $x\in\R$ is denoted by $\fracpart{x}$, 
+and $\widehat{\cdot}$ indicates the omission of a certain coordinate in a vector. 
 
 \section{Overview}
-We follow the computational framework laid by Rosenfeld~\cite{Rosenfeld} and adopt the terminology\footnote{
+We follow the computational framework developed by Rosenfeld~\cite{Rosenfeld} and adopt the terminology\footnote{
   Compared to \cite{Trakulthongchai}, the main difference is replacing $I(k,l,p)$ with $I(k,p,l)$.
 } and techniques from \cite{Trakulthongchai}.
 
@@ -143,15 +138,27 @@ building from a result obtained by Malikiosis,~Santos,~and~Schymura~\cite{Maliki
     \[ u_1\cdots u_k < B_k \quad \text{where} \quad B_k := \paren{\frac{\binom{k+1}{2}^{k-1}}{k}}^k. \]
 \end{lemma}
 
-This implies that $LRC(k)$ can be verified by checking all positive integral speed sets such that $u_1 \cdots u_k < B_k$.
-Rosenfeld approached this bound by accumulating a collection of small proofs,
+This implies that $LRC(k)$ can be verified by checking all positive integral tuples such that $u_1 \cdots u_k < B_k$.
+Rosenfeld achieved this bound by accumulating a collection of small proofs,
 each asserting that for a particular prime $p$, any counterexample $\ubf$ must satisfy $p \mid u_1 \dots u_k$.
-By collecting enough small proofs for a set of prime $P$ such that $\prod_{p \in P} > B_k$, it follows that 
+By collecting enough small proofs for a set of primes $P$ such that $\prod_{p \in P} p > B_k$, it follows that 
 no counterexample can exist\footnote{
-  Each small proof not need be prime if the product was replaced by lcm. However, we always use prime moduli in this article.
+  Each small proof need not be prime if the product was replaced by the least common multiple. However, we always use prime moduli in this article.
 }.
-These small proofs are obtained computationally with the help of the following Lemma~\ref{lem:divp}. 
-We first restate the definition of \emph{improper} sets proposed in \cite{Trakulthongchai}.
+
+One of Rosenfeld's key insights \cite{Rosenfeld} is to restrict the time parameter $t$ to be a rational number with denominator $lp$.
+By doing so, the time point $t$ witnessing loneliness of a speed set $\vbf \in \Int{lp}^k$ applies to all speed sets $\ubf$ in the 
+preimage $\pi^{-1}_{lp}(\vbf)$.
+
+We then formalize the main subject of study.
+It can be seen from the statement of Conjecture~\ref{lonelyconj} that although $\ubf$ was defined as a $k$-tuple, 
+the ordering of coordinates does not affect the statement of $LRC$ in any way.
+In other words, the LR property is preserved under permutations. Moreover, it can be seen that replacing 
+$u_i$ with $-u_i$ at any coordinate does not change the validity of the LR property.
+Both \cite{Rosenfeld} and \cite{Trakulthongchai} leveraged these facts in their computer-assisted proofs.
+To match the conjecture's settings, we refer to the equivalence class of tuples under said symmetries as a \emph{speed set}.
+Throughout this paper, we abuse notation by identifying a speed set with any of its representative tuples.
+With that, the following restatement of \emph{improper} speed sets proposed in \cite{Trakulthongchai} is well-defined.
 
 \begin{definition}[Definition 3.1, \cite{Trakulthongchai}] \label{def:improper}
     Let $p$ be a prime and $k,l$ be positive integers.
@@ -163,18 +170,8 @@ We first restate the definition of \emph{improper} sets proposed in \cite{Trakul
    If $\vbf$ is not improper, it is \emph{proper}. Moreover, let $I(k,p,l)$ denote the set of all improper speed sets.
 \end{definition}
 
-By the definition, it is clear that permuting coordinates preserves both conditions. 
-In other words, $I(k, p, l)$ carries a natural $S_k$ symmetry on $I(k, p, l)$ which both 
-\cite{Rosenfeld} and \cite{Trakulthongchai} exploited in their search. 
-Moreover, it can be seen that replacing $v_i$ with $-v_i$ at any coordinate also preserves both conditions. 
-We suppress this detail but note that equality of tuples understood throughout is modulo these symmetries.
-
-One of Rosenfeld's \cite{Rosenfeld} key insights is to restrict the time parameter $t$ to be a rational number with denominator $lp$.
-By doing so, the time point $t$ witnessing loneliness of a speed set $\vbf \in \Int{lp}^k$ applies to all speed set $\ubf$ in the 
-preimage $\pi^{-1}_{lp}(\vbf)$.
-
 Our computer-assisted proofs follow the method of~\cite{Trakulthongchai}, which establishes the required small proofs 
-by verifying emptyness of the set $I$ at certain parameters; a direct result from the following lemma.
+by verifying emptiness of the set $I$ at certain parameters built on a direct result from the following lemma.
 
 \begin{lemma}[Lemma 3.3, \cite{Trakulthongchai}] \label{lem:divp}
     For $k\geq3$, if $LRC(k-1)$ holds and $I(k,p,l)$ is empty for some $l$, then any counterexample
@@ -182,8 +179,8 @@ by verifying emptyness of the set $I$ at certain parameters; a direct result fro
 \end{lemma}
 
 The main advance of \cite{Trakulthongchai} is the observation that allows $I(k,p,cl)$ to be computed efficiently.
-The following lemma enables the \emph{lifting} process of $I(k,p,l)$ to $I(k,p,cl)$ which is more fine-grained.
-This lifting is done in hope that the extra structure of $\Int{clp}$ will help filtering out speed sets that cannot 
+The following lemma enables the \emph{lifting} process of $I(k,p,l)$ to $I(k,p,cl)$.
+This lifting is done with the hope that the extra structure of $\Int{clp}$ will help filter out speed sets that cannot 
 be counterexamples to the conjecture.
 
 \begin{lemma}[Lemma 3.5, \cite{Trakulthongchai}] \label{lem:shadowing}
@@ -192,7 +189,7 @@ be counterexamples to the conjecture.
   holds.
 \end{lemma}
 
-As seen the previous lemmas, the central goal is to show that $I(k, p, l) = \emptyset$ for some value $l$. 
+As seen in the previous lemmas, the central goal is to show that $I(k, p, l) = \emptyset$ for some value of $l$. 
 This motivates the following definition of an \emph{eventually proper} speed set, 
 which is the main subject of interest in this paper.
 \begin{definition}
@@ -211,10 +208,10 @@ it is enough that they are all eventually proper.
 \begin{proof}
   Since every $\vbf\in\Int{p,1}^k$ is eventually proper, for each $\vbf$ there is an integer $l_\vbf$ for which 
   \[ \vbf \notin (\pi_{l_\vbf p \to p}) I(k, p, l_\vbf). \]
-  From there, pick $l$ to be the least common multiple of all $l_\vbf$ where $\vbf\in\Int{p,1}^k$.
+  From there, pick $l$ to be the least common multiple of all $l_\vbf$ for $\vbf\in\Int{p,1}^k$.
   By Lemma~\ref{lem:shadowing}, 
   \[ (\pi_{l_\vbf p \to p}) (\pi_{lp \to l_\vbf p}) I(k, p, lp) \subseteq (\pi_{l_\vbf p \to p}) I(k, p, l_\vbf p). \]
-  Hence as $\vbf$ is not in the set on the right hand side, it follows that, $\vbf \notin \pi_{lp \to p} I(k, p, lp)$.
+  As $\vbf$ is not in the set on the right-hand side, it follows that, $\vbf \notin \pi_{lp \to p} I(k, p, lp)$.
   As this applies to all $\vbf$, it follows that $I(k, p, lp)$ is empty. Lemma~\ref{lem:divp} yields the desired conclusion. 
 \end{proof}
 
@@ -223,17 +220,16 @@ it is enough that they are all eventually proper.
 } \label{sec:quotient}
 The framework introduced in \cite{Trakulthongchai} has a bottleneck in the first phase of computation, namely,
 the calculation of $I(k, p, 1)$. In this section, we aim to exploit the $\Unit{p}$ symmetry of $I(k,p,l)$ to reduce 
-the amount of computation needed for $I(k, p, 1)$ and its subsequent lifts by a factor of $p-1$, which 
-in turn reduce the amount of computation work needed for $I(k, p, 1)$. 
+the amount of computation needed for $I(k, p, 1)$ and its subsequent lifts by a factor of $p-1$.
 In our implementation, accounting for the interplay with the existing symmetries, 
-this yields an overall reduction in computation by a factor of $\Theta(p/k)$.
+this yields an overall reduction in computational complexity by a factor of $\Theta(p/k)$.
 
 For a fixed prime $p$, consider the relation $\sim$ in $\Int{p,l}^k$ defined as
-\[ \ubf \sim \vbf \iff \ubf = a\vbf \quad \text{for some } a\in\Unit{p}.\] 
+\[ \ubf \sim \vbf \iff \ubf = a \; \vbf \quad \text{for some } a\in\Unit{p}.\] 
 It follows that $\sim$ is an equivalence relation. More importantly, this relation also preserves properness.
 
 \begin{lemma} \label{lem:simpreserve}
-Let $p$ be prime and $l\ge1$ and let $\ubf,\vbf$ be speed sets.
+Let $p$ be prime, $l$ be positive integer, and $\ubf,\vbf$ be speed sets.
 \begin{enumerate}
   \item If $\ubf \sim \vbf$, then $\ubf$ is improper if and only if $\vbf$ is improper.
   \item For $\ubf,\vbf\in\Int{p,1}^k$, if $\ubf \sim \vbf$, then $\ubf$ is eventually proper if and only if $\vbf$ is eventually proper.
@@ -244,20 +240,20 @@ Let $p$ be prime and $l\ge1$ and let $\ubf,\vbf$ be speed sets.
   Let $\ubf = a\vbf$ with $a \in \Unit{p}$.
   \begin{enumerate}
     \item As $a$ is a unit, $a^{-1} \ubf = \vbf$ so, 
-    by symmetry, it suffices to show that improperness of $\vbf$ implies improperness of $\ubf$.
-    Since $\gcd(a,p)=1$, it follows that  
+    by symmetry, it suffices to show that improperness of $\vbf$ implies improperness of $\ubf$. 
+    Assume that $\vbf$ is improper. Since $\gcd(a,p)=1$, it follows that  
     \[\gcd(lp, u_1, \dots, \widehat{u_i}, \dots, u_k) = \gcd(lp,av_1,\ldots,\widehat{av_{i}},\ldots,v_k) = \gcd(lp, v_1, \dots, \widehat{v_i}, \dots, v_k) = 1,\]
     thus the gcd condition in Definition~\ref{def:improper} is preserved.
     Moreover, for any $t \in \Int{lp}$,
-    \[ \norm*{\frac{t u_i}{p}} = \norm*{\frac{t(av_i)}{p}} = \norm*{\frac{(at)v_i}{p}}, \]
-    and since $at \in \Int{lp}$, the distance condition holds for $\ubf$ if and only if it holds for $\vbf$.
-    Thus $\ubf$ is improper if and only if $\vbf$ is improper.
+    \[ \norm*{\frac{t u_i}{lp}} = \norm*{\frac{t(av_i)}{lp}} = \norm*{\frac{(at)v_i}{lp}}. \]
+    Since $at \in \Int{lp}$ and $\vbf$ is improper, there exists $i$ 
+    such that $\frac{(at) v_i}{lp} < \frac{1}{k+1}$. Thus, $\ubf$ satisfies the condition; $\ubf$ is improper if and only if $\vbf$ is improper.
 
-    \item Again, by symmetry, it suffices to show that $\ubf$ is eventually proper assuming $\vbf$ is.
+    \item Again, by symmetry, it suffices to show that eventual properness of $\ubf$ follows from that of $\vbf$.
     For brevity, let $\pi = \pi_{lp\to p}$.
-    As $\vbf$ is eventually proper, there exists $l$ such that $\vbf \not\in \pi I(k, p, l)$.
+    Assume that $\vbf$ is eventually proper. Then, there exists $l$ such that $\vbf \not\in \pi I(k, p, l)$.
     In other words, $\pi^{-1}(\vbf) \cap I(k, p, l) = \emptyset$.
-    Since the restriction $\pi^{-1} : \Unit{lp} \to \Unit{p}$ is surjective by the Chinese Remainder Theorem, 
+    Since the restriction $\pi : \Unit{lp} \to \Unit{p}$ is surjective,
     we may choose $b \in \Unit{lp}$ with $\pi(b) = a^{-1}$.
 
     For any $\ubf' \in \pi^{-1}(\ubf)$ we let $\vbf' = b\ubf'$. Then, 
@@ -268,11 +264,9 @@ Let $p$ be prime and $l\ge1$ and let $\ubf,\vbf$ be speed sets.
     By part (1), since $\vbf' \sim \ubf'$, $\ubf'$ is also proper.
     Thus $\pi^{-1}(\ubf)$ contains no improper speed set, ensuring that $\ubf$ is eventually proper.
   \end{enumerate}
-
-  Therefore, both statements hold.
 \end{proof}
 
-Lemma~\ref{lem:simpreserve} essentially says that eventual properness only need to be checked for a single representative 
+Lemma~\ref{lem:simpreserve} essentially says that eventual properness only needs to be checked for a single representative 
 from each equivalence class of $\sim$. Therefore, we write $\tilde{I}(k,p,l)$ and $\Inttilde{p,l}^k$
 to refer to the quotient of $I(k, p, l)$ and $\Int{p,1}^k$ by $\sim$ respectively. 
 By a standard abuse of notation, we identify each quotient with a fixed choice of representative speed 
@@ -288,20 +282,22 @@ sets taken from $I(k, p, l)$ or $\Int{p,1}^k$. With these new notations, we stat
 
 \section{Intermediate sieves} \label{sec:sieves}
 
-Recall that our ultimate goal is to show the eventual emptiness of $\tilde{I}$.
-In this section we describe two techniques that substantially reduce the cost of this procedure in practice.
+Recall that our ultimate goal is to show the eventual emptiness of $\tilde{I}$, i.e., 
+that $\tilde{I}(k, p, l)$ is empty for some large enough $l$.
+In this section, we describe two techniques that substantially reduce the cost of this procedure in practice.
 
-As we can identify $\tilde{I}(k, p, l)$ as a subset of $I(k, p, l)$, many results from \cite{Trakulthongchai} are readily available. 
-For example, lifting $\tilde{I}(k, p, l)$ to $\tilde{I}(k, p, cl)$ can be thought in the exact same way as lifting 
+As we can identify $\tilde{I}(k, p, l)$ as a subset of $I(k, p, l)$, many arguments from \cite{Trakulthongchai} adapt
+well to $\tilde{I}(k, p, l)$.
+For example, lifting $\tilde{I}(k, p, l)$ to $\tilde{I}(k, p, cl)$ can be thought of in the exact same way as lifting 
 $I(k, p, l)$ to $I(k, p, cl)$.
 
 \subsection{Efficient Lifting}
-The cost of lifting $\tilde{I}(k,p,l)$ to $\tilde{I}(k,p,cl)$ is proportional to \[ |\tilde{I}(k,p,l)| \cdot c^k\] 
-since each improper set modulo $lp$ has $c^k$ candidates (preimage modulo $clp$) that need verification.
+The cost of lifting $\tilde{I}(k,p,l)$ to $\tilde{I}(k,p,cl)$, ignoring early pruning, 
+is proportional to \[ |\tilde{I}(k,p,l)| \cdot c^k\] 
+since each improper speed set modulo $lp$ has $c^k$ candidates (preimage modulo $clp$) that need verification.
 When $k$ is large, the value of $c$ has a greater impact on computation time. For example, for $k=11$, 
 the $c=3$ lifts are almost 90 times more expensive than those with $c=2$.
 
-It is essential to carefully choose the order of each lift.
 Since the $c=2$ lifts are cheap, performing them multiple times can help if they reduce the size of the search space,
 i.e., if $|\tilde{I}(k, p, 2l)| < |\tilde{I}(k,p,l)|$.
 Thus, employing a number of cheap unnecessary lifts before performing the expensive mandatory lifts, for example, 
@@ -312,30 +308,29 @@ by reducing the amount of computation needed in larger moduli.
 
 Just as lifting can reduce the size of the search space, projection can achieve a similar effect.
 After computing $\tilde{I}(k, p, l)$, projecting the speed sets back into $\Int{p}$ via the map $\pi_{pl \to p}$
-can collapse several improper speed sets from $\tilde{I}(k, p, l)$ to a representative by maintaining only the structure 
+can collapse several improper speed sets from $\tilde{I}(k, p, l)$ to a single representative by maintaining only the structure 
 in $\Int{p}$, discarding all other structures of $\Int{lp}$.
-This action loses fine-grained detail of each improper speed set, but reduces the number of improper speed sets that need calculation.
-Notice that $\abs{\pi_{pl \to p} S} \le \abs{S}$.
+This action loses fine-grained details of each improper speed set, but reduces the number of improper speed sets that need calculation.
+Notice that $\abs{\pi_{pl \to p} S} \le \abs{S}$ for any set $S$.
 
-Crucially, this operation is lossless with respect to eventual properness
+It is crucial to note that this operation is lossless with respect to eventual properness
 because if a speed set $\vbf$ is not in the projected $\pi_{lp \to p} \tilde{I}(k, p, l)$, then by 
-Definition~\ref{def:eventualproper} and Lemma~\ref{lem:simpreserve}, it follows that $\vbf$ is eventually proper.
-This fact implies that taking projection of a search space at any point will not skip over any speed sets.
+Definition~\ref{def:eventualproper} and Lemma~\ref{lem:simpreserve}, $\vbf$ must be eventually proper.
+This fact implies that taking a projection of a search space at any point will not illegally skip over any speed sets.
 
 \section{Eventual properness of
   \texorpdfstring{$(1, 2,\ldots, k)$}{(1, 2, ..., k)}
 } \label{sec:onetok}
 
 In the case of $k\in\{10,12\}$, where $k+1$ is prime, the cost of lifting with $c=k+1$ is enormous, so we wish to bypass this lift.
-Employing the techniques mentioned in Section~\ref{sec:sieves} led to a discovery that 
-after lifting $\tilde{I}(10,p,1)$ with $c=2,3$ for a few times and projecting back, 
+Employing the techniques mentioned in Section~\ref{sec:sieves} led to the discovery that 
+after lifting $\tilde{I}(10,p,1)$ with $c=2,3$ a few times and projecting back, 
 the only representative speed set in $\tilde{I}(10,p,1)$ that cannot be shown to be eventually proper is the speed set 
-$( 1, 2, \ldots, 10 )$. This holds for many primes and the analogous observation holds for many primes in the case of 
-$k=12$ as well.
+$( 1, 2, \ldots, 10 )$. This holds for many primes and the analogous observation holds in the case of $k=12$ as well.
 
-It is unsurprising that $\onetok$ remains as it can never obey the gcd condition and it is only lonely at time 
+It is unsurprising that $\onetok$ remains as it always obeys the gcd condition and it is only lonely at time 
 $t = \tfrac{s}{k+1}$ for $s \in \Z$. Consequently, there is no time of the 
-form $t = \frac{r}{pl}$ where $r \in \Z$ that would satisfy the condition; a lift with $k+1 \nmid c$ will not resolve these.
+form $t = \frac{r}{pl}$ where $r \in \Z$ and $k+1 \nmid l$ that would satisfy the condition; a lift with $k+1 \nmid c$ will not eliminate this speed set.
 What is perhaps more surprising is that no other speed sets survive the pruning.
 
 The arguments in this section aim to exploit the structure of the problem when $k+1$ is prime. 
@@ -345,7 +340,7 @@ to the case where $k+1$ is not prime, but the results are necessarily weaker.
 The key structural observation is that the speed set $\onetok$ modulo $p$ projects naturally onto $\Zko$. 
 Instead of considering the preimage of $\onetok$ directly, we isolate the effect of $p$
 by considering time points of the form $t=\frac{q}{(k+1)p}$ as a partial fraction $t=\frac{s}{k+1}+\frac{r}{p}$. 
-We first define a \emph{resolvability} of speed set modulo $\Zko$ tailored to the speed set $\onetok$.
+We define the \emph{resolvability} of speed set modulo $\Zko$ tailored to the speed set $\onetok$.
 
 \begin{definition}
 \label{def:resolvable}
@@ -363,11 +358,9 @@ We first define a \emph{resolvability} of speed set modulo $\Zko$ tailored to th
   \end{itemize}
 \end{definition}
 
-Notice that $\rbf$ has a periodicity of $1$, thus it suffices to consider only those $r \le p$. 
-Moreover, it can be seen that all dependence on $p$ is eliminated except for that arising from $\rbf(\frac{1}{p} \Zp)$
-in the lonely condition. 
+Notice that all dependence on $p$ is eliminated except for that arising from $\rbf(\frac{1}{p} \Zp)$ in the lonely condition. 
 
-In this section, we show that, in a sense, it is enough to consider the projected $\onetok$ in $\Zko$
+In this section, we show that, in some sense, it is enough to consider the projected $\onetok$ in $\Zko$
 once and the result can be reused in larger moduli.
 
 We first recall a variation of a folklore result known by many as evidenced in the Lonely Runner literature.
@@ -382,7 +375,7 @@ We first recall a variation of a folklore result known by many as evidenced in t
   $v_1,\ldots,v_m$ are divisible by $p$ and $v_{m+1},\ldots,v_k$ are not. 
   Since $m<k$, $LRC(m)$ holds and there is a time $T \in \R$ when $\norm{Tv_i} \ge \frac{1}{m+1}$ for all $i\leq m$.
   
-  By considering time of the form $t=T+\frac{r}{p}$ for $r \in \Zp$, we have that 
+  By considering times of the form $t=T+\frac{r}{p}$ for $r \in \Zp$, we have that 
   \[ \norm{tv_i} = \norm{Tv_i} \ge \frac{1}{m+1}>\frac{1}{k+1} \quad \text{for all } i \le m \] as $p$ divides $v_i$. 
   For $i > m$, on the other hand, 
   \[ \set{ \fracpart*{\paren{T + \frac{r}{p}} v_i} : r \in \Zp } = \set{ \fracpart*{Tv_i + \frac{r}{p}} : r \in \Zp } \]
@@ -405,12 +398,12 @@ With the lemma, we can show that resolvability of all speed sets entails eventua
 \end{lemma}
 \begin{proof}
     Let us denote $\vbf = \onetok$ as a speed set in $\Int{p, 1}^k$.
-    Let $\ubf \in \Int{p(k+1)}^k$ be a preimage of $\vbf$ by $\pi_{p(k+1) \to p}$, 
+    Let $\ubf \in \Int{p,(k+1)}^k$ be a preimage of $\vbf$ by $\pi_{p(k+1) \to p}$, 
     that is for each $i$, $u_i = i + n_ip$ for some $0 \le n_i \le k$.
     By considering time of the form $t=\frac{s}{k+1}+\frac{r}{p}$ for $s\in\Z$ and $r\in\Z$, 
     the fractional part of $tu_i$ is given by
     \[ \fracpart{tu_i}=\fracpart*{\left(\frac{s}{k+1}+\frac{r}{p}\right) u_i}=\fracpart*{\frac{su'_i}{k+1}+\frac{ri}{p}} \] 
-    where $\ubf' := (u'_1, \dots, u'_k) = \pi_{k+1} \ubf$.
+    where $\ubf' := (u'_1, \dots, u'_k) = \pi_{p(k+1)\to k+1} \ubf$.
 
     By assumption, $\ubf'$ is resolvable, thus one of the following cases holds.
     \begin{itemize}
@@ -431,7 +424,7 @@ With the lemma, we can show that resolvability of all speed sets entails eventua
           when considered modulo $k+1$. 
           This means that for each coordinate $i$, there are $A_i$ and $B_i$ such that 
           $\fracpart{\frac{sv_i}{k+1}}=\frac{A_i}{k+1}$ and 
-          $\fracpart{\frac{ri}{p}}\in\left[\frac{B_i}{k+1},\frac{B_i+1}{k+1}\right)$ where
+          $\fracpart{\frac{ri}{p}}\in\left[\frac{B_i}{k+1},\frac{B_i+1}{k+1}\right)$ 
           where $C_i:=A_i+B_i$ is in $\set{1,\ldots,k-1}$ when considered modulo $k+1$. 
           Therefore,
           \[\fracpart{tu_i}=\fracpart*{\frac{su_i}{k+1}+\frac{ri}{p}}\in\left[\frac{C_i}{k+1},\frac{C_i+1}{k+1}\right)\]
@@ -439,15 +432,15 @@ With the lemma, we can show that resolvability of all speed sets entails eventua
           Since this holds for every $i$, $\ubf$ has the LR property.
     \end{itemize}
     
-    As all $\ubf$ in the preimage of $\vbf$ have the LR property, $\vbf$ must be eventually proper.
+    As every $\ubf$ in the preimage of $\vbf$ has the LR property, $\vbf$ must be eventually proper.
 \end{proof}
 
 Still, the most demanding task in Lemma~\ref{lem:resolvable} is verifying that all speed sets are
-$(k, p)$-resolvable for all $p$\footnote{
+$(k, p)$-resolvable for all $p$ because it involves checking $\Theta((k+1)^k)$ speed sets\footnote{
   This can be done for $k=10$; it took 3 hours to check all necessary $p$.
   It is much less feasible for $k=12$ where we estimate a few months of constant running.
-}, because it involves checking $\Theta((k+1)^k)$ speed sets. 
-Fortunately, this verification is unnecessary when $p$ is large. In order to show that, we first need the following proprosition.
+}. 
+Fortunately, this verification is unnecessary when $p$ is large. In order to show that, we first need the following proposition.
 
 \begin{proposition}
 \label{prop:nullstellensatz}
@@ -489,14 +482,13 @@ Fortunately, this verification is unnecessary when $p$ is large. In order to sho
     
     As $P(0) = 0 = Q(0)$, $P$ and $Q$ are polynomials of degree $k$ that agree on $k+1$ points, hence $P = Q$.
     In particular, their leading coefficients must be equal, that is 
-    $1 \equiv -\abs{G} \pmod{p}$. Since $\abs{G} \le k$ as an integer, we must have that $\abs{G} = k$.
+    $1 \equiv -\abs{G} \pmod{p}$. Since $\abs{G} \le k$ as integers, we must have that $\abs{G} = k$.
     Therefore, there is no bad $m$. Specifically, for any $i\in\{1,\ldots,k\}$, $v_i+mi \neq 0$
     for all $m\in\Unit{p}$. 
     However, this implies $v_i = 0$ for all $i$, thus $\vbf = \mathbf{0}$.
 \end{proof}
 
-Proposition~\ref{prop:nullstellensatz} essentially shows that all speedsets are $(k, k+1)$-resolvable. 
-The detail can be seen in the following lemma.
+Proposition~\ref{prop:nullstellensatz} is the main ingredient for the following lemma.
 
 \begin{lemma}
 \label{lem:resolvekplusone}
@@ -506,7 +498,7 @@ The detail can be seen in the following lemma.
   By Lemma~\ref{lem:resolvable}, the conclusion follows if every $\vbf \in \Zko^k$ is $(k, k+1)$-resolvable.
 
   Let $\vbf$ be any speed set in $\Zko^k$. If it is scattered or divisible, then it is resolvable. 
-  Otherwise, $\vbf$ contains at least 1 zero coordinate but $\vbf \ne \mathbf{0}$.
+  Otherwise, $\vbf$ contains at least 1 zero coordinate, but $\vbf \ne \mathbf{0}$.
   By the contrapositive of Proposition~\ref{prop:nullstellensatz},
   there exist $s,r\in\Unit{k+1}\subseteq\Int{k+1}$ such that
   \[s\vbf + r\onetok  \in \{1,\ldots,k-1\}^k.\] Recall that \[\begin{split}
@@ -520,9 +512,8 @@ The detail can be seen in the following lemma.
   that it is $(k, k+1)$-resolvable.
 \end{proof}
 
-Lemma~\ref{lem:resolvekplusone} establishes eventual properness of $\onetok$ for a single prime, $k+1$. 
-However, as noted that all dependence of $p$ lies only in the structure of $\rbf(\tfrac{1}{p} \Z)$, we can formulate 
-the following lemma. 
+Lemma~\ref{lem:resolvekplusone} establishes the eventual properness of $\onetok$ for a single prime, $k+1$, but moreover, 
+the fact all dependence of $p$ lies only in the structure of $\rbf(\tfrac{1}{p} \Z)$ motivates the following lemma. 
 
 \begin{lemma}
   \label{lem:subsetresolve}
@@ -534,15 +525,15 @@ the following lemma.
    Suppose that $\vbf$ satisfies the lonely condition for $(k, q)$,
    namely there is a choice of $s \in \Zko$ and $r \in \Z$ such that $s\vbf + \rbf(r/q) \in \{1,\ldots,k-1\}^k$. 
    From $\rbf(\frac{1}{q} \Z_q) \subseteq \rbf(\frac{1}{p} \Zp)$,
-   there is $r' \in \Z$ such that $\rbf(\frac{r'}{p}) = \rbf(\frac{r}{q})$ due to the assumed inclusion and hence
+   there is $r' \in \Z$ such that $\rbf(\frac{r'}{p}) = \rbf(\frac{r}{q})$ and hence
    \[s\vbf + \rbf(r'/p) \in \{1,\ldots,k-1\}^k.\] 
-   Therefore, $\vbf$ satisfies the lonely condition in the case $(k,p)$.
+   Therefore, $\vbf$ satisfies the $(k, p)$-lonely condition.
 \end{proof}
 
-Since $\rbf$ has periodicity of $1$, in practice, it enough to check that $\rbf(\frac{1}{q} \Z_{q}) \subset \rbf(\frac{1}{p} \Z_p)$, 
+Since $\rbf$ has periodicity of $1$, in practice, it is enough to check that $\rbf(\frac{1}{q} \Z_{q}) \subset \rbf(\frac{1}{p} \Z_p)$, 
 which can be done computationally given primes $p$ and $q$.
-The following key lemma combines this fact with the previously proven facts about $\onetok$ to 
-remove the need for computational check for any large enough primes.
+
+Lastly, the following key lemma concludes this section by showing that no computational check is required for any large enough primes.
 
 \begin{lemma}
     \label{lem:corlarge}
@@ -585,9 +576,9 @@ From Corollary~\ref{cor:equivclasscheck}, to show that $p\mid u_1\cdots u_k$ for
 it suffices to verify that every speed set in $\Inttilde{p,1}^k$ is eventually proper.
 
 For each $k\in\{10,11,12\}$, the verification algorithm consists of two phases: computing $\tilde{I}(k, p, 1)$ and lifting.
-The first phase follows the method used in \cite{Trakulthongchai} except deduplicating the structure of $\sim$ as described in 
+The first phase follows the method used in \cite{Trakulthongchai} except for de-duplication of the structure of $\sim$ as described in 
 Section~\ref{sec:quotient}.
-We use a lifting diagram to explain the second phase. In a lifting diagram, the first set $S_1$ is always $\tilde{I}(k,p,1)$. 
+We use a lifting diagram to explain the second phase. In a lifting diagram, the first set, $S_1$, is always $\tilde{I}(k,p,1)$. 
 Each arrow $X_l\rightarrow X_{cl}$ indicates lifting with a constant $c$ and arrow $X_l\xrightarrow{\pi} Y_1$ indicates 
 applying the projection $\pi_{pl\rightarrow p}$.
 
@@ -596,9 +587,9 @@ For $k=11$, the lifting diagram is
 Empirically, $T_3$ would usually be empty so there is no need to lift to $T_9$. 
 
 For $k\in\{10,12\}$, the goal for the lifting phase is different. Instead of showing that the final set is empty,
-it is enough to show that the only remaining speed set is $\onetok$, thus we might not need to lift with $c=k+1$.
-We do not need to lift $\onetok$ as Lemma~\ref{lem:corlarge} asserts that the speed set is eventually $(k,p)$-proper.
-for all $p\geq110$ (when $k=10$) and $p\geq156$ (when $k=12$), and Lemma~\ref{lem:subsetresolve} could be applied for smaller primes.
+it is enough to show that the only remaining speed set is $\onetok$, thus we do not need to lift with $c=k+1$.
+This is because $k+1$ is prime, so Lemma~\ref{lem:corlarge} asserts that the speed set $\onetok$ is eventually $(k,p)$-proper for all $p\geq110$ when $k=10$ and $p\geq156$ when $k=12$. 
+Otherwise, Lemma~\ref{lem:subsetresolve} can be applied for smaller primes at a negligible computational cost
 
 For both $k=10$ and $k=12$, the lifting phase is
 \[S_1\rightarrow S_2\rightarrow S_4\rightarrow S_8 \xrightarrow{\pi} T_1\rightarrow T_3\rightarrow T_9\xrightarrow{\pi} U_1.\]
@@ -614,11 +605,11 @@ $k$ & \multicolumn{1}{c|}{$P_k$}
     & $\ln\displaystyle\prod_{p\in P_k}p$ & 
     \begin{tabular} [c]{@{}c@{}}$\ln B_k$\\ (Lemma~\ref{lem:proddivB}) \end{tabular} \\ \hline
 10  & \begin{tabular}[c]{@{}l@{}}
-      103, 131, 137, 139, 149, 151, 157, 107, 109, 127, 163, 167, 173, \\ 
-      179, 433, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, \\ 
-      251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, \\ 
-      331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 401, 409,\\ 
-      419, 421, 431, 433, 439, 443, 449, 457, 461
+    103, 107, 109, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, \\
+    179, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, \\
+    257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, \\
+    337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 401, 409, 419, \\
+    421, 431, 433, 439, 443, 449, 457, 461, 463
       \end{tabular}                                       
     & 339  & 337.7 \\ \hline
 11  & \begin{tabular}[c]{@{}l@{}}
@@ -644,10 +635,10 @@ $k$ & \multicolumn{1}{c|}{$P_k$}
 \end{table}
 
 The prime divisors obtained from the algorithms in Section~\ref{sec:algo} are recorded in Table~\ref{table:primedivisors}. 
-We note that listed primes are not necessarily minimal: they are the primes used in our verification, and a smaller set of primes, 
+We note that listed primes are not necessarily minimal: they are the primes used in our verification. A smaller set of primes, 
 or even a less expensive set to compute, may exist.
 We have also checked that every prime use for $k=10$ and $k=12$ satisfies the condition of Lemma~\ref{lem:subsetresolve}.
-With that, we have verified that all $\vbf\in\Int{p,1}^k$ are eventually $(k,p)$-proper, 
+With that, all $\vbf\in\Int{p,1}^k$ are eventually $(k,p)$-proper
 for each $k \in \set{10, 11, 12}$ and $p\in P_k$. 
 
 We are now ready to prove the main theorem.
@@ -658,11 +649,13 @@ We are now ready to prove the main theorem.
 \begin{proof}
   Recall that $LRC(k)$ holds for $k\leq 9$ \cite{Trakulthongchai}. 
   From Corollary~\ref{cor:equivclasscheck} and the above computer verification, the product $u_1\cdots u_{10}$ of 
-  any counterexample $\ubf$ to $LRC(10)$ must be divisible by $\prod_{p \in P_{10}}$. 
-  This means $u_1\cdots u_{10} \geq \prod_{p \in P_{10}}p > B_{10}$, contradicting Lemma~\ref{lem:proddivB}.
+  any counterexample $\ubf$ to $LRC(10)$ must be divisible by $\prod_{p \in P_{10}} p$. 
+  This means 
+  \[ u_1\cdots u_{10} \geq \prod_{p \in P_{10}} p > B_{10}, \] 
+  contradicting Lemma~\ref{lem:proddivB}.
   Hence no counterexample to $LRC(10)$ exists, i.e., $LRC(10)$ holds. 
 
-  Similarly, as $u_1\cdots u_{k}\geq\prod_{p \in P_{k}}p>B_{k}$ for $k\in\{11,12\}$, $LRC(11)$ and subsequently $LRC(12)$ follow.
+  Similarly, as $u_1\cdots u_{k}\geq\prod_{p \in P_{k}} p >B_{k}$ for $k\in\{11,12\}$, $LRC(11)$ and subsequently $LRC(12)$ follow.
 \end{proof}
 
 \section{Implementation details}
@@ -672,7 +665,7 @@ to verify the case of $k=8,9$. The latter code takes 15 minutes for $k=8$ and ap
 We developed algorithms in Section~\ref{sec:algo}, with some help of AI-based tools, 
 to improve performance and scalability~\cite{mycode}. 
 
-In addition to the mathematical improvements described in Sections~\ref{sec:quotient},~\ref{sec:sieves}~and~\ref{sec:onetok}, 
+In addition to the mathematical improvements described in Sections~\ref{sec:quotient},~\ref{sec:sieves},~and~\ref{sec:onetok}, 
 the practical aspect was also improved by refactoring the implementation to support parallel execution and
 introducing more memory-efficient data structures.
 
@@ -693,13 +686,12 @@ The proofs of $k=10$, $k=11$, and $k=12$ were run in multiple batches, with mult
  making the exact time taken incomparable to other cases. The source of the computation, along with the log files, 
 can be found in the first author's GitHub repository \cite{mycode}.
 
-We note here that the third phase of the computation for $k=10$ can be replaced by simply lifting normally with $c=11$. In fact, we 
-almost completed the proof of $k=10$ without using Section~\ref{sec:onetok}. However, as lifting is especially expensive with 
-large primes, the technique put forth by Section~\ref{sec:onetok} allows us to finish the proof of $k=12$.
-
 % \section{Further work}
 % \label{sec:further}
 % TODO: wait until really done to see what's left
+
+% \section{Acknowledgement}
+% TODO:
 
 \bibliographystyle{amsplain}
 \bibliography{ref}
