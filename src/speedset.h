@@ -32,30 +32,38 @@ template <int K> struct SpeedSet
 
   SpeedSet get_canonical_representation(int prime) const
   {
-    std::array<SpeedSet, K> candidates;
-
     assert(mSize == K);
-    for (int i = 0; i < K; ++i)
+
+    std::array<long long, K> prefix;
+    prefix[0] = mSet[0];
+    for (int i = 1; i < K; ++i) prefix[i] = prefix[i - 1] * mSet[i] % prime;
+
+    const auto is_less = [](const auto& a, const auto& b)
     {
-      int inv = mod_inverse(mSet[i], prime);
+      for (int i = 1; i < K; ++i) // i=0 is always 1, skip it
+        if (a[i] != b[i]) return a[i] < b[i];
+      return false;
+    };
+
+    std::array<int, K> best;
+    long long run = mod_inverse((int)prefix[K - 1], prime);
+    for (int i = K - 1; i >= 0; --i)
+    {
+      long long inv = (i > 0) ? run * prefix[i - 1] % prime : run;
+      if (i > 0) run = run * mSet[i] % prime;
 
       auto tmp = mSet;
       for (int j = 0; j < K; ++j)
       {
-        tmp[j] = (tmp[j] * inv) % prime;
-        tmp[j] = std::min(tmp[j], prime - tmp[j]);
+        int v  = (int)((long long)mSet[j] * inv % prime);
+        tmp[j] = std::min(v, prime - v);
       }
+      std::sort(tmp.begin(), tmp.end());
 
-      candidates[i] = SpeedSet(tmp).get_sorted_set();
+      if (i == K - 1 || is_less(tmp, best)) best = tmp;
     }
 
-    std::sort(candidates.begin(), candidates.end(), [](const SpeedSet& a, const SpeedSet& b)
-    {
-      for (int i = 0; i < K; ++i)
-        if (a.mSet[i] != b.mSet[i]) return a.mSet[i] < b.mSet[i];
-      return false;
-    });
-    return candidates[0];
+    return best;
   }
 
   bool subset_gcd_implies_proper(long long n) const

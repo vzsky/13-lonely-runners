@@ -200,8 +200,8 @@ def check_seed(seed, p, k):
             continue
         abs_image = set(min(x, p - x) for x in image)
         if abs_image == target:
-            return True, a, {}
-    return False, None, {}
+            return True, a
+    return False, None
 
 def fractional_part(x: Fraction) -> Fraction:
     return x - math.floor(x)

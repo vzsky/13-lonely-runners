@@ -19,7 +19,7 @@ struct Config
     Print,
     LargeResolve
   } type;
-  int prime;
+  int argument;
 };
 
 std::ostream& operator<<(std::ostream& os, const Config& c)
@@ -48,15 +48,15 @@ std::ostream& operator<<(std::ostream& os, const Config& c)
     break;
   }
 
-  os << "Strategy [ type=" << type_str << ", argument=" << c.prime << "]";
+  os << "Strategy [ type=" << type_str << ", argument=" << c.argument << "]";
   return os;
 }
 
 // Main driver: constructs and applies the lifting sieve over levels
-template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
+template <int K, int P, std::array config> bool check_prime()
 {
-  std::cout << std::format("[THREAD {}] now={}\n", thread_id, print_time());
-  std::cout << std::format("[THREAD {}] Parameters: p = {}, k = {}", thread_id, P, K) << std::endl;
+  std::cout << std::format("now={}\n", print_time());
+  std::cout << std::format("Parameters: p = {}, k = {}", P, K) << std::endl;
 
   SetOfSpeedSets<K> S;
 
@@ -65,7 +65,7 @@ template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
   {
     find_cover::CoverageArray<P> cov = find_cover::make_stationary_runner_coverage_mask<K, P>();
     S                                = find_cover::find_all_covers_parallel<K, P>(cov);
-    std::cout << std::format("[THREAD {}] Step 1 (n=1): S size = {}", thread_id, S.size()) << std::endl;
+    std::cout << std::format("Step 1 (n=1): S size = {}", S.size()) << std::endl;
   });
 
   timeit([&]
@@ -73,21 +73,21 @@ template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
     SetOfSpeedSets<K> T;
     for (auto seed : S) T.insert(seed.get_canonical_representation(P));
     S = std::move(T);
-    std::cout << std::format("[THREAD {}] Step 1.5 (n=1): S size = {}", thread_id, S.size()) << std::endl;
+    std::cout << std::format("Step 1.5 (n=1): S size = {}", S.size()) << std::endl;
   });
 
-  // Step 2 to N: Lift each seed from S using multiplier p, m =
-  int last_skip = 1;
+  // Step 2 to N: Lift each seed from S using argiplier p, m =
   int current_n = 1;
   for (const auto& strat : config)
   {
     if (S.size() == 0) break;
     std::cout << "Doing " << strat << std::endl;
-    const auto [type, mult] = strat;
-    timeit([&]
+    timeit([&current_n, &S, &strat]
     {
+      const auto [type, arg] = strat;
       if (type == Config::Type::Print)
       {
+        if (S.size() > arg) return;
         std::cout << "seeds: " << S << std::endl;
         return;
       }
@@ -116,16 +116,16 @@ template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
         {
           timeit("\tsqueeze ", [&]
           {
-            lift::Context C2 = lift::make_context(P, K, current_n * mult, true);
-            S                = lift::find_lifted_covers_parallel(C2, S, mult);
-            current_n *= mult;
+            lift::Context C2 = lift::make_context(P, K, current_n * arg, true);
+            S                = lift::find_lifted_covers_parallel(C2, S, arg);
+            current_n *= arg;
           });
           SetOfSpeedSets<K> U;
           for (auto elem : S) U.insert(elem.project(P).get_sorted_set());
           if (U.size() == last.size()) break;
           last = U;
-          std::cout << std::format("[THREAD {}] => squeezing (n={}): S size = {}, U size = {}", thread_id,
-                                   current_n, S.size(), U.size())
+          std::cout << std::format("  => squeezing (n={}): S size = {}, U size = {}", current_n, S.size(),
+                                   U.size())
                     << std::endl;
         }
         current_n = 1;
@@ -133,27 +133,36 @@ template <int K, int P, std::array config> bool check_prime(int thread_id = 0)
         return;
       }
 
-      lift::Context C2 = lift::make_context(P, K, current_n * mult, true);
-      auto T           = lift::find_lifted_covers_parallel(C2, S, mult);
-      std::cout << std::format("[THREAD {}] trying {}: T size = {}", thread_id, mult, T.size()) << std::endl;
-      if (type == Config::Type::Force || type == Config::Type::Maybe && T.size() <= S.size())
+      if (type == Config::Type::Force)
       {
+        lift::Context C2 = lift::make_context(P, K, current_n * arg, true);
+        auto T           = lift::find_lifted_covers_parallel(C2, S, arg);
+        std::cout << std::format("  trying {}: T size = {}", arg, T.size()) << std::endl;
         S = std::move(T);
-        current_n *= mult;
+        current_n *= arg;
+        return;
       }
-      else
+
+      if (type == Config::Type::Maybe)
       {
-        last_skip = mult;
+        lift::Context C2 = lift::make_context(P, K, current_n * arg, true);
+        auto T           = lift::find_lifted_covers_parallel(C2, S, arg);
+        std::cout << std::format("  trying {}: T size = {}", arg, T.size()) << std::endl;
+        if (T.size() <= S.size())
+        {
+          S = std::move(T);
+          current_n *= arg;
+        }
+        return;
       }
     });
-    std::cout << std::format("[THREAD {}] => (n={}): S size = {}", thread_id, current_n, S.size())
-              << std::endl;
+    std::cout << std::format("  => (n={}): S size = {}", current_n, S.size()) << std::endl;
   }
 
   // Final result: if S is empty then LRC verified for this p
   if (!S.empty())
   {
-    std::cout << std::format("[THREAD {}] Counter Example Mod {}\n", thread_id, P) << std::endl;
+    std::cout << std::format("  Counter Example Mod {}\n", P) << std::endl;
     return 1;
   }
   std::cout << std::endl;
@@ -172,10 +181,10 @@ int main()
   constexpr auto Maybe        = [](int p) { return Config{Config::Type::Maybe, p}; };
   constexpr auto Squeeze      = [](int p) { return Config{Config::Type::Squeeze, p}; };
   constexpr auto Project      = [] { return Config{Config::Type::Project, 0}; };
-  constexpr auto Print        = [] { return Config{Config::Type::Print, 0}; };
+  constexpr auto Print        = [](int limit = 0) { return Config{Config::Type::Print, limit}; };
   constexpr auto LargeResolve = [] { return Config{Config::Type::LargeResolve, 0}; };
 
-  constexpr int K = 8;
+  constexpr int K = 13;
 
   if constexpr (K == 8)
   {
@@ -229,13 +238,21 @@ int main()
     roll_works<K, primes, config>(std::make_index_sequence<primes.size()>{});
   }
 
-  if constexpr (K == 12)
+  if constexpr (K == 13)
   { // wip
     constexpr std::array primes = {199, 211, 223, 227, 229, 233, 239, 251, 257, 263, 269, 271, 277, 281, 283,
                                    307, 311, 313, 347, 379, 433, 439, 443, 449, 457, 461, 241, 293, 293, 317,
                                    331, 337, 349, 353, 359, 367, 373, 383, 389, 397, 401, 409, 419, 421, 431};
-    constexpr std::array config = {Force(2), Force(2), Force(2),  Project(),
-                                   Force(3), Force(3), Project(), Print()};
+    constexpr std::array config = {Squeeze(2), Squeeze(3), Print()};
+    roll_works<K, primes, config>(std::make_index_sequence<primes.size()>{});
+  }
+
+  if constexpr (K == 14)
+  { // wip
+    constexpr std::array primes = {239, 251, 257, 263, 269, 271, 277, 281, 283, 307, 311, 313, 347,
+                                   379, 433, 439, 443, 449, 457, 461, 241, 293, 293, 317, 331, 337,
+                                   349, 353, 359, 367, 373, 383, 389, 397, 401, 409, 419, 421, 431};
+    constexpr std::array config = {Squeeze(2), Print(10), Squeeze(3), Print()};
     roll_works<K, primes, config>(std::make_index_sequence<primes.size()>{});
   }
 }
