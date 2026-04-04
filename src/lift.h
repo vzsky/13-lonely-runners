@@ -15,127 +15,52 @@
 
 namespace lift
 {
-// todo: get rid of this struct
-struct WordBitset
+
+template <int P, int K, int N> struct Context
 {
+  static constexpr int Q = N * P;
+  std::array<std::bitset<Q>, Q> vec;
+
 private:
-  using u64 = uint64_t;
-  int nbits{}, nwords{};
-
-  std::vector<u64> w;
-
-public:
-  WordBitset() = default;
-  explicit WordBitset(int bits) { reset(bits); }
-
-  void reset(int bits)
+  Context()
   {
-    nbits  = bits;
-    nwords = (bits + 63) >> 6;
-    w.assign(nwords, 0ULL);
-  }
-
-  inline void setBit(int pos) { w[pos >> 6] |= (1ULL << (pos & 63)); }
-
-  inline bool testBit(int pos) const { return ((w[pos >> 6] >> (pos & 63)) & 1ULL) != 0; }
-
-  inline long long count() const
-  {
-    long long s = 0;
-    for (u64 x : w) s += __builtin_popcountll(x);
-    return s;
-  }
-
-  inline void orWith(const WordBitset& o)
-  {
-    int m = std::min(nwords, o.nwords);
-    for (int i = 0; i < m; ++i) w[i] |= o.w[i];
-  }
-
-  inline void clearBit(int pos) { w[pos >> 6] &= ~(1ULL << (pos & 63)); }
-
-  WordBitset complement() const
-  {
-    WordBitset result(nbits);
-    for (int i = 0; i < nwords; ++i) result.w[i] = ~w[i];
-    int excess = nwords * 64 - nbits;
-    if (excess > 0) result.w[nwords - 1] &= (~u64(0)) >> excess;
-    return result;
-  }
-
-  long long andCount(const WordBitset& o) const
-  {
-    int m       = std::min(nwords, o.nwords);
-    long long s = 0;
-    for (int i = 0; i < m; ++i) s += __builtin_popcountll(w[i] & o.w[i]);
-    return s;
-  }
-};
-
-// Context struct encapsulates the lifting level (mod Q = np) and bitset
-// precomputations
-// todo: get rid of this struct
-struct Context
-{
-  int p{}, n{}, Q{};
-  int maxIndex{}, bitlen{}, nwords{};
-  // For each index i, vec[i] is the bitset for coverage testing
-  std::vector<WordBitset> vec;
-};
-
-inline Context make_context(int p, int k, int n, bool fullRange)
-{
-  Context C{};
-  C.p        = p;
-  C.n        = n;
-  C.Q        = n * p;
-  C.maxIndex = fullRange ? C.Q - 1 : C.Q / 2;
-  C.bitlen   = fullRange ? C.Q : C.Q / 2;
-  C.vec.resize(C.maxIndex + 1, WordBitset(C.bitlen));
-
-  // For each i in [0, Q) compute modular coverage bitset
-  for (int i = 0; i <= C.maxIndex; ++i)
-  {
-    WordBitset& B = C.vec[i];
-    for (int t = 1; t <= C.bitlen; ++t)
+    for (int i = 0; i < Q; ++i)
     {
-      int pos = C.bitlen - t;
-      int rem = (int)((1LL * t * i) % C.Q);
-      // Check if i is not lonely at time t/Q (mod 1); condition per LRC definition
-      bool cond = (1LL * rem * (k + 1) < C.Q) || (1LL * (C.Q - rem) * (k + 1) < C.Q);
-      if (cond) B.setBit(pos);
+      auto& B = vec[i];
+      for (int t = 1; t <= Q; ++t)
+      {
+        int pos   = Q - t;
+        int rem   = (int)((1LL * t * i) % Q);
+        bool cond = (1LL * rem * (K + 1) < Q) || (1LL * (Q - rem) * (K + 1) < Q);
+        if (cond) B.set(pos);
+      }
     }
   }
-  return C;
-}
 
-// Step 2 & 3: Lifting seeds from prior level to next level (n -> m*n)
-// This function performs parallel lifting over the seed list and applies
-// subset-GCD sieve and coverage test
+public:
+  static const Context& instance()
+  {
+    static const Context ins;
+    return ins;
+  }
+};
 
-template <int K> struct Dfs
+template <int P, int K, int N> struct Dfs
 {
-  const Context& C;
+  using Ctx = Context<P, K, N>;
   SpeedSet<K> elem;
   std::array<int, K> order;
   std::array<std::vector<int>, K> cand;
   SetOfSpeedSets<K> result;
-
-  Dfs(const Context& ctx, const std::array<int, K>& ord, const std::array<std::vector<int>, K>& cnd)
-      : C{ctx}, order{ord}, cand{cnd}
-  {
-  }
-
+  Dfs(const std::array<int, K>& ord, const std::array<std::vector<int>, K>& cnd) : order{ord}, cand{cnd} {}
   void run(int depth)
   {
     if (depth == K)
     {
-      WordBitset acc(C.bitlen);
-      for (auto v : elem) acc.orWith(C.vec[v]);
-      if (acc.count() != C.bitlen) return;
-
-      if (elem.subset_gcd_implies_proper(C.n)) return;
-
+      std::bitset<Ctx::Q> acc;
+      for (auto v : elem) acc |= Ctx::instance().vec[v];
+      if ((int)acc.count() != Ctx::Q) return;
+      if (elem.subset_gcd_implies_proper(N)) return;
       result.insert(elem.get_sorted_set());
       return;
     }
@@ -149,15 +74,19 @@ template <int K> struct Dfs
   }
 };
 
-template <int K> SetOfSpeedSets<K> lift(const Context& C, const SpeedSet<K>& seed, int multiplier)
+template <int P, int K, int L, int C> SetOfSpeedSets<K> lift(const SpeedSet<K>& seed)
 {
-  auto cand = [&] { // "superposition/shadow" of all candidate speedsets
+  const auto& Ctx = Context<P, K, L * C>::instance();
+  auto cand       = [&]
+  {
     std::array<std::vector<int>, K> cand{};
     int j = 0;
-    for (const auto &s : seed) {
-      for (int a = 0; a < multiplier; a++) {
-        long long val = (long long)s + (long long)a * (C.Q / multiplier);
-        if (val <= C.maxIndex)
+    for (const auto& s : seed)
+    {
+      for (int a = 0; a < C; a++)
+      {
+        long long val = (long long)s + (long long)a * (Ctx.Q / C);
+        if (val < Ctx.Q)
           cand[j].push_back((int)val);
         else
           break;
@@ -171,21 +100,20 @@ template <int K> SetOfSpeedSets<K> lift(const Context& C, const SpeedSet<K>& see
   std::iota(order.begin(), order.end(), 0);
   std::sort(order.begin(), order.end(), [&](int A, int B) { return cand[A].size() < cand[B].size(); });
 
-  Dfs<K> runner{C, order, cand};
+  Dfs<P, K, L * C> runner{order, cand};
   runner.run(0);
 
   return runner.result;
-};
+}
 
-template <int K>
-SetOfSpeedSets<K> find_lifted_covers_parallel(const Context& C, const SetOfSpeedSets<K>& seeds,
-                                              int multiplier)
+template <int P, int K, int L, int C>
+SetOfSpeedSets<K> find_lifted_covers_parallel(const SetOfSpeedSets<K>& seeds)
 {
-  size_t N = seeds.size();
-  if (N == 0) return {};
+  size_t N_seeds = seeds.size();
+  if (N_seeds == 0) return {};
 
   unsigned int nthreads = parallelize_core();
-  if (nthreads > N) nthreads = (unsigned int)N;
+  if (nthreads > N_seeds) nthreads = (unsigned int)N_seeds;
 
   std::vector<SetOfSpeedSets<K>> thread_results(nthreads);
   std::vector<std::thread> threads;
@@ -193,16 +121,11 @@ SetOfSpeedSets<K> find_lifted_covers_parallel(const Context& C, const SetOfSpeed
   auto worker = [&](auto begin, auto end, unsigned tid)
   {
     auto& local_results = thread_results[tid];
-
-    for (auto it = begin; it != end; ++it)
-    {
-      local_results.merge(lift(C, *it, multiplier));
-    }
+    for (auto it = begin; it != end; ++it) local_results.merge(lift<P, K, L, C>(*it));
   };
 
-  // TODO: make this a co_await instead? 
-  // partition seeds
-  size_t chunk = (N + nthreads - 1) / nthreads;
+  // TODO: make this a co_await instead?
+  size_t chunk = (N_seeds + nthreads - 1) / nthreads;
   auto it      = seeds.begin();
 
   for (unsigned int t = 0; t < nthreads && it != seeds.end(); ++t)
@@ -210,15 +133,11 @@ SetOfSpeedSets<K> find_lifted_covers_parallel(const Context& C, const SetOfSpeed
     auto start  = it;
     size_t step = std::min(chunk, (size_t)std::distance(it, seeds.end()));
     std::advance(it, step);
-    auto end = it;
-
-    threads.emplace_back(worker, start, end, t);
+    threads.emplace_back(worker, start, it, t);
   }
 
   for (auto& th : threads) th.join();
 
-  // merge thread results into single std::vector, dedup across threads using
-  // global set
   SetOfSpeedSets<K> results;
   for (unsigned int t = 0; t < nthreads; ++t) results.merge(thread_results[t]);
   return results;
