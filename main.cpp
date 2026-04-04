@@ -70,7 +70,7 @@ struct LargeResolve
   }
 };
 
-template <int Arg, int MaxIter = 5> struct Squeeze
+template <int Arg, int MaxIter = 3> struct Squeeze
 {
 private:
   template <int P, int K, int CurL, int Remaining>
@@ -106,6 +106,7 @@ public:
 // Tuple visitor
 // ============================================================================
 
+// tuple represents composition of function
 template <int P, int K, std::size_t I = 0, typename Tuple, typename S> auto apply_config(S st, const Tuple& t)
 {
   if constexpr (I < std::tuple_size_v<Tuple>)
@@ -120,6 +121,7 @@ template <int P, int K, std::size_t I = 0, typename Tuple, typename S> auto appl
 // Driver
 // ============================================================================
 
+// TODO clean up K. see declarative logging
 template <int K, int P, typename Config> bool check_prime(const Config& config)
 {
   std::cout << std::format("now={}\n", print_time());
@@ -129,8 +131,7 @@ template <int K, int P, typename Config> bool check_prime(const Config& config)
 
   timeit([&]
   {
-    auto cov = find_cover::make_stationary_runner_coverage_mask<K, P>();
-    st.S     = find_cover::find_all_covers_parallel<K, P>(cov);
+    st.S = find_cover::find_all_covers_parallel<K, P>();
     std::cout << std::format("Step 1 (l=1): S size = {}", st.S.size()) << std::endl;
   });
 
@@ -166,7 +167,7 @@ void roll_works(const Config& config, std::index_sequence<Is...>)
 
 int main()
 {
-  constexpr int K = 8;
+  constexpr int K = 9;
 
   if constexpr (K == 8)
   {
