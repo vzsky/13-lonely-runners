@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <atomic>
 #include <bitset>
 #include <cassert>
 #include <climits>
@@ -146,7 +147,6 @@ template <int K, int P> static SetOfSpeedSets<K> run_dfs(DfsSeed<K, P>&& seed)
   return d.solutions;
 }
 
-// TODO: better parallel strategy
 template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
 {
   constexpr int bitlen = P / 2;
@@ -160,7 +160,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
   for (int pos = 0; pos < bitlen; ++pos)
     if (remaining0[pos] == 0) return {};
 
-  std::array<char, bitlen + 1> base_eliminated;
+  std::vector<char> base_eliminated(bitlen + 1, 0);
   std::array<int, bitlen> base_remaining = remaining0;
   base_eliminated[1]                     = 1;
   for (int pos = 0; pos < bitlen; ++pos)
@@ -182,46 +182,48 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
   for (int i = 2; i <= bitlen; ++i)
     if (nextToCover1 == -1 || cov[i][nextToCover1]) top_candidates.push_back(i);
 
-  size_t nthreads = parallelize_core();
-  if (nthreads > top_candidates.size()) nthreads = top_candidates.size();
+  // Precompute prefix elim/remaining so each task at index idx can start
+  // with the correct state (all prior candidates already skipped past)
+  const size_t ncands = top_candidates.size();
+  std::vector<std::vector<char>> prefix_elim(ncands + 1);
+  std::vector<std::array<int, bitlen>> prefix_rem(ncands + 1);
+  prefix_elim[0] = base_eliminated;
+  prefix_rem[0]  = base_remaining;
+  for (size_t idx = 0; idx < ncands; ++idx)
+  {
+    prefix_elim[idx + 1]    = prefix_elim[idx];
+    prefix_rem[idx + 1]     = prefix_rem[idx];
+    int j                   = top_candidates[idx];
+    prefix_elim[idx + 1][j] = 1;
+    for (int pos = 0; pos < bitlen; ++pos)
+      if (cov[j][pos]) prefix_rem[idx + 1][pos]--;
+  }
 
+  size_t nthreads = parallelize_core();
+  if (nthreads > ncands) nthreads = ncands;
+
+  std::atomic<size_t> next_idx{0};
   std::vector<SetOfSpeedSets<K>> thread_results(nthreads);
   std::vector<std::thread> threads;
-  size_t chunk = (top_candidates.size() + nthreads - 1) / nthreads;
 
-  for (unsigned int t = 0; t < nthreads; ++t)
+  for (size_t t = 0; t < nthreads; ++t)
   {
-    size_t lo = t * chunk;
-    size_t hi = std::min(lo + chunk, top_candidates.size());
-    if (lo >= hi) break;
-
-    threads.emplace_back([&, lo, hi, t]
+    threads.emplace_back([&, t]
     {
-      std::vector<char> elim      = base_eliminated;
-      std::array<int, bitlen> rem = base_remaining;
-
-      for (size_t idx = 0; idx < lo; ++idx)
+      while (true)
       {
-        int j   = top_candidates[idx];
-        elim[j] = 1;
-        for (int pos = 0; pos < bitlen; ++pos)
-          if (cov[j][pos]) rem[pos]--;
-      }
+        size_t idx = next_idx.fetch_add(1, std::memory_order_relaxed);
+        if (idx >= ncands) break;
 
-      for (size_t idx = lo; idx < hi; ++idx)
-      {
         int i = top_candidates[idx];
 
-        int wasted_bits             = (first_covered & cov[i]).count();
+        int wasted_bits             = (int)(first_covered & cov[i]).count();
         std::bitset<bitlen> covered = first_covered | cov[i];
         SpeedSet<K> local_elems     = elems;
         local_elems.insert(i);
 
-        thread_results[t].merge(run_dfs<K, P>({2, std::move(covered), elim, local_elems, rem, wasted_bits}));
-
-        elim[i] = 1;
-        for (int pos = 0; pos < bitlen; ++pos)
-          if (cov[i][pos]) rem[pos]--;
+        thread_results[t].merge(run_dfs<K, P>(
+            {2, std::move(covered), prefix_elim[idx], local_elems, prefix_rem[idx], wasted_bits}));
       }
     });
   }
@@ -229,7 +231,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
   for (auto& th : threads) th.join();
 
   SetOfSpeedSets<K> base_solutions;
-  for (unsigned int t = 0; t < nthreads; ++t) base_solutions.merge(thread_results[t]);
+  for (size_t t = 0; t < nthreads; ++t) base_solutions.merge(thread_results[t]);
 
   return base_solutions;
 }

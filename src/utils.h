@@ -16,7 +16,7 @@
 inline size_t parallelize_core()
 {
   unsigned int hw = std::thread::hardware_concurrency();
-  return hw ? hw : 4u;
+  return hw ? std::max(20u, hw) : 4u;
 }
 
 // Fallback GCD for subset-gcd checking (used in sieve condition)

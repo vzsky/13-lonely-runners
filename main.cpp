@@ -25,11 +25,13 @@ template <int K, int L> struct State
 
 template <int Arg> struct Force
 {
+  friend std::ostream& operator<<(std::ostream& os, const Force&) { return os << "Force " << Arg; }
+
   template <int P, int K, int L> State<K, L * Arg> operator()(State<K, L> st) const
   {
     auto T = lift::find_lifted_covers_parallel<P, K, L, Arg>(st.S);
 
-    std::cout << std::format("  trying {}: T size = {}", Arg, T.size()) << std::endl;
+    std::cout << std::format("Forcing Lift c={}: T size = {}", Arg, T.size()) << std::endl;
 
     return {std::move(T)};
   }
@@ -37,34 +39,49 @@ template <int Arg> struct Force
 
 struct Project
 {
+  friend std::ostream& operator<<(std::ostream& os, const Project&) { return os << "Project"; }
+
   template <int P, int K, int L> State<K, 1> operator()(State<K, L> st) const
   {
     SetOfSpeedSets<K> T;
     for (auto s : st.S) T.insert(s.project(P).get_sorted_set());
+    std::cout << "Projected down" << std::endl;
     return {std::move(T)};
   }
 };
 
 template <int Limit = 0> struct Print
 {
+  friend std::ostream& operator<<(std::ostream& os, const Print&) { return os << "Print"; }
+
   template <int P, int K, int L> State<K, L> operator()(State<K, L> st) const
   {
-    if (Limit == 0 || st.S.size() <= Limit) std::cout << "seeds: " << st.S << std::endl;
+    if (st.S.size() == 0)
+      std::cout << "seeds: empty" << std::endl;
+    else if (Limit == 0 || st.S.size() <= Limit)
+      std::cout << "seeds: " << st.S << std::endl;
     return st;
   }
 };
 
 struct LargeResolve
 {
+  friend std::ostream& operator<<(std::ostream& os, const LargeResolve&)
+  {
+    return os << "Resolve LargePrime";
+  }
+
   template <int P, int K, int L> State<K, L> operator()(State<K, L> st) const
   {
-    if (P < K * (K - 1)) return st;
+    std::cout << "Trying to resolve" << std::endl;
+    if (P < K * (K + 1)) return st;
     if (st.S.size() != 1) return st;
 
     const SpeedSet<K>& s = *st.S.begin();
     for (int i = 0; i < K; i++)
       if (s.mSet[i] != i + 1) return st;
 
+    std::cout << "Resolved successfully" << std::endl;
     st.S.clear();
     return st;
   }
@@ -72,6 +89,8 @@ struct LargeResolve
 
 template <int Arg, int MaxIter = 3> struct Squeeze
 {
+  friend std::ostream& operator<<(std::ostream& os, const Squeeze&) { return os << "Squeeze"; }
+
 private:
   template <int P, int K, int CurL, int Remaining>
   static SetOfSpeedSets<K> loop(SetOfSpeedSets<K> lifted, SetOfSpeedSets<K> last)
@@ -111,7 +130,9 @@ template <int P, int K, std::size_t I = 0, typename Tuple, typename S> auto appl
 {
   if constexpr (I < std::tuple_size_v<Tuple>)
   {
-    return apply_config<P, K, I + 1>(std::get<I>(t).template operator()<P, K>(st), t);
+    auto result = std::get<I>(t).template operator()<P, K>(st);
+    std::cout << std::get<I>(t) << " S.size() = " << result.S.size() << "\n";
+    return apply_config<P, K, I + 1>(result, t);
   }
   else
     return st;
@@ -122,7 +143,7 @@ template <int P, int K, std::size_t I = 0, typename Tuple, typename S> auto appl
 // ============================================================================
 
 // TODO clean up K. see declarative logging
-template <int K, int P, typename Config> bool check_prime(const Config& config)
+template <int K, int P, typename Config> void check_prime(const Config& config)
 {
   std::cout << std::format("now={}\n", print_time());
   std::cout << std::format("Parameters: p = {}, k = {}", P, K) << std::endl;
@@ -144,15 +165,12 @@ template <int K, int P, typename Config> bool check_prime(const Config& config)
   });
 
   auto final_st = apply_config<P, K>(st, config);
-  std::cout << std::endl;
 
   if (!final_st.S.empty())
   {
-    std::cout << std::format("  Counter Example Mod {}\n", P) << std::endl;
-    return 1;
+    std::cout << std::format("  Counter Example Mod {}", P) << std::endl;
   }
-
-  return 0;
+  std::cout << std::endl;
 }
 
 template <int K, std::array primes, typename Config, std::size_t... Is>
@@ -167,7 +185,7 @@ void roll_works(const Config& config, std::index_sequence<Is...>)
 
 int main()
 {
-  constexpr int K = 9;
+  constexpr int K = 10;
 
   if constexpr (K == 8)
   {

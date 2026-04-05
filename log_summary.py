@@ -57,19 +57,24 @@ def parse_log(path: str) -> list[PrimeRun]:
     re_params = re.compile(r"Parameters:\s*p\s*=\s*(\d+),\s*k\s*=\s*(\d+)")
     re_trying = re.compile(r"trying\s+(\d+):\s*T\s+size\s*=\s*(\d+)")
     re_trying_inline = re.compile(
-        r"trying\s+(\d+):\s*T\s+size\s*=\s*(\d+)\s*=>\s*\(n=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
+        r"trying\s+(\d+):\s*T\s+size\s*=\s*(\d+)\s*=>\s*\([nl]=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
     )
+    re_forcing = re.compile(r"Forcing\s+Lift\s+c=(\d+):\s*T\s+size\s*=\s*(\d+)")
 
     re_step_generic = re.compile(
-        r"Step\s+[\d.]+\s+\(n=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
+        r"Step\s+[\d.]+\s+\([nl]=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
     )
 
     re_result_simple = re.compile(
-        r"=>\s*\(n=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
+        r"=>\s*\([nl]=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
     )
 
     re_result_squeeze = re.compile(
-        r"=>\s*squeezing\s*\(n=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
+        r"=>\s*squeezing\s*\([nl]=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
+    )
+
+    re_strategy_size = re.compile(
+        r"(?:Squeeze|Force\s+\d+|Resolve\s+\w+|Print(?:\s+\d+)?)\s+S\.size\(\)\s*=\s*(\d+)"
     )
 
     re_counter = re.compile(r"Counter\s+Example\s+Mod\s+(\d+)")
@@ -130,6 +135,12 @@ def parse_log(path: str) -> list[PrimeRun]:
                     current.final_s_zero = True
                 continue
 
+            if m := re_forcing.search(line):
+                if pending_trying is not None:
+                    current.steps.append((*pending_trying, -1, -1))
+                pending_trying = (int(m.group(1)), int(m.group(2)))
+                continue
+
             if m := re_trying.search(line):
                 if pending_trying is not None:
                     current.steps.append((*pending_trying, -1, -1))
@@ -149,6 +160,14 @@ def parse_log(path: str) -> list[PrimeRun]:
                 n = int(m.group(1))
                 s_size = int(m.group(2))
                 current.steps.append((-1, -1, n, s_size))
+                if s_size == 0:
+                    current.final_s_zero = True
+                pending_trying = None
+                continue
+
+            if m := re_strategy_size.search(line):
+                s_size = int(m.group(1))
+                current.steps.append((-1, -1, -1, s_size))
                 if s_size == 0:
                     current.final_s_zero = True
                 pending_trying = None
@@ -240,7 +259,8 @@ def format_run(run: PrimeRun):
     prev_s = run.step1_s_size
     for _, _, n, s in run.steps:
         prev = f"{prev_s}" if prev_s is not None else "?"
-        lines.append(f"    Prev S={prev:>8}  =>  n={n:>3}  S={s:>8}")
+        n_str = str(n) if n >= 0 else "?"
+        lines.append(f"    Prev S={prev:>8}  =>  n={n_str:>3}  S={s:>8}")
         prev_s = s
 
     if prev_s == 0:
