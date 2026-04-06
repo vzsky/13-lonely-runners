@@ -21,7 +21,6 @@ template <int P, int K, int N> struct Context
   static constexpr int Q = N * P;
   std::array<std::bitset<Q>, Q> vec;
 
-private:
   Context()
   {
     for (int i = 0; i < Q; ++i)
@@ -36,18 +35,12 @@ private:
       }
     }
   }
-
-public:
-  static const Context& instance()
-  {
-    static const Context ins;
-    return ins;
-  }
 };
+
+template <int P, int K, int N> inline const Context<P, K, N> context{};
 
 template <int P, int K, int N> struct Dfs
 {
-  using Ctx = Context<P, K, N>;
   SpeedSet<K> elem;
   std::array<int, K> order;
   std::array<std::vector<int>, K> cand;
@@ -57,9 +50,9 @@ template <int P, int K, int N> struct Dfs
   {
     if (depth == K)
     {
-      std::bitset<Ctx::Q> acc;
-      for (auto v : elem) acc |= Ctx::instance().vec[v];
-      if ((int)acc.count() != Ctx::Q) return;
+      std::bitset<context<P, K, N>.Q> acc;
+      for (auto v : elem) acc |= context<P, K, N>.vec[v];
+      if ((int)acc.count() != context<P, K, N>.Q) return;
       if (elem.subset_gcd_implies_proper(N)) return;
       result.insert(elem.get_sorted_set());
       return;
@@ -76,7 +69,7 @@ template <int P, int K, int N> struct Dfs
 
 template <int P, int K, int L, int C> SetOfSpeedSets<K> lift(const SpeedSet<K>& seed)
 {
-  const auto& Ctx = Context<P, K, L * C>::instance();
+  const auto& Ctx = context<P, K, L * C>;
   auto cand       = [&]
   {
     std::array<std::vector<int>, K> cand{};

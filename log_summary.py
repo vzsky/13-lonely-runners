@@ -80,6 +80,11 @@ def parse_log(path: str) -> list[PrimeRun]:
     re_counter = re.compile(r"Counter\s+Example\s+Mod\s+(\d+)")
     re_seeds = re.compile(r"seeds\s*:(.*)")
 
+    re_step_plain = re.compile(r"Step\s+([\d.]+)$")
+    re_squeezing = re.compile(
+        r"\[\d+\.\d+\]\s*squeezing\s*\(l=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
+    )
+
     def flush():
         nonlocal pending_trying
         if current is not None and pending_trying is not None:
@@ -185,6 +190,19 @@ def parse_log(path: str) -> list[PrimeRun]:
                 current.counter_example_mod = int(m.group(1))
                 if current.steps and current.steps[-1][3] >= 0:
                     current.counter_example_s_size = current.steps[-1][3]
+                continue
+
+            if m := re_step_plain.match(line):
+                pending_trying = None
+                continue
+
+            if m := re_squeezing.search(line):
+                n = int(m.group(1))
+                s_size = int(m.group(2))
+                current.steps.append((-1, -1, n, s_size))
+                if s_size == 0:
+                    current.final_s_zero = True
+                pending_trying = None
                 continue
 
     flush()

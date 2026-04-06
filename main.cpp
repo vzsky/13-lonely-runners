@@ -30,9 +30,7 @@ template <int Arg> struct Force
   template <int P, int K, int L> State<K, L * Arg> operator()(State<K, L> st) const
   {
     auto T = lift::find_lifted_covers_parallel<P, K, L, Arg>(st.S);
-
-    std::cout << std::format("Forcing Lift c={}: T size = {}", Arg, T.size()) << std::endl;
-
+    Log(std::format("Forcing Lift c={}: T size = {}", Arg, T.size()));
     return {std::move(T)};
   }
 };
@@ -45,7 +43,7 @@ struct Project
   {
     SetOfSpeedSets<K> T;
     for (auto s : st.S) T.insert(s.project(P).get_sorted_set());
-    std::cout << "Projected down" << std::endl;
+    Log("Projected down");
     return {std::move(T)};
   }
 };
@@ -57,9 +55,9 @@ template <int Limit = 0> struct Print
   template <int P, int K, int L> State<K, L> operator()(State<K, L> st) const
   {
     if (st.S.size() == 0)
-      std::cout << "seeds: empty" << std::endl;
+      Log("seeds: empty");
     else if (Limit == 0 || st.S.size() <= Limit)
-      std::cout << "seeds: " << st.S << std::endl;
+      Log("seeds: ", st.S);
     return st;
   }
 };
@@ -73,7 +71,7 @@ struct LargeResolve
 
   template <int P, int K, int L> State<K, L> operator()(State<K, L> st) const
   {
-    std::cout << "Trying to resolve" << std::endl;
+    Log("Trying to resolve");
     if (P < K * (K + 1)) return st;
     if (st.S.size() != 1) return st;
 
@@ -81,7 +79,7 @@ struct LargeResolve
     for (int i = 0; i < K; i++)
       if (s.mSet[i] != i + 1) return st;
 
-    std::cout << "Resolved successfully" << std::endl;
+    Log("Resolved successfully");
     st.S.clear();
     return st;
   }
@@ -100,14 +98,13 @@ private:
 
     if (U.size() == last.size()) return last;
 
-    std::cout << std::format("  => squeezing (l={}): S size = {}", CurL, lifted.size()) << std::endl;
+    Log(std::format("squeezing (l={}): S size = {}", CurL, lifted.size()));
 
     if constexpr (Remaining == 0)
       return U;
     else
     {
-      SetOfSpeedSets<K> next;
-      timeit("\tsqueeze ", [&] { next = lift::find_lifted_covers_parallel<P, K, CurL, Arg>(lifted); });
+      SetOfSpeedSets<K> next = lift::find_lifted_covers_parallel<P, K, CurL, Arg>(lifted);
       return loop<P, K, CurL * Arg, Remaining - 1>(std::move(next), std::move(U));
     }
   }
@@ -115,8 +112,7 @@ private:
 public:
   template <int P, int K, int L> State<K, 1> operator()(State<K, L> st) const
   {
-    SetOfSpeedSets<K> lifted;
-    timeit("\tsqueeze ", [&] { lifted = lift::find_lifted_covers_parallel<P, K, L, Arg>(st.S); });
+    SetOfSpeedSets<K> lifted = lift::find_lifted_covers_parallel<P, K, L, Arg>(st.S);
     return {loop<P, K, L * Arg, MaxIter - 1>(std::move(lifted), std::move(st.S))};
   }
 };
@@ -130,8 +126,14 @@ template <int P, int K, std::size_t I = 0, typename Tuple, typename S> auto appl
 {
   if constexpr (I < std::tuple_size_v<Tuple>)
   {
-    auto result = std::get<I>(t).template operator()<P, K>(st);
-    std::cout << std::get<I>(t) << " S.size() = " << result.S.size() << "\n";
+    decltype(std::get<I>(t).template operator()<P, K>(st)) result;
+    Log(std::format("Step 2.{}", I));
+    timeit([&]
+    {
+      PushLogScope(std::format("2.{}", I));
+      result = std::get<I>(t).template operator()<P, K>(st);
+      Log(std::get<I>(t), "S.size() =", result.S.size());
+    });
     return apply_config<P, K, I + 1>(result, t);
   }
   else
@@ -142,18 +144,17 @@ template <int P, int K, std::size_t I = 0, typename Tuple, typename S> auto appl
 // Driver
 // ============================================================================
 
-// TODO clean up K. see declarative logging
 template <int K, int P, typename Config> void check_prime(const Config& config)
 {
-  std::cout << std::format("now={}\n", print_time());
-  std::cout << std::format("Parameters: p = {}, k = {}", P, K) << std::endl;
+  Log(std::format("now={}", print_time()));
+  Log(std::format("Parameters: p = {}, k = {}", P, K));
 
   State<K, 1> st{};
 
   timeit([&]
   {
     st.S = find_cover::find_all_covers_parallel<K, P>();
-    std::cout << std::format("Step 1 (l=1): S size = {}", st.S.size()) << std::endl;
+    Log(std::format("Step 1 (l=1): S size = {}", st.S.size()));
   });
 
   timeit([&]
@@ -161,22 +162,22 @@ template <int K, int P, typename Config> void check_prime(const Config& config)
     SetOfSpeedSets<K> T;
     for (auto s : st.S) T.insert(s.get_canonical_representation(P));
     st.S = std::move(T);
-    std::cout << std::format("Step 1.5 (l=1): S size = {}", st.S.size()) << std::endl;
+    Log(std::format("Step 1.5 (l=1): S size = {}", st.S.size()));
   });
 
   auto final_st = apply_config<P, K>(st, config);
 
   if (!final_st.S.empty())
   {
-    std::cout << std::format("  Counter Example Mod {}", P) << std::endl;
+    Log(std::format("Counter Example Mod {}", P));
   }
-  std::cout << std::endl;
+  Log();
 }
 
 template <int K, std::array primes, typename Config, std::size_t... Is>
 void roll_works(const Config& config, std::index_sequence<Is...>)
 {
-  timeit("All work done -- ", [&] { (check_prime<K, primes[Is]>(config), ...); });
+  timeit("All work done", [&] { (check_prime<K, primes[Is]>(config), ...); });
 }
 
 // ============================================================================
@@ -185,7 +186,7 @@ void roll_works(const Config& config, std::index_sequence<Is...>)
 
 int main()
 {
-  constexpr int K = 10;
+  constexpr int K = 9;
 
   if constexpr (K == 8)
   {

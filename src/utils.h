@@ -13,6 +13,48 @@
 #include <utility>
 #include <vector>
 
+/************************************
+ * Logging
+ ************************************/
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+namespace logging
+{
+
+inline thread_local std::vector<std::string> env_stack;
+
+struct EnvGuard
+{
+  EnvGuard(std::string s) { env_stack.push_back(std::move(s)); }
+  ~EnvGuard() { env_stack.pop_back(); }
+};
+
+inline void print_env()
+{
+  for (auto& e : env_stack) std::cout << "[" << e << "] ";
+}
+
+template <typename... Ts> void log(Ts&&... xs)
+{
+  print_env();
+  ((std::cout << std::forward<Ts>(xs) << " "), ...);
+  std::cout << std::endl;
+}
+
+#define PushLogScope(x)                                                                                      \
+  logging::EnvGuard _log_env_guard_##__LINE__ { x }
+
+#define Log(...) logging::log(__VA_ARGS__)
+
+} // namespace logging
+
+/************************************
+ * Misc
+ ************************************/
+
 inline size_t parallelize_core()
 {
   unsigned int hw = std::thread::hardware_concurrency();
@@ -70,7 +112,16 @@ template <typename Func> void timeit(std::string s, Func&& f)
 
   auto end      = high_resolution_clock::now();
   auto duration = duration_cast<milliseconds>(end - start).count();
-  std::cout << s << " -- Time elapsed: " << duration / 1000 << "." << duration % 1000 << "s" << std::endl;
+  Log(s, std::format("-- Time elapsed: {}.{} s", duration / 1000, duration % 1000));
 }
 
 template <typename Func> void timeit(Func&& f) { timeit("", f); }
+
+template <int I, int N, typename F> constexpr void For(F&& f)
+{
+  if constexpr (I < N)
+  {
+    f(std::integral_constant<int, I>{});
+    For<int(I + 1), N>(f);
+  }
+}
