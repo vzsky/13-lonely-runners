@@ -87,15 +87,15 @@ template <int K, int P> struct Dfs
       if (nextToCover == -1 || cov[i][nextToCover])
       {
         seed.elems.insert(i + 1);
+        seed.eliminated[i] = 1;
+        for (int pos = 0; pos < bitlen; ++pos)
+          if (cov[i][pos]) seed.remaining[pos]--;
         CoveredBitset next_covered = current_covered;
         next_covered |= cov[i];
 
         run(depth + 1, std::move(next_covered));
 
         seed.elems.remove(i + 1);
-        seed.eliminated[i] = 1;
-        for (int pos = 0; pos < bitlen; ++pos)
-          if (cov[i][pos]) seed.remaining[pos]--;
       }
     }
 
