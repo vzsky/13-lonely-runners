@@ -42,96 +42,60 @@ template <int K, int P> struct Dfs
   static constexpr int bitlen = P / 2;
   using CoveredBitset         = typename Context<K, P>::CoveredBitset;
 
-  struct Seed
+  struct State
   {
     int depth;
     CoveredBitset covered;
     SpeedSet<K> elems;
 
-    struct AvailableChoice
-    {
-    private:
-      using ElimArray   = std::array<char, P / 2>;
-      using RemainArray = std::array<char, P / 2>;
+    struct AvailableChoice;
+    AvailableChoice choice;
 
-      ElimArray _eliminated{};  // bool for each choice
-      RemainArray _remaining{}; // count of active choice that cover position i
-    public:
-      AvailableChoice()
-      {
-        for (int i = 0; i < bitlen; ++i)
-          for (int pos = 0; pos < bitlen; ++pos)
-            if (context<K, P>.cov[i][pos]) _remaining[pos]++;
-      }
-
-      bool isEliminated(size_t i) { return _eliminated[i]; }
-      bool canBeCovered(size_t i) { return _remaining[i] != 0; }
-
-      int get_next_to_cover(CoveredBitset current_covered)
-      {
-        int nextToCover = -1, best = INT_MAX;
-        for (int pos = 0; pos < bitlen; ++pos)
-          if (!current_covered[pos] && _remaining[pos] < best)
-          {
-            best        = _remaining[pos];
-            nextToCover = pos;
-          }
-        return nextToCover;
-      }
-
-      void eliminate(int i)
-      {
-        _eliminated[i] = 1;
-        for (int pos = 0; pos < bitlen; ++pos)
-          if (context<K, P>.cov[i][pos]) _remaining[pos]--;
-      }
-    } choice;
-
-  } seed;
+  } state;
 
   SetOfSpeedSets<K> solutions{};
   const typename Context<K, P>::CovArray& cov = context<K, P>.cov;
 
-  void run() { run(seed.depth, seed.covered); }
-
-  void run(int depth, CoveredBitset current_covered)
+  void run()
   {
-    if (depth == K)
+    if (state.depth == K)
     {
-      if (current_covered.count() != bitlen) return;
-      solutions.insert(seed.elems);
+      if (state.covered.count() != bitlen) return;
+      solutions.insert(state.elems);
       return;
     }
 
-    int nextToCover = seed.choice.get_next_to_cover(current_covered);
-    if (early_return_bound(current_covered, depth, nextToCover)) return;
+    int nextToCover = state.choice.get_next_to_cover(state.covered);
+    if (early_return_bound(state.covered, state.depth, nextToCover)) return;
 
-    const auto saved_choice = seed.choice;
+    const auto saved_choice = state.choice;
 
     for (int i = 0; i < bitlen; ++i)
     {
-      if (seed.choice.isEliminated(i)) continue;
+      if (state.choice.isEliminated(i)) continue;
       if (nextToCover == -1 || cov[i][nextToCover])
       {
-        seed.elems.insert(i + 1);
-        seed.choice.eliminate(i);
+        state.elems.insert(i + 1);
+        state.choice.eliminate(i);
+        CoveredBitset mem = state.covered;
+        state.covered |= cov[i];
+        state.depth++;
 
-        CoveredBitset next_covered = current_covered;
-        next_covered |= cov[i];
+        run();
 
-        run(depth + 1, std::move(next_covered));
-
-        seed.elems.remove(i + 1);
+        state.elems.remove(i + 1);
+        state.covered = mem;
+        state.depth--;
       }
     }
 
-    seed.choice = saved_choice;
+    state.choice = saved_choice;
   }
 
 private:
   bool early_return_bound(const CoveredBitset& covered, int used, int nextToCover)
   {
-    if (nextToCover != -1 && !seed.choice.canBeCovered(nextToCover)) return true;
+    if (nextToCover != -1 && !state.choice.canBeCovered(nextToCover)) return true;
     if (used < K - 4 || nextToCover == -1) return false; // TODO: K - 4 is arbitrary
 
     int slots = K - used - 1;
@@ -145,7 +109,7 @@ private:
     int bestCovering      = 0;
     for (int i = 0; i < bitlen; ++i)
     {
-      if (seed.choice.isEliminated(i)) continue;
+      if (state.choice.isEliminated(i)) continue;
       int c        = (nextC & cov[i]).count();
       bestCovering = std::max(bestCovering, c);
       if (cov[i][nextToCover]) bestCovering_next = std::max(bestCovering_next, c + 1);
@@ -160,12 +124,12 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
   using CoveredBitset = typename Dfs<K, P>::CoveredBitset;
   const auto& cov     = context<K, P>.cov;
 
-  typename Dfs<K, P>::Seed::AvailableChoice base_choice;
-  base_choice.eliminate(0);
-
-  CoveredBitset first_covered = cov[0];
+  typename Dfs<K, P>::State::AvailableChoice base_choice;
+  CoveredBitset first_covered;
   SpeedSet<K> elems{};
   elems.insert(1);
+  base_choice.eliminate(0);
+  first_covered |= cov[0];
 
   int nextToCover1 = base_choice.get_next_to_cover(first_covered);
 
@@ -174,7 +138,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
     if (nextToCover1 == -1 || cov[i][nextToCover1]) top_candidates.push_back(i);
 
   const size_t ncands = top_candidates.size();
-  std::vector<typename Dfs<K, P>::Seed::AvailableChoice> choices(ncands + 1);
+  std::vector<typename Dfs<K, P>::State::AvailableChoice> choices(ncands + 1);
 
   choices[0] = base_choice;
   for (size_t idx = 0; idx < ncands; ++idx)
@@ -204,7 +168,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
         SpeedSet<K> local_elems = elems;
         local_elems.insert(i + 1);
 
-        Dfs<K, P> d(typename Dfs<K, P>::Seed{2, first_covered | cov[i], local_elems, choices[idx + 1]});
+        Dfs<K, P> d(typename Dfs<K, P>::State{2, first_covered | cov[i], local_elems, choices[idx + 1]});
         d.run();
         thread_results[t].merge(d.solutions);
       }
@@ -218,5 +182,44 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
 
   return base_solutions;
 }
+
+template <int K, int P> struct Dfs<K, P>::State::AvailableChoice
+{
+private:
+  using ElimArray   = std::array<char, P / 2>;
+  using RemainArray = std::array<char, P / 2>;
+
+  ElimArray _eliminated{};  // bool for each choice
+  RemainArray _remaining{}; // count of active choice that cover position i
+public:
+  AvailableChoice()
+  {
+    for (int i = 0; i < bitlen; ++i)
+      for (int pos = 0; pos < bitlen; ++pos)
+        if (context<K, P>.cov[i][pos]) _remaining[pos]++;
+  }
+
+  bool isEliminated(size_t i) { return _eliminated[i]; }
+  bool canBeCovered(size_t i) { return _remaining[i] != 0; }
+
+  int get_next_to_cover(CoveredBitset current_covered)
+  {
+    int nextToCover = -1, best = INT_MAX;
+    for (int pos = 0; pos < bitlen; ++pos)
+      if (!current_covered[pos] && _remaining[pos] < best)
+      {
+        best        = _remaining[pos];
+        nextToCover = pos;
+      }
+    return nextToCover;
+  }
+
+  void eliminate(int i)
+  {
+    _eliminated[i] = 1;
+    for (int pos = 0; pos < bitlen; ++pos)
+      if (context<K, P>.cov[i][pos]) _remaining[pos]--;
+  }
+};
 
 } // namespace find_cover
