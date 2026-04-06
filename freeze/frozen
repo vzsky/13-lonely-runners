@@ -11,11 +11,11 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=53  k=9
-    Prev S=   29827  =>  n=  1  S=   29827
-    Prev S=   29827  =>  n=  1  S=    4246
-    Prev S=    4246  =>  n=  2  S=   13840
-    Prev S=   13840  =>  n=  4  S=     622
-    Prev S=     622  =>  n=  8  S=       4
+    Prev S=   28323  =>  n=  1  S=   28323
+    Prev S=   28323  =>  n=  1  S=    3147
+    Prev S=    3147  =>  n=  2  S=   11599
+    Prev S=   11599  =>  n=  4  S=     468
+    Prev S=     468  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=      15
@@ -23,11 +23,11 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=59  k=9
-    Prev S=    6583  =>  n=  1  S=    6583
-    Prev S=    6583  =>  n=  1  S=     800
-    Prev S=     800  =>  n=  2  S=     672
-    Prev S=     672  =>  n=  4  S=      24
-    Prev S=      24  =>  n=  8  S=       4
+    Prev S=    6471  =>  n=  1  S=    6471
+    Prev S=    6471  =>  n=  1  S=     719
+    Prev S=     719  =>  n=  2  S=     642
+    Prev S=     642  =>  n=  4  S=      22
+    Prev S=      22  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
@@ -35,11 +35,11 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=67  k=9
-    Prev S=   47842  =>  n=  1  S=   47842
-    Prev S=   47842  =>  n=  1  S=    6262
-    Prev S=    6262  =>  n=  2  S=    6553
-    Prev S=    6553  =>  n=  4  S=      30
-    Prev S=      30  =>  n=  8  S=       4
+    Prev S=   46602  =>  n=  1  S=   46602
+    Prev S=   46602  =>  n=  1  S=    5182
+    Prev S=    5182  =>  n=  2  S=    5850
+    Prev S=    5850  =>  n=  4  S=      28
+    Prev S=      28  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=      10
@@ -47,24 +47,23 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=71  k=9
-    Prev S=  126984  =>  n=  1  S=  126984
-    Prev S=  126984  =>  n=  1  S=   16048
-    Prev S=   16048  =>  n=  2  S=   17203
-    Prev S=   17203  =>  n=  4  S=     210
-    Prev S=     210  =>  n=  8  S=       8
-    Prev S=       8  =>  n=  ?  S=       2
-    Prev S=       2  =>  n=  3  S=       6
-    Prev S=       6  =>  n=  ?  S=       1
+    Prev S=  123984  =>  n=  1  S=  123984
+    Prev S=  123984  =>  n=  1  S=   13776
+    Prev S=   13776  =>  n=  2  S=   15158
+    Prev S=   15158  =>  n=  4  S=     186
+    Prev S=     186  =>  n=  8  S=       4
+    Prev S=       4  =>  n=  ?  S=       1
+    Prev S=       1  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       4
     Prev S=       4  =>  n=  ?  S=       0
     => S=0  (success)
 
   p=73  k=9
-    Prev S=   79501  =>  n=  1  S=   79501
-    Prev S=   79501  =>  n=  1  S=    9578
-    Prev S=    9578  =>  n=  2  S=    3833
-    Prev S=    3833  =>  n=  4  S=      16
-    Prev S=      16  =>  n=  8  S=       4
+    Prev S=   78417  =>  n=  1  S=   78417
+    Prev S=   78417  =>  n=  1  S=    8719
+    Prev S=    8719  =>  n=  2  S=    3590
+    Prev S=    3590  =>  n=  4  S=      12
+    Prev S=      12  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       3
@@ -72,10 +71,10 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=79  k=9
-    Prev S=   11420  =>  n=  1  S=   11420
-    Prev S=   11420  =>  n=  1  S=    1289
-    Prev S=    1289  =>  n=  2  S=     229
-    Prev S=     229  =>  n=  4  S=       2
+    Prev S=   11388  =>  n=  1  S=   11388
+    Prev S=   11388  =>  n=  1  S=    1266
+    Prev S=    1266  =>  n=  2  S=     226
+    Prev S=     226  =>  n=  4  S=       2
     Prev S=       2  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       3
@@ -83,10 +82,10 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=83  k=9
-    Prev S=  120390  =>  n=  1  S=  120390
-    Prev S=  120390  =>  n=  1  S=   14149
-    Prev S=   14149  =>  n=  2  S=    2888
-    Prev S=    2888  =>  n=  4  S=       6
+    Prev S=  119214  =>  n=  1  S=  119214
+    Prev S=  119214  =>  n=  1  S=   13246
+    Prev S=   13246  =>  n=  2  S=    2621
+    Prev S=    2621  =>  n=  4  S=       6
     Prev S=       6  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
@@ -95,10 +94,10 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=89  k=9
-    Prev S=   12422  =>  n=  1  S=   12422
-    Prev S=   12422  =>  n=  1  S=    1382
-    Prev S=    1382  =>  n=  2  S=      73
-    Prev S=      73  =>  n=  4  S=       4
+    Prev S=   12420  =>  n=  1  S=   12420
+    Prev S=   12420  =>  n=  1  S=    1380
+    Prev S=    1380  =>  n=  2  S=      71
+    Prev S=      71  =>  n=  4  S=       4
     Prev S=       4  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
@@ -107,9 +106,9 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=97  k=9
-    Prev S=   17050  =>  n=  1  S=   17050
-    Prev S=   17050  =>  n=  1  S=    1904
-    Prev S=    1904  =>  n=  2  S=     104
+    Prev S=   17034  =>  n=  1  S=   17034
+    Prev S=   17034  =>  n=  1  S=    1894
+    Prev S=    1894  =>  n=  2  S=     104
     Prev S=     104  =>  n=  4  S=       2
     Prev S=       2  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
@@ -118,11 +117,11 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=101  k=9
-    Prev S=  194487  =>  n=  1  S=  194487
-    Prev S=  194487  =>  n=  1  S=   22314
-    Prev S=   22314  =>  n=  2  S=    2306
-    Prev S=    2306  =>  n=  4  S=      14
-    Prev S=      14  =>  n=  8  S=       4
+    Prev S=  193347  =>  n=  1  S=  193347
+    Prev S=  193347  =>  n=  1  S=   21483
+    Prev S=   21483  =>  n=  2  S=    2151
+    Prev S=    2151  =>  n=  4  S=      12
+    Prev S=      12  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       4
@@ -130,10 +129,10 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=103  k=9
-    Prev S=   97884  =>  n=  1  S=   97884
-    Prev S=   97884  =>  n=  1  S=   11122
-    Prev S=   11122  =>  n=  2  S=     646
-    Prev S=     646  =>  n=  4  S=       6
+    Prev S=   97500  =>  n=  1  S=   97500
+    Prev S=   97500  =>  n=  1  S=   10836
+    Prev S=   10836  =>  n=  2  S=     599
+    Prev S=     599  =>  n=  4  S=       6
     Prev S=       6  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
@@ -142,9 +141,9 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=107  k=9
-    Prev S=   25106  =>  n=  1  S=   25106
-    Prev S=   25106  =>  n=  1  S=    2808
-    Prev S=    2808  =>  n=  2  S=     138
+    Prev S=   25074  =>  n=  1  S=   25074
+    Prev S=   25074  =>  n=  1  S=    2786
+    Prev S=    2786  =>  n=  2  S=     138
     Prev S=     138  =>  n=  4  S=       2
     Prev S=       2  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
@@ -164,10 +163,10 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=113  k=9
-    Prev S=   45661  =>  n=  1  S=   45661
-    Prev S=   45661  =>  n=  1  S=    5113
-    Prev S=    5113  =>  n=  2  S=      94
-    Prev S=      94  =>  n=  4  S=       2
+    Prev S=   45594  =>  n=  1  S=   45594
+    Prev S=   45594  =>  n=  1  S=    5066
+    Prev S=    5066  =>  n=  2  S=      87
+    Prev S=      87  =>  n=  4  S=       2
     Prev S=       2  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1
@@ -175,9 +174,9 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=127  k=9
-    Prev S=   29220  =>  n=  1  S=   29220
-    Prev S=   29220  =>  n=  1  S=    3253
-    Prev S=    3253  =>  n=  2  S=      12
+    Prev S=   29212  =>  n=  1  S=   29212
+    Prev S=   29212  =>  n=  1  S=    3248
+    Prev S=    3248  =>  n=  2  S=      12
     Prev S=      12  =>  n=  4  S=       4
     Prev S=       4  =>  n=  8  S=       4
     Prev S=       4  =>  n=  ?  S=       1
@@ -187,9 +186,9 @@ PER-PRIME DETAIL  [result]
     => S=0  (success)
 
   p=131  k=9
-    Prev S=   74577  =>  n=  1  S=   74577
-    Prev S=   74577  =>  n=  1  S=    8318
-    Prev S=    8318  =>  n=  2  S=      58
+    Prev S=   74529  =>  n=  1  S=   74529
+    Prev S=   74529  =>  n=  1  S=    8281
+    Prev S=    8281  =>  n=  2  S=      58
     Prev S=      58  =>  n=  4  S=       2
     Prev S=       2  =>  n=  ?  S=       1
     Prev S=       1  =>  n=  ?  S=       1

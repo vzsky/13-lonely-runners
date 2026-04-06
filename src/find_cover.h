@@ -39,23 +39,58 @@ template <int K, int P> inline const Context<K, P> context{};
 
 template <int K, int P> struct Dfs
 {
-  using CoveredBitset = typename Context<K, P>::CoveredBitset;
-  using ElimArray     = std::array<char, P / 2>;
-  using RemainArray   = std::array<char, P / 2>;
+  static constexpr int bitlen = P / 2;
+  using CoveredBitset         = typename Context<K, P>::CoveredBitset;
 
   struct Seed
   {
     int depth;
     CoveredBitset covered;
-    ElimArray eliminated{};
     SpeedSet<K> elems;
-    RemainArray remaining{};
+
+    struct AvailableChoice
+    {
+    private:
+      using ElimArray   = std::array<char, P / 2>;
+      using RemainArray = std::array<char, P / 2>;
+
+      ElimArray _eliminated{};  // bool for each choice
+      RemainArray _remaining{}; // count of active choice that cover position i
+    public:
+      AvailableChoice()
+      {
+        for (int i = 0; i < bitlen; ++i)
+          for (int pos = 0; pos < bitlen; ++pos)
+            if (context<K, P>.cov[i][pos]) _remaining[pos]++;
+      }
+
+      bool isEliminated(size_t i) { return _eliminated[i]; }
+      bool canBeCovered(size_t i) { return _remaining[i] != 0; }
+
+      int get_next_to_cover(CoveredBitset current_covered)
+      {
+        int nextToCover = -1, best = INT_MAX;
+        for (int pos = 0; pos < bitlen; ++pos)
+          if (!current_covered[pos] && _remaining[pos] < best)
+          {
+            best        = _remaining[pos];
+            nextToCover = pos;
+          }
+        return nextToCover;
+      }
+
+      void eliminate(int i)
+      {
+        _eliminated[i] = 1;
+        for (int pos = 0; pos < bitlen; ++pos)
+          if (context<K, P>.cov[i][pos]) _remaining[pos]--;
+      }
+    } choice;
+
   } seed;
 
   SetOfSpeedSets<K> solutions{};
   const typename Context<K, P>::CovArray& cov = context<K, P>.cov;
-
-  static constexpr int bitlen = P / 2;
 
   void run() { run(seed.depth, seed.covered); }
 
@@ -68,28 +103,19 @@ template <int K, int P> struct Dfs
       return;
     }
 
-    int nextToCover = -1, best = INT_MAX;
-    for (int pos = 0; pos < bitlen; ++pos)
-      if (!current_covered[pos] && seed.remaining[pos] < best)
-      {
-        best        = seed.remaining[pos];
-        nextToCover = pos;
-      }
-
+    int nextToCover = seed.choice.get_next_to_cover(current_covered);
     if (early_return_bound(current_covered, depth, nextToCover)) return;
 
-    const RemainArray saved_remaining = seed.remaining;
-    const ElimArray saved_eliminated  = seed.eliminated;
+    const auto saved_choice = seed.choice;
 
     for (int i = 0; i < bitlen; ++i)
     {
-      if (seed.eliminated[i]) continue;
+      if (seed.choice.isEliminated(i)) continue;
       if (nextToCover == -1 || cov[i][nextToCover])
       {
         seed.elems.insert(i + 1);
-        seed.eliminated[i] = 1;
-        for (int pos = 0; pos < bitlen; ++pos)
-          if (cov[i][pos]) seed.remaining[pos]--;
+        seed.choice.eliminate(i);
+
         CoveredBitset next_covered = current_covered;
         next_covered |= cov[i];
 
@@ -99,15 +125,14 @@ template <int K, int P> struct Dfs
       }
     }
 
-    seed.remaining  = saved_remaining;
-    seed.eliminated = saved_eliminated;
+    seed.choice = saved_choice;
   }
 
 private:
   bool early_return_bound(const CoveredBitset& covered, int used, int nextToCover)
   {
-    if (nextToCover != -1 && seed.remaining[nextToCover] == 0) return true;
-    if (used < K - 4 || nextToCover == -1) return false;
+    if (nextToCover != -1 && !seed.choice.canBeCovered(nextToCover)) return true;
+    if (used < K - 4 || nextToCover == -1) return false; // TODO: K - 4 is arbitrary
 
     int slots = K - used - 1;
 
@@ -120,7 +145,7 @@ private:
     int bestCovering      = 0;
     for (int i = 0; i < bitlen; ++i)
     {
-      if (seed.eliminated[i]) continue;
+      if (seed.choice.isEliminated(i)) continue;
       int c        = (nextC & cov[i]).count();
       bestCovering = std::max(bestCovering, c);
       if (cov[i][nextToCover]) bestCovering_next = std::max(bestCovering_next, c + 1);
@@ -133,58 +158,29 @@ private:
 template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
 {
   using CoveredBitset = typename Dfs<K, P>::CoveredBitset;
-  using ElimArray     = typename Dfs<K, P>::ElimArray;
-  using RemainArray   = typename Dfs<K, P>::RemainArray;
+  const auto& cov     = context<K, P>.cov;
 
-  constexpr int bitlen = P / 2;
-  const auto& cov      = context<K, P>.cov;
-
-  RemainArray remaining0{};
-  for (int i = 0; i < bitlen; ++i)
-    for (int pos = 0; pos < bitlen; ++pos)
-      if (cov[i][pos]) remaining0[pos]++;
-
-  for (int pos = 0; pos < bitlen; ++pos)
-    if (remaining0[pos] == 0) return {};
-
-  ElimArray base_eliminated{};
-  RemainArray base_remaining = remaining0;
-
-  base_eliminated[0] = 1;
-  for (int pos = 0; pos < bitlen; ++pos)
-    if (cov[0][pos]) base_remaining[pos]--;
+  typename Dfs<K, P>::Seed::AvailableChoice base_choice;
+  base_choice.eliminate(0);
 
   CoveredBitset first_covered = cov[0];
   SpeedSet<K> elems{};
   elems.insert(1);
 
-  int nextToCover1 = -1, best1 = INT_MAX;
-  for (int pos = 0; pos < bitlen; ++pos)
-    if (!first_covered[pos] && base_remaining[pos] < best1)
-    {
-      best1        = base_remaining[pos];
-      nextToCover1 = pos;
-    }
+  int nextToCover1 = base_choice.get_next_to_cover(first_covered);
 
   std::vector<int> top_candidates;
-  for (int i = 1; i < bitlen; ++i)
+  for (int i = 1; i < P / 2; ++i)
     if (nextToCover1 == -1 || cov[i][nextToCover1]) top_candidates.push_back(i);
 
   const size_t ncands = top_candidates.size();
-  std::vector<ElimArray> prefix_elim(ncands + 1);
-  std::vector<RemainArray> prefix_rem(ncands + 1);
+  std::vector<typename Dfs<K, P>::Seed::AvailableChoice> choices(ncands + 1);
 
-  prefix_elim[0] = base_eliminated;
-  prefix_rem[0]  = base_remaining;
-
+  choices[0] = base_choice;
   for (size_t idx = 0; idx < ncands; ++idx)
   {
-    prefix_elim[idx + 1]    = prefix_elim[idx];
-    prefix_rem[idx + 1]     = prefix_rem[idx];
-    int j                   = top_candidates[idx];
-    prefix_elim[idx + 1][j] = 1;
-    for (int pos = 0; pos < bitlen; ++pos)
-      if (cov[j][pos]) prefix_rem[idx + 1][pos]--;
+    choices[idx + 1] = choices[idx];
+    choices[idx + 1].eliminate(top_candidates[idx]);
   }
 
   size_t nthreads = parallelize_core();
@@ -208,13 +204,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
         SpeedSet<K> local_elems = elems;
         local_elems.insert(i + 1);
 
-        Dfs<K, P> d(typename Dfs<K, P>::Seed{
-            2,
-            first_covered | cov[i],
-            prefix_elim[idx],
-            local_elems,
-            prefix_rem[idx],
-        });
+        Dfs<K, P> d(typename Dfs<K, P>::Seed{2, first_covered | cov[i], local_elems, choices[idx + 1]});
         d.run();
         thread_results[t].merge(d.solutions);
       }
