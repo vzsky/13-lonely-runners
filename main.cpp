@@ -121,7 +121,7 @@ public:
 // Tuple visitor
 // ============================================================================
 
-// tuple represents composition of function
+// tuples of functions represent functions composition
 template <int P, int K, std::size_t I = 0, typename Tuple, typename S> auto apply_config(S st, const Tuple& t)
 {
   if constexpr (I < std::tuple_size_v<Tuple>)
