@@ -44,11 +44,11 @@ template <int K, int P> struct Dfs
 
   struct State
   {
+    struct AvailableChoice;
+
     int depth;
     CoveredBitset covered;
     SpeedSet<K> elems;
-
-    struct AvailableChoice;
     AvailableChoice choice;
 
   } state;
@@ -61,12 +61,12 @@ template <int K, int P> struct Dfs
     if (state.depth == K)
     {
       if (state.covered.count() != bitlen) return;
-      solutions.insert(state.elems);
+      solutions.insert(state.elems.get_canonical_representation(P));
       return;
     }
 
     int nextToCover = state.choice.get_next_to_cover(state.covered);
-    if (early_return_bound(state.covered, state.depth, nextToCover)) return;
+    if (early_return_bound(nextToCover)) return;
 
     const auto saved_choice = state.choice;
 
@@ -93,17 +93,17 @@ template <int K, int P> struct Dfs
   }
 
 private:
-  bool early_return_bound(const CoveredBitset& covered, int used, int nextToCover)
+  bool early_return_bound(int nextToCover)
   {
     if (nextToCover != -1 && !state.choice.canBeCovered(nextToCover)) return true;
-    if (used < K - 4 || nextToCover == -1) return false; // TODO: K - 4 is arbitrary
+    if (state.depth < K - 4 || nextToCover == -1) return false; // TODO: K - 4 is arbitrary
 
-    int slots = K - used - 1;
+    int slots = K - state.depth - 1;
 
-    CoveredBitset nextC = ~covered;
+    CoveredBitset nextC = ~state.covered;
     nextC[nextToCover]  = 0;
 
-    int totalToCover = bitlen - covered.count();
+    int totalToCover = bitlen - state.covered.count();
 
     int bestCovering_next = 0;
     int bestCovering      = 0;
@@ -121,6 +121,8 @@ private:
 
 template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
 {
+  // Fix first coordinate to 1 and generate all second coordinate per worker thread.
+  // TODO: make this more parallelized by going from 2 -> 3 and so on
   using CoveredBitset = typename Dfs<K, P>::CoveredBitset;
   const auto& cov     = context<K, P>.cov;
 

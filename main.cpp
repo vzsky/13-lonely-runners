@@ -157,14 +157,6 @@ template <int K, int P, typename Config> void check_prime(const Config& config)
     Log(std::format("Step 1 (l=1): S size = {}", st.S.size()));
   });
 
-  timeit([&]
-  {
-    SetOfSpeedSets<K> T;
-    for (auto s : st.S) T.insert(s.get_canonical_representation(P));
-    st.S = std::move(T);
-    Log(std::format("Step 1.5 (l=1): S size = {}", st.S.size()));
-  });
-
   auto final_st = apply_config<P, K>(st, config);
 
   if (!final_st.S.empty())
@@ -186,7 +178,7 @@ void roll_works(const Config& config, std::index_sequence<Is...>)
 
 int main()
 {
-  constexpr int K = 9;
+  constexpr int K = 10;
 
   if constexpr (K == 8)
   {
@@ -211,11 +203,11 @@ int main()
 
   if constexpr (K == 10)
   {
-    constexpr std::array primes = {103, 107, 109, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173,
-                                   179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241,
-                                   251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317,
-                                   331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401,
-                                   409, 419, 421, 431, 433, 439, 443, 449, 457};
+    constexpr std::array primes = {127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191,
+                                   193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263,
+                                   269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347,
+                                   349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421,
+                                   431, 433, 439, 443, 449, 457, 461, 463, 467};
 
     constexpr auto config = std::make_tuple(Squeeze<2>{}, Squeeze<3>{}, LargeResolve{}, Print{});
     roll_works<K, primes>(config, std::make_index_sequence<primes.size()>{});

@@ -117,7 +117,6 @@ SetOfSpeedSets<K> find_lifted_covers_parallel(const SetOfSpeedSets<K>& seeds)
     for (auto it = begin; it != end; ++it) local_results.merge(lift<P, K, L, C>(*it));
   };
 
-  // TODO: make this a co_await instead?
   size_t chunk = (N_seeds + nthreads - 1) / nthreads;
   auto it      = seeds.begin();
 
