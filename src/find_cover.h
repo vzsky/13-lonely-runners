@@ -76,7 +76,6 @@ template <int K, int P> struct Dfs
       if (nextToCover == -1 || cov[i][nextToCover])
       {
         state.elems.insert(i + 1);
-        state.choice.eliminate(i);
         CoveredBitset mem = state.covered;
         state.covered |= cov[i];
         state.depth++;
@@ -84,6 +83,7 @@ template <int K, int P> struct Dfs
         run();
 
         state.elems.remove(i + 1);
+        state.choice.eliminate(i);
         state.covered = mem;
         state.depth--;
       }
@@ -122,7 +122,6 @@ private:
 template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
 {
   // Fix first coordinate to 1 and generate all second coordinate per worker thread.
-  // TODO: make this more parallelized by going from 2 -> 3 and so on
   using CoveredBitset = typename Dfs<K, P>::CoveredBitset;
   const auto& cov     = context<K, P>.cov;
 
@@ -130,13 +129,12 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
   CoveredBitset first_covered;
   SpeedSet<K> elems{};
   elems.insert(1);
-  base_choice.eliminate(0);
   first_covered |= cov[0];
 
   int nextToCover1 = base_choice.get_next_to_cover(first_covered);
 
   std::vector<int> top_candidates;
-  for (int i = 1; i < P / 2; ++i)
+  for (int i = 0; i < P / 2; ++i)
     if (nextToCover1 == -1 || cov[i][nextToCover1]) top_candidates.push_back(i);
 
   const size_t ncands = top_candidates.size();
@@ -156,6 +154,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
   std::vector<SetOfSpeedSets<K>> thread_results(nthreads);
   std::vector<std::thread> threads;
 
+  Log("Spawning", nthreads, "threads for", ncands, "DfsStates");
   for (size_t t = 0; t < nthreads; ++t)
   {
     threads.emplace_back([&, t]
@@ -170,7 +169,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
         SpeedSet<K> local_elems = elems;
         local_elems.insert(i + 1);
 
-        Dfs<K, P> d(typename Dfs<K, P>::State{2, first_covered | cov[i], local_elems, choices[idx + 1]});
+        Dfs<K, P> d(typename Dfs<K, P>::State{2, first_covered | cov[i], local_elems, choices[idx]});
         d.run();
         thread_results[t].merge(d.solutions);
       }

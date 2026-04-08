@@ -153,6 +153,7 @@ template <int K, int P, typename Config> void check_prime(const Config& config)
 
   timeit([&]
   {
+    PushLogScope("FindCover");
     st.S = find_cover::find_all_covers_parallel<K, P>();
     Log(std::format("Step 1 (l=1): S size = {}", st.S.size()));
   });
@@ -178,7 +179,7 @@ void roll_works(const Config& config, std::index_sequence<Is...>)
 
 int main()
 {
-  constexpr int K = 10;
+  constexpr int K = 9;
 
   if constexpr (K == 8)
   {

@@ -1,0 +1,38 @@
+=== RUN START: 2026-04-08T23:37:04+01:00 | prime=103 | K=9 ===
+# from nine and ten's runner code, we can modify it to post process all cover to show unique speed set up to canonical representation.
+Compiling (PRIME=103 K=9) ...
+=== EXECUTING: binary for PRIME=103 ===
+Execution start: 2026-04-08T23:37:05+01:00
+Parameters: p=103, k=9 (k+1 = 10)
+Step1 (n=1): S size = 572084  (time 0.999203 s)
+Unique size = 11220
+Execution end: 2026-04-08T23:37:06+01:00
+Status: OK
+Runtime_seconds: 1.534
+=== RUN END: prime=103 | runtime=1.534s ===
+
+=== RUN START: 2026-04-08T23:37:06+01:00 | prime=137 | K=9 ===
+Compiling (PRIME=137 K=9) ...
+=== EXECUTING: binary for PRIME=137 ===
+Execution start: 2026-04-08T23:37:07+01:00
+Parameters: p=137, k=9 (k+1 = 10)
+Step1 (n=1): S size = 62560  (time 2.31137 s)
+Unique size = 920
+Execution end: 2026-04-08T23:37:10+01:00
+Status: OK
+Runtime_seconds: 2.607
+=== RUN END: prime=137 | runtime=2.607s ===
+
+=== RUN START: 2026-04-08T23:37:10+01:00 | prime=139 | K=9 ===
+Compiling (PRIME=139 K=9) ...
+=== EXECUTING: binary for PRIME=139 ===
+Execution start: 2026-04-08T23:37:10+01:00
+Parameters: p=139, k=9 (k+1 = 10)
+Step1 (n=1): S size = 35903  (time 2.01176 s)
+Unique size = 521
+Execution end: 2026-04-08T23:37:12+01:00
+Status: OK
+Runtime_seconds: 2.287
+=== RUN END: prime=139 | runtime=2.287s ===
+
+
