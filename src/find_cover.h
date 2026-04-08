@@ -164,6 +164,11 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel(const 
   // Fix element 1 as first pick
   std::vector<char> base_eliminated(P / 2 + 1, 0);
   std::array<int, P / 2> base_remaining = remaining0;
+
+  // NB. this is a result of poor (incorrect) optimization. We should not just eliminate 1 
+  // here as it is legal to use it further down the recursive tree. However, 
+  // this turned out to be legal as we allow reusing any other number later on, thus 
+  // the only speed set we skip in the search is (1, 1, 1, ..., 1).
   base_eliminated[1]                    = 1;
   for (int pos = 0; pos < P / 2; ++pos)
     if (cov[1][pos]) base_remaining[pos]--;
@@ -181,6 +186,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel(const 
       nextToCover1 = pos;
     }
 
+  // NB. see reasoning above, ideally (to be fateful to single-threaded version) i, should range from 1 to <= P/2.
   std::vector<int> top_candidates;
   for (int i = 2; i <= P / 2; ++i) // start from 2 since 1 is fixed
     if (nextToCover1 == -1 || cov[i][nextToCover1]) top_candidates.push_back(i);
