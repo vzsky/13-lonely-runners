@@ -145,12 +145,12 @@ The fractional part of $x\in\R$ is denoted by $\fracpart{x}$.
 We use boldface letters for vectors, subscripts to indicate coordinates of a vector, 
 and $\widehat{\cdot}$ to indicate the omission of a certain coordinate in a vector. 
 For example, $u_i$ is the $i$th coordinate of the vector $\ubf$.
-Sometimes we refer to a vector $\ubf$ or $\vbf$ as a \emph{speed set} to match the conjecture's settings 
+Sometimes we refer to a vector $\ubf$ or $\vbf$ as a \emph{speed tuple} to match the conjecture's settings 
 and emphasize the invariance under permutation of coordinates of the LR property. 
 The application of a scalar function to vectors is coordinate-wise. 
 
 \section{Proof strategy}
-%In summary, our proof strategy follows that of \cite{Rosenfeld} and \cite{Trakulthongchai}, but with an added definition of \emph{eventual properness} of a speed set in $\Int{p,1}^k$
+%In summary, our proof strategy follows that of \cite{Rosenfeld} and \cite{Trakulthongchai}, but with an added definition of \emph{eventual properness} of a speed tuple in $\Int{p,1}^k$
 
 Rosenfeld's \cite{Rosenfeld} key insight is that, if $\ubf\equiv\vbf\pmod{lp}$, 
 then $\norm{tv_i}=\norm{tu_i}$ for every $i$ whenever $t$ is a rational with denominator $lp$. 
@@ -162,12 +162,12 @@ The following definition and lemma summarize what we need to check.
 
 \begin{definition}[Definition 3.1, \cite{Trakulthongchai}]\label{def:improper}
     Let $p$ be a prime and $k\geq2,l$ be positive integers.
-    A speed set $\vbf\in\Int{p,l}^k$ is $(k,p,l)$-\emph{proper} if one of the following conditions holds: 
+    A speed tuple $\vbf\in\Int{p,l}^k$ is $(k,p,l)$-\emph{proper} if one of the following conditions holds: 
   \begin{itemize}
     \item there exists $i$ such that $\gcd(l, v_1, \dots, \widehat{v_{i}}, \dots, v_k) > 1$.
     \item there exists $t \in\frac{1}{lp}\Z$ such that $\norm{tv_i} \geq \frac{1}{k+1}$ for all $i$.
   \end{itemize}
-   If $\vbf$ is not proper, it is \emph{improper}. Moreover, let $I(k,p,l)$ denote the set of all improper speed sets.
+   If $\vbf$ is not proper, it is \emph{improper}. Moreover, let $I(k,p,l)$ denote the set of all improper speed tuples.
 \end{definition}
 
 \begin{lemma}[Lemma 3.3, \cite{Trakulthongchai}] \label{lem:divp}
@@ -180,7 +180,7 @@ for some $l_p$, for many primes $p$. But the choice of $l$ is completely irrelev
 so we introduce a new terminology to simplify our discussion and implementation. 
 \begin{definition}
   \label{def:eventualproper}
-  Let $k\geq2$ be an integer and $p$ be a prime. A speed set $\vbf \in \Int{p,1}^k$ is said to be \emph{eventually $(k,p)$-proper}
+  Let $k\geq2$ be an integer and $p$ be a prime. A speed tuple $\vbf \in \Int{p,1}^k$ is said to be \emph{eventually $(k,p)$-proper}
   if there is $l$ such 
   that \[ \vbf \notin \pi_{lp \to p} I(k, p, l). \]
 Let $J(k,p)$ denotes the set of all $\vbf$ which are not eventually $(k,p)$-improper.
@@ -285,19 +285,19 @@ in the following proposition.
 
 The two actions are lifting, which we generalize from \cite{Trakulthongchai}, and backward projection, a new technique.
 Proposition \ref{prop:liftproj} ensures that both actions preserve the inclusion of $J(k,p)$ (under projection), 
-which means that we cannot lose a non-eventually proper speed set in the process. 
+which means that we cannot lose a non-eventually proper speed tuple in the process. 
 Now, we will motivate each of them by their applications.
 
 \subsection{Lifting}
 \label{subsec:efflift}
-Fix $k,p$ and assume that the computational cost of checking each speed set is $1$. 
+Fix $k,p$ and assume that the computational cost of checking each speed tuple is $1$. 
 
 Lifting is the main innovation of \cite{Trakulthongchai}. 
 The process is described in the construction of $S'$ in Proposition \ref{prop:liftproj}: suppose we have a set in $\Z^k_{pl}$,
-we can \emph{lift} it to the preimage in $\Z^k_{pcl}$, and then discard all proper speed sets.
+we can \emph{lift} it to the preimage in $\Z^k_{pcl}$, and then discard all proper speed tuples.
 \begin{remark}
 \label{rem:tightset}
-    The speed set $\onetok$ is lonely precisely when $t=\frac{s}{k+1}, \gcd(s,k+1)=1$. 
+    The speed tuple $\onetok$ is lonely precisely when $t=\frac{s}{k+1}, \gcd(s,k+1)=1$. 
     Therefore, if $p>k+1$ and $k+1\nmid l$, then there is no such time in $\frac{1}{pl}\Z$,
     so $\onetok\in I(k,p,l)$. 
     In other words, if $p>k+1$, then $I(k,p,l)=\emptyset$ only if $k+1\mid l$. 
@@ -311,9 +311,9 @@ This is because it is by far the easiest superset of $J(k,p)$ to compute as the 
 Then, we can lift with a factor $c$ of $k+1$.
 Observe that the computational cost of lifting a set $S$ with a multiple $c$ is 
 \[c^k\cdot|S|\]
-because we need to check every speed set in $\pi^{-1}_{clp\rightarrow lp}S$. As $S$ is empirically found to be smaller as we lift
+because we need to check every speed tuple in $\pi^{-1}_{clp\rightarrow lp}S$. As $S$ is empirically found to be smaller as we lift
 \footnote{
-  Even though lifting increases the number of speed sets to be checked,
+  Even though lifting increases the number of speed tuples to be checked,
   it seems that the increased precision of the allowed time in the ansatz has a greater effect \cite{Trakulthongchai}.
 }, we should take $c$ to be small at first. 
 Furthermore, as $k$ gets larger, the value of $c$ has greater effect on the computational cost, 
@@ -325,17 +325,17 @@ and the $c=2$ lift becomes comparatively cheaper
 The key improvement from \cite{Trakulthongchai} is noting that, in fact, we can take this idea to the extreme.
 Since the $c=2$ lift is so computationally cheap, 
 we can apply a $c=2$ lift first (and successively) whether or not $2$ is a prime factor of $k$.
-This is done to trim down the number of speed sets in $S$ when we apply a more computationally expensive, but necessary lift.
-Even better, doing this will never increase the number of speed sets at the end because we can always project backward,
+This is done to trim down the number of speed tuples in $S$ when we apply a more computationally expensive, but necessary lift.
+Even better, doing this will never increase the number of speed tuples at the end because we can always project backward,
 as to be explained next.
  
 \subsection{Backward projection}
 \label{subsec:backproj}
-Backward projection is just the applying of $\pi_p$ to pull back the speed sets back to $\Z^k_{p}$
+Backward projection is just the applying of $\pi_p$ to pull back the speed tuples back to $\Z^k_{p}$
 Just as lifting can reduce the size of the search space, projection achieves a similar effect as, for any set $S$,
 \[\abs{\pi_p S}\leq\abs{S}.\]
 The only time projecting becomes counterproductive is if we lift afterwards with a constant $c$ that was previous used,
-because then we are intersecting with the same improper set and hence we can never eliminate any more speed sets. 
+because then we are intersecting with the same improper set and hence we can never eliminate any more speed tuples. 
 
 Therefore, in general, we should lift with $c=2$ successively, then project back, 
 the lift with $c=3$ successively and project back, and so on. 
@@ -347,26 +347,25 @@ This is the strategy that we use in our verification algorithms in Subsection \r
 According to Remark \ref{rem:tightset}, when $k+1$ is prime, we have to lift with the multiple $c=k+1$. 
 This lift is extremely computationally expensive: for $k=12$, the $c=k+1$ lift is $5\cdot10^9$ 
 times more computationally expensive than the $c=2$ lift. If we are to verify the conjecture for $k\in\{10,12\}$ in a reasonable time,
-we need to avoid this lift computationally. It helps that, for many primes
-\footnote{All primes $p>100$ that we have considered. } $p$,
-after lifting $I(10,p,1)$ with $c=2,3$ for a few times and projecting back,
+we need to avoid this lift computationally.
+It helps that, for many primes $p$, after lifting $I(10,p,1)$ with $c=2,3$ for a few times and projecting back,
 only equivalents
 \footnote{
-  Speed sets that are eventually proper if and only if $\onetok$ is,
+  Speed tuples that are eventually proper if and only if $\onetok$ is,
   to be made explicit in Subsection \ref{subsec:equiv}.
 } 
 of $( 1, 2, \ldots, 10 )$ cannot be shown to be eventually proper. The analogous observation holds when $k=12$.
 
 Therefore, the aim of this section is to determine the eventual properness of $\onetok$. 
 We emphasize that our method still requires \emph{lifting} with $c=k+1$.
-In fact, we are simply finding a solution for speed sets in 
+In fact, we are simply finding a solution for speed tuples in 
 $\pi^{-1}_{(k+1)p\rightarrow p}\onetok$ 
 \footnote{
   Accordingly, we may frame the results in terms of $(k,p,k+1)$-properness,
   but instead we use eventual $(k,p)$-properness for the sake of continuity.
 }, but we do so analytically instead of computationally.
 
-We begin by defining \emph{resolvability} of speed set modulo $\Zko$.
+We begin by defining \emph{resolvability} of speed tuple modulo $\Zko$.
 In some metaphysical sense, resolvability is similar to properness in Definition \ref{def:improper}, 
 but localized to $\onetok$. 
 
@@ -405,7 +404,7 @@ enabling reusing the resolvability verification results from smaller $p$ in larg
 
 \begin{lemma}
 \label{lem:resolvable}
-    If all speed sets in $\Zko^k\setminus\{\origin\}$ are $(k, p)$-resolvable, then $\onetok$ is eventually $(k,p)$-proper.    
+    If all speed tuples in $\Zko^k\setminus\{\origin\}$ are $(k, p)$-resolvable, then $\onetok$ is eventually $(k,p)$-proper.    
 \end{lemma}
 \begin{proof}
     We will show that every $\ubf \in \pi_{p(k+1) \to p}^{-1}\onetok$ is $(k,p,k+1)$-proper, 
@@ -494,7 +493,7 @@ $\rbf_k\left(\tfrac{r}{k+1}\right)=r\onetok$.
     Let $k+1\geq3$ be prime. Every $\vbf\in\Int{k+1}^k\setminus\{\origin\}$ is $(k, k+1)$-resolvable.
 \end{lemma}
 \begin{proof}
-  Let $\vbf$ be any speed set in $\Zko^k\setminus\{\origin\}$. If $\vbf$ contains a zero coordinate, it is resolvable. 
+  Let $\vbf$ be any speed tuple in $\Zko^k\setminus\{\origin\}$. If $\vbf$ contains a zero coordinate, it is resolvable. 
   Otherwise, we may apply the contrapositive of Proposition~\ref{prop:nullstellensatz}:
   there exist $s,r\in\Unit{k+1}\subseteq\Int{k+1}$ such that
   \[s\vbf + r\onetok  \in \{1,\ldots,k-1\}^k.\] Recall that \[\begin{split}
@@ -565,16 +564,16 @@ Finally, we obtain the headline result that assures the eventual properness for 
 The quantity $k(k+1)\approx k^2$ is very reasonable and useful in practice. 
 Without Proposition \ref{prop:nullstellensatz}, via a similar consideration of the length of gaps between discontinuities,
 the same conclusion to Proposition \ref{prop:corlarge} exists for $p \ge k^3 - k$ provided that there is a prime $q$ for which 
-we verify that every speed sets in $\Int{p,1}^k\setminus\{\origin\}$ is $(k,q)$-resolvable.
+we verify that every speed tuples in $\Int{p,1}^k\setminus\{\origin\}$ is $(k,q)$-resolvable.
 This quantity $k^3 - k\approx k^3$ is less useful empirically, 
 but it shows that we can still recover something when $k+1$ is composite.
 
 \section{Implementation}
 \label{sec:algo}
-\subsection{Equivalence of speed sets}
+\subsection{Equivalence of speed tuples}
 \label{subsec:equiv}
-It is clear that some speed sets in an ansatz are essentially the same, so we only need to verify properness for one of them.
-We say that two speed sets $\ubf$ and $\vbf$ in $\Int{p,1}^k$ are \emph{equivalent} if $\vbf$ can be obtained from $\ubf$ 
+It is clear that some speed tuples in an ansatz are essentially the same, so we only need to verify properness for one of them.
+We say that two speed tuples $\ubf$ and $\vbf$ in $\Int{p,1}^k$ are \emph{equivalent} if $\vbf$ can be obtained from $\ubf$ 
 by performing a finite number of the following actions:
 \begin{itemize}
     \item Permuting the coordinates of $\ubf$
@@ -615,7 +614,7 @@ but the last is our new addition. For completeness, we show that each of the act
     Then, whichever way $\ubf'$ satisfies properness,
     it can be checked that $\vbf'$ also satisfies properness in the same way
     (we need $b$ to be a unit because if a time $t$ is a witness for $\ubf$, then the time $b^{-1}t$ is a witness for $\vbf$). 
-    Therefore every speed set in $\pi(\vbf)$ is proper, and thus $\vbf$ is eventually proper.
+    Therefore every speed tuple in $\pi(\vbf)$ is proper, and thus $\vbf$ is eventually proper.
 \end{proof}
 
 Therefore, we may only verify the eventual properness for a single element in an equivalence class. 
@@ -623,7 +622,7 @@ We implement this by fixing by ordering the speeds ascendingly,
 limiting the speeds to be in the first half of residues modulo $p$,
 and fixing $v_1$ to be $1$. In other words, we check all tuples of integers $(v_1,\ldots,v_k)$ with 
 \[1=v_1\leq v_2\leq\cdots\leq v_k\leq\frac{p-1}{2}.\] 
-This implementation results in $k$ speed sets per equivalence class,
+This implementation results in $k$ speed tuples per equivalence class,
 so there is a possibility to improve the run time by a factor of $k$.
 However, we are unable to find a way to generate a single element from each equivalence class  
 
@@ -640,7 +639,7 @@ Fix $k\in\{10,11,12\}$ and a prime $p$.
 We aim to verify that $J(k,p)=\emptyset$ in order to can apply Corollary \ref{cor:evenpropdivp}.
 To do this, we use a verification algorithm that consists of two phases: computing $I(k, p, 1)$ and repeated lifting.
 
-The first phase is done by choosing representative speed sets as described in the previous subsection.
+The first phase is done by choosing representative speed tuples as described in the previous subsection.
 We use lifting diagram to explain the second phase. 
 In a lifting diagram, the first set $S_1$ is always the precomputed $I(k,p,1)$.
 Two kinds of arrows correspond to two actions from Section \ref{sec:sieves}:
@@ -666,7 +665,7 @@ which in particular does not contain a $c=11$ or $c=13$ lift.
 
 As $k+1$ is prime, Proposition \ref{prop:corlarge} asserts that $\onetok\notin J(k,p)$ if $p\geq k^2+k$. 
 This is why we only use $p\geq k^2+k$ for $k\in\{10,12\}$. 
-Therefore, if there are only speed sets equivalent to $\onetok$ remaining in $S_8$, we can verify the emptiness of $J(k,p)$.
+Therefore, if there are only speed tuples equivalent to $\onetok$ remaining in $S_8$, we can verify the emptiness of $J(k,p)$.
 
 \subsection{Further particulars}
 We implement the algorithms in Subsection \ref{subsec:algo} in C++. 
@@ -727,9 +726,9 @@ $k$ & \multicolumn{1}{c|}{$P_k$}
 \section{Concluding remarks}
 \label{sec:further}
 In Section \ref{sec:onetok}, we mentioned that, 
-surprisingly, we only need to perform $c=2$ and $c=3$ lifts (each more than once) to eliminate all speed sets apart
-from those whose projection modulo $p$ is $\onetok$, which is a \emph{tight} speed set.
-This is defined by Goddyn and Wong \cite{goddyn2006tight} to be a speed set such that only the equality holds in
+surprisingly, we only need to perform $c=2$ and $c=3$ lifts (each more than once) to eliminate all speed tuples apart
+from those whose projection modulo $p$ is $\onetok$, which is a \emph{tight} speed tuple.
+This is defined by Goddyn and Wong \cite{goddyn2006tight} to be a speed tuple such that only the equality holds in
 Conjecture \ref{lonelyconjred}. Several questions emerge naturally from the observation.
 
 \section*{Acknowledgements}
