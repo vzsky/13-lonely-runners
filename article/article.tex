@@ -237,7 +237,7 @@ For convenience, we package our verification task into the next proposition.
 \begin{proposition}
 \label{prop:verify}
     Let $k \ge 3$ and $P$ be a set of primes such that $J(k,p)=\emptyset$ for all $p\in P$. Moreover, we need that
-    \[\prod_{p \in P} p\geq B_k.\] Then, $LRC(k)$ is true.
+    \[\prod_{p \in P} p\geq B_k.\] Then, $LRC(k)$ is true provided that $LRC(k-1)$ is true.
 \end{proposition}
 \begin{proof}
     Assume that there exists a counterexample $\ubf$ to $LRC(k)$. 
@@ -293,7 +293,7 @@ Now, we will motivate each of them by their applications.
 Fix $k,p$ and assume that the computational cost of checking each speed tuple is $1$. 
 
 Lifting is the main innovation of \cite{Trakulthongchai}. 
-The process is described in the construction of $S'$ in Proposition \ref{prop:liftproj}: suppose we have a set in $\Z^k_{pl}$,
+The process is described in the construction of $S'$ in Proposition \ref{prop:liftproj}: suppose we have a tuple in $\Z^k_{pl}$,
 we can \emph{lift} it to the preimage in $\Z^k_{pcl}$, and then discard all proper speed tuples.
 \begin{remark}
 \label{rem:tightset}
@@ -309,7 +309,7 @@ Even though it is impossible that $I(k,p,1)=\emptyset$, in view of applying Prop
 we may compute $I(k,p,1)$ first.
 This is because it is by far the easiest superset of $J(k,p)$ to compute as the computational cost is only $p^k$.
 Then, we can lift with a factor $c$ of $k+1$.
-Observe that the computational cost of lifting a set $S$ with a multiple $c$ is 
+Observe that the computational cost of lifting a set of tuples $S$ with a multiple $c$ is 
 \[c^k\cdot|S|\]
 because we need to check every speed tuple in $\pi^{-1}_{clp\rightarrow lp}S$. As $S$ is empirically found to be smaller as we lift
 \footnote{
@@ -335,7 +335,7 @@ Backward projection is just the applying of $\pi_p$ to pull back the speed tuple
 Just as lifting can reduce the size of the search space, projection achieves a similar effect as, for any set $S$,
 \[\abs{\pi_p S}\leq\abs{S}.\]
 The only time projecting becomes counterproductive is if we lift afterwards with a constant $c$ that was previous used,
-because then we are intersecting with the same improper set and hence we can never eliminate any more speed tuples. 
+because then we are intersecting with the same improper speed tuple and hence we can never eliminate any more speed tuples. 
 
 Therefore, in general, we should lift with $c=2$ successively, then project back, 
 the lift with $c=3$ successively and project back, and so on. 
@@ -354,108 +354,42 @@ only equivalents
   Speed tuples that are eventually proper if and only if $\onetok$ is,
   to be made explicit in Subsection \ref{subsec:equiv}.
 } 
-of $( 1, 2, \ldots, 10 )$ cannot be shown to be eventually proper. The analogous observation holds when $k=12$.
+of $( 1, 2, \ldots, 10 )$ cannot be shown to be eventually proper. 
+The analogous observation holds when $k=12$.
 
-Therefore, the aim of this section is to determine the eventual properness of $\onetok$. 
-We emphasize that our method still requires \emph{lifting} with $c=k+1$.
-In fact, we are simply finding a solution for speed tuples in 
-$\pi^{-1}_{(k+1)p\rightarrow p}\onetok$ 
+Therefore, the aim of this section is to determine the eventual properness
 \footnote{
-  Accordingly, we may frame the results in terms of $(k,p,k+1)$-properness,
+  We may frame the results in terms of $(k,p,k+1)$-properness,
   but instead we use eventual $(k,p)$-properness for the sake of continuity.
-}, but we do so analytically instead of computationally.
+},
+of $\onetok$. 
+We emphasize that our method still requires \emph{lifting} with $c=k+1$.
+In fact, we are simply asserting properness of speed tuples in 
+$\pi^{-1}_{(k+1)p\rightarrow p}\onetok$ analytically instead of computationally.
 
-We begin by defining \emph{resolvability} of speed tuple modulo $\Zko$.
-In some metaphysical sense, resolvability is similar to properness in Definition \ref{def:improper}, 
-but localized to $\onetok$. 
-
-\begin{definition}
-\label{def:resolvable}
-  Let $R_n(x)=\floor{ n \fracpart{x} }$.
-  Equivalently, $R_n(x)$ is the integer $k$ such that $\fracpart{x}$ lies in the $1/n$-arc $[k/n, (k+1)/n)$.
-
-  We write \[ \rbf_k(x)=\left(R_{k+1}(x), \; R_{k+1}(2x), \; \ldots, \; R_{k+1}(kx)\right) \] for $x\in\R$, and 
-  say that $\vbf\in\Zko^k\setminus\{\origin\}$ is $(k,p)$-\emph{resolvable} if any of the following holds:
-  \begin{itemize}
-      \item $\vbf$ contains no zero coordinate, or
-      \item there is $s \in \Zko$ and $r \in \Z$ for which
-      \[ s\vbf + \rbf_k(r/p) \in \{1,\ldots,k-1\}^k\] when considered modulo $k+1$.
-  \end{itemize}
-\end{definition}
-
-As we will show in Lemma \ref{lem:resolvable}, 
-Definition \ref{def:resolvable} is simply a restatement of what it means for $\pi^{-1}_{k+1\rightarrow1}\onetok$ to be proper.
-More precisely, instead of considering times of the form $t=\frac{a}{(k+1)p}$ we decompose
-\footnote{
-  When $p=k+1$, the decomposition $t=\frac{s}{k+1}+\frac{r}{p}$ is $\frac{s+r}{k+1}$, 
-  so the domain of allowed times is $\frac{1}{k+1}\Z$, 
-  a proper subset of the usual domain $\frac{1}{p(k+1)}\Z=\frac{1}{(k+1)^2}\Z$.
-  Since the choice of times is more limited for $p=k+1$ resolvability of all tuples in $\Int{k+1}^k$ is not a restatement of,
-  but a stronger condition than, eventual properness of $\onetok$.
-
-  Nonetheless, as it will be very important later on, 
-  we still define $(k,k+1)$-resolvability and all results we formally state apply to $p=k+1$.
-  In particular, this is why Lemma \ref{lem:resolvable} has just one direction.
-}, 
-or \emph{decouple}, them into the partial fractions $t=\frac{s}{k+1}+\frac{r}{p}$.
-Then, the advantage of this formulation is that we can isolate the dependence on $p$ to only that arising from 
-$\rbf_k(\frac{1}{p} \Z)$ in the last condition,
-enabling reusing the resolvability verification results from smaller $p$ in larger $p$.
-
-\begin{lemma}
-\label{lem:resolvable}
-    If all speed tuples in $\Zko^k\setminus\{\origin\}$ are $(k, p)$-resolvable, then $\onetok$ is eventually $(k,p)$-proper.    
-\end{lemma}
-\begin{proof}
-    We will show that every $\ubf \in \pi_{p(k+1) \to p}^{-1}\onetok$ is $(k,p,k+1)$-proper, 
-    and hence $\onetok$ is eventually $(k,p)$-proper. Let $u_i = a_ip+i$ for some $a_i\in\Int{k+1}$ for $i=1,\ldots,k$.
-    By considering a time of the form $t=\frac{s}{k+1}+\frac{r}{p}$ for $s\in\Z$ and $r\in\Z$, 
-    note that the fractional part of $tu_i$ is given by
-    \[ \fracpart{tu_i}=\fracpart*{\left(\frac{s}{k+1}+\frac{r}{p}\right)(a_ip+i)}=\fracpart*{\frac{su'_i}{k+1}+\frac{ri}{p}} \] 
-    where $\ubf' := \pi_{p(k+1)\to k+1} \ubf$. 
-    
-    If $\ubf'=\origin$, then it follows that $k+1\mid\gcd(\ubf)$, thus \[k+1\mid\gcd(k+1,\ubf)\]
-    hence $\ubf$ is $(k,p,k+1)$-proper because it satisfies the gcd condition.
-
-    If $\ubf'\neq\origin$, then by assumption, $\ubf'$ is resolvable. Either of the following cases holds:
-    \begin{itemize}
-        \item $\ubf'$ contains no zero coordinate. In this case, pick $r=0$ and $s=1$ and we have 
-          \[ \fracpart{tu_i}=\fracpart*{\frac{u'_i}{k+1}} \]
-          Since $u_i \ne 0$, $\norm{tu_i} \ge \frac{1}{k+1}$ for all $i$.
-        \item Otherwise, there is a choice of $r$ and $s$ such that 
-          \[ s\ubf' + \rbf_k(r/p) \in \{1,\ldots,k-1\}^k \]
-          when considered modulo $k+1$. 
-          This means that for each coordinate $i$, there are $A_i$ and $B_i$ such that 
-          $\fracpart{\frac{sv_i}{k+1}}=\frac{A_i}{k+1}$ and 
-          $\fracpart{\frac{ri}{p}}\in\left[\frac{B_i}{k+1},\frac{B_i+1}{k+1}\right)$ 
-          where $C_i:=A_i+B_i$ is in $\set{1,\ldots,k-1}$ when considered modulo $k+1$. 
-          Therefore,
-          \[\fracpart{tu_i}=\fracpart*{\frac{su_i}{k+1}+\frac{ri}{p}}\in\left[\frac{C_i}{k+1},\frac{C_i+1}{k+1}\right)\]
-          and in particular the set on the right hand side does not intersect with $[0,\frac{1}{k+1}) \cup (\frac{k}{k+1},1)$.  
-          Since this holds for every $i$, $\ubf$ has the LR property.
-    \end{itemize}
-    
-    As there exists a witness time $t=\frac{s}{k+1}+\frac{r}{p}\in\frac{1}{p(k+1)}\Z$, $\ubf$ is $(k,p,k+1)$-proper.
-\end{proof}
-
-The difference between the properness and resolvability conditions is that we do not have to verify it computationally.
-This is mainly thanks to the following combinatorial proposition, which we prove via the polynomial method.
-
+First, we state and prove Proposition~\ref{prop:nullstellensatz} which will be the main ingredient used in this section.
+For convenient, we write 
+\[ N_{k} := \set{ \vbf \ne \origin \text{ and } \vbf \text{ has at least one zero coordinate } : \vbf \in \Z_{k+1}^k } \].
 \begin{proposition}
 \label{prop:nullstellensatz}
-    Let $k+1$ be prime with $k\geq2$. If the vector $\vbf\in\Int{k+1}^k$ has at least one zero coordinate and has the property that
-    \[s\vbf + r\onetok  \notin  \{1,\ldots,k-1\}^k,\]
-    for every $s, r\in\Unit{k+1}$, then  $\vbf = \mathbf{0}$.
+    Let $k+1$ be an odd prime. For all vectors $\vbf \in N_k$,
+    there is $s$ and $r$ in $\Unit{k+1}$ such that
+    \[s\vbf + r\onetok  \in  \{1,\ldots,k-1\}^k\]
 \end{proposition}
 \begin{proof}
     In this proof, we work in the field $\Int{k+1}$.
     Define \[V_m = \set{v_i+mi:i\in \set{1,\ldots,k} }\] for $m \in \Unit{k+1}$.
-    We say $m\in \Unit{k+1}$ is \emph{good} if $0 \notin V_m$ and \emph{bad} otherwise. Let $G$ be the set of good $m$'s.
+    We say $m\in \Unit{k+1}$ is \emph{good} if $0 \notin V_m$ and \emph{bad} otherwise. 
+    Let $G$ be the set of good $m$'s.
 
     Now, as $\vbf$ contains at least one zero coordinate, it contains at most $k-1$ non-zero coordinates.
-    For each non-zero coordinate $v_i$, there is exactly one choice of $m\in\Unit{k+1}$ such that $v_i + m i = 0$, whereas for each
-    zero coordinate, there cannot be such $m$. Thus, there are at most $k-1$ bad units.
+    For each non-zero coordinate $v_i$, there is exactly one choice of $m\in\Unit{k+1}$ such that $v_i + m i = 0$, 
+    whereas for each zero coordinate, there cannot be such $m$. 
+    Thus, there are at most $k-1$ bad units.
     This implies that $\abs{G} \ge 1$.
+
+    We continue the proof by contraposition. Assume that for all $r$ and $s$, 
+    \[s\vbf + r\onetok  \notin  \{1,\ldots,k-1\}^k\] then we will show that $\vbf = 0$.
 
     Let $m$ be good and $s\in\Unit{k+1}$. Then $r:=sm\in\Unit{k+1}$ and so, by assumption,
     \[ s\vbf + r\onetok \not\in \set{1, \dots, k-1}^k. \]
@@ -485,64 +419,55 @@ This is mainly thanks to the following combinatorial proposition, which we prove
     However, this implies $v_i = 0$ for all $i$, that is, $\vbf = \mathbf{0}$.
 \end{proof}
 
-Proposition~\ref{prop:nullstellensatz} does the heavy lifting for the next lemma, which is clear once we notice that 
-$\rbf_k\left(\tfrac{r}{k+1}\right)=r\onetok$.
+The strategy we will later use to prove Proposition~\ref{prop:corlarge} is that we want to decouple and limit dependency of the prime $p$. 
+Instead of considering times of the form $t=\frac{a}{(k+1)p}$ we decompose them into the partial fractions $t=\frac{s}{k+1}+\frac{r}{p}$.
+The former term has no dependence of $p$ and to limit the effect of $p$ of the latter term, we define 
+\[ \rbf_k(t)=\left( \floor{ (k+1) \fracpart{t}}, \; \floor{ (k+1)\fracpart{2t} }, \; \ldots, \; \floor{ (k+1) \fracpart{kt}} \right) \] 
+for $t\in\R$.
+Recall that we are focusing in the settings of $k+1$ runners with speed $0, 1, \dots, k$.
+Intuitively, $\rbf_k(t)_i = x$ means that the runner with speed $i$, will be in the range 
+$\left[ \frac{x}{k+1}, \frac{x+1}{k+1} \right)$ of the unit circle.
+With this approximate location, we state Lemma~\ref{lem:resolvekplusone}.
 
 \begin{lemma}
 \label{lem:resolvekplusone}
-    Let $k+1\geq3$ be prime. Every $\vbf\in\Int{k+1}^k\setminus\{\origin\}$ is $(k, k+1)$-resolvable.
+    Let $k+1$ be an odd prime. For every $\vbf \in N_k$, there is $s \in \Zko$ and $r \in \Z$ for which 
+    \[ s\vbf + \rbf_k(\tfrac r{k+1}) \in \{1,\ldots,k-1\}^k\] when considered modulo $k+1$.
 \end{lemma}
 \begin{proof}
-  Let $\vbf$ be any speed tuple in $\Zko^k\setminus\{\origin\}$. If $\vbf$ contains a zero coordinate, it is resolvable. 
-  Otherwise, we may apply the contrapositive of Proposition~\ref{prop:nullstellensatz}:
+  Let $\vbf$ be any speed tuple in $\Zko^k\setminus\{\origin\}$ that contains a zero coordinate.
+  By Proposition~\ref{prop:nullstellensatz},
   there exist $s,r\in\Unit{k+1}\subseteq\Int{k+1}$ such that
-  \[s\vbf + r\onetok  \in \{1,\ldots,k-1\}^k.\] Recall that \[\begin{split}
+  \[s\vbf + r\onetok  \in \{1,\ldots,k-1\}^k.\] 
+  By definition, \[\begin{split}
       \rbf_k\left(\tfrac{r}{k+1}\right) 
       &=\left(\floor*{ (k+1)\fracpart*{\tfrac{r}{k+1}} },\floor*{ (k+1)\fracpart*{\tfrac{2r}{k+1}} },\ldots, 
         \floor*{ (k+1)\fracpart*{\tfrac{kr}{k+1}}} \right)\\
       &=(r,2r,\ldots,kr)\\&=r\onetok
   \end{split}\]
   modulo $k+1$. Therefore,
-  \[s\vbf+\rbf_k \paren{\tfrac{r}{k+1}} \in \{1,\ldots,k-1\}^k,\]thus $\vbf$ is $(k, k+1)$-lonely, which means 
-  that it is $(k, k+1)$-resolvable.
+  \[s\vbf+\rbf_k \paren{\tfrac{r}{k+1}} \in \{1,\ldots,k-1\}^k,\]
 \end{proof}
 
 A corollary of Lemma~\ref{lem:resolvekplusone} is that $\onetok$ is eventually $(k,k+1)$-proper, but this is trivial.
-Lemma~\ref{lem:resolvekplusone} indeed is a stronger statement.
-The precondition in Proposition \ref{prop:nullstellensatz} that 
-\[s\vbf + r\onetok  \notin  \{1,\ldots,k-1\}^k\]
-is more inclusive that what is necessary for eventual properness;
-to prove eventual properness for $p=k+1$ we can have a more restrictive precondition that 
+In fact, we only need the condition  
 \[s\vbf + r\onetok  \notin  \{1,\ldots,k\}^k.\] 
-
-However, proving the stronger version allows us to extend the result for $p=k+1$ to larger $p$ via the next lemma.
+to show eventual $(k, p)$-properness of $\onetok$.
+However, Having a stronger condition of 
+\[s\vbf + r\onetok  \notin  \{1,\ldots,k-1\}^k\]
+from Proposition~\ref{prop:nullstellensatz} allows the extension of the result to larger primes via the next lemma.
 
 \begin{lemma}
-  \label{lem:subsetresolve}
-  Suppose that $\rbf_k (\frac{1}{q} \Z) \subseteq \rbf_k(\frac{1}{p} \Z)$, that is, for any $x\in\Z$, 
-  there exists $y\in\Z$ such that $\rbf_k (\frac{x}{q})=\rbf_k (\frac{y}{p})$. If $\vbf$ is $(k, q)$-resolvable,
-  then it is also $(k, p)$-resolvable.
+\label{lem:resolvep}
+    Let $k+1$ and $p > k(k+1)$ be odd primes. For every $\vbf \in N_k$,
+    there is $s \in \Zko$ and $r \in \Z$ for which 
+    \[ s\vbf + \rbf_k(r/p) \in \{1,\ldots,k-1\}^k\] when considered modulo $k+1$.
 \end{lemma}
 \begin{proof}
-   Note that the only condition that depends on $p$ in Definition~\ref{def:resolvable} is the lonely condition. 
-   Suppose that $\vbf$ satisfies the lonely condition for $(k, q)$,
-   namely there is a choice of $s \in \Zko$ and $r \in \Z$ such that $s\vbf + \rbf_k(r/q) \in \{1,\ldots,k-1\}^k$. 
-   From $\rbf_k(\frac{1}{q} \Z_q) \subseteq \rbf_k(\frac{1}{p} \Zp)$,
-   there is $r' \in \Z$ such that $\rbf_k(\frac{r'}{p}) = \rbf_k(\frac{r}{q})$ and hence
-   \[s\vbf + \rbf_k(r'/p) \in \{1,\ldots,k-1\}^k.\] 
-   Therefore, $\vbf$ satisfies the $(k, p)$-lonely condition.
-\end{proof}
+  From Lemma~\ref{lem:resolvekplusone} we have got that there is $s \in \Zko$ and $r \in \Z$ for which
+    \[ s\vbf + \rbf_k(r/(k+1)) \in \{1,\ldots,k-1\}^k\]
+  Thus, it suffices to show that $\rbf_k(\tfrac{1}{k+1} \Z) \subseteq \rbf_k(\tfrac{1}{p} \Z)$ for all $p \ge k(k+1)$.
 
-Finally, we obtain the headline result that assures the eventual properness for $p\geq k(k+1)$.
-
-\begin{proposition}[Restatement of Proposition \ref{prop:onetokintro}]
-    \label{prop:corlarge}
-    Let $k+1\geq3$ be prime.
-    Then $\onetok$ is eventually $(k,p)$-proper for all primes $p\geq k(k+1)$.
-\end{proposition}
-\begin{proof}
-  From Lemmas~\ref{lem:resolvable}, \ref{lem:resolvekplusone}, and \ref{lem:subsetresolve},
-  it suffices to show that $\rbf_k(\tfrac{1}{k+1} \Z) \subseteq \rbf_k(\tfrac{1}{p} \Z)$ for all $p \ge k(k+1)$.
   Fix $p$ to be a prime greater than $k(k+1)$.
 
   Notice that $\rbf_k$ is a piecewise constant function. Moreover, 
@@ -561,12 +486,43 @@ Finally, we obtain the headline result that assures the eventual properness for 
   As $n$ is arbitrary, the desired inclusion follows.
 \end{proof}
 
-The quantity $k(k+1)\approx k^2$ is very reasonable and useful in practice. 
-Without Proposition \ref{prop:nullstellensatz}, via a similar consideration of the length of gaps between discontinuities,
-the same conclusion to Proposition \ref{prop:corlarge} exists for $p \ge k^3 - k$ provided that there is a prime $q$ for which 
-we verify that every speed tuples in $\Int{p,1}^k\setminus\{\origin\}$ is $(k,q)$-resolvable.
-This quantity $k^3 - k\approx k^3$ is less useful empirically, 
-but it shows that we can still recover something when $k+1$ is composite.
+With this lemma, we finally obtain the headline result that assures eventual properness of $\onetok$ for $p \geq k(k+1)$.
+
+\begin{proposition}[Restatement of Proposition \ref{prop:onetokintro}]
+    \label{prop:corlarge}
+    Let $k+1\geq3$ be prime.
+    Then $\onetok$ is eventually $(k,p)$-proper for all primes $p\geq k(k+1)$.
+\end{proposition}
+\begin{proof}
+    We will show that every $\ubf \in \pi_{p(k+1) \to p}^{-1}\onetok$ is $(k,p,k+1)$-proper, 
+    and hence $\onetok$ is eventually $(k,p)$-proper.
+    Let $u_i = a_ip+i$ for some $a_i\in\Int{k+1}$ for $i=1,\ldots,k$.
+    By considering a time of the form $t=\frac{s}{k+1}+\frac{r}{p}$ for $s\in\Z$ and $r\in\Z$, 
+    note that the fractional part of $tu_i$ is given by
+    \[ \fracpart{tu_i}=\fracpart*{\left(\frac{s}{k+1}+\frac{r}{p}\right)(a_ip+i)}=\fracpart*{\frac{su'_i}{k+1}+\frac{ri}{p}} \] 
+    where $\ubf' := \pi_{p(k+1)\to k+1} \ubf$. 
+    
+    If $\ubf'=\origin$, then it follows that $k+1\mid\gcd(\ubf)$, thus \[k+1\mid\gcd(k+1,\ubf)\]
+    hence $\ubf$ is $(k,p,k+1)$-proper because it satisfies the gcd condition.
+
+    If $ubf'$ contains no zero coordinate, then pick $r=0$ and $s=1$ and we have 
+    \[ \fracpart{tu_i}=\fracpart*{\frac{u'_i}{k+1}} \]
+    Since $u_i \ne 0$, $\norm{tu_i} \ge \frac{1}{k+1}$ for all $i$.
+
+    Otherwise, by Lemma~\ref{lem:resolvep} there is a choice of $r$ and $s$ such that 
+    \[ s\ubf' + \rbf_k(r/p) \in \{1,\ldots,k-1\}^k \]
+    when considered modulo $k+1$. 
+    This means that for each coordinate $i$, there are $A_i$ and $B_i$ such that 
+    $\fracpart{\frac{sv_i}{k+1}}=\frac{A_i}{k+1}$ and 
+    $\fracpart{\frac{ri}{p}}\in\left[\frac{B_i}{k+1},\frac{B_i+1}{k+1}\right)$ 
+    where $C_i:=A_i+B_i$ is in $\set{1,\ldots,k-1}$ when considered modulo $k+1$. 
+    Therefore,
+    \[\fracpart{tu_i}=\fracpart*{\frac{su_i}{k+1}+\frac{ri}{p}}\in\left[\frac{C_i}{k+1},\frac{C_i+1}{k+1}\right)\]
+    and in particular the set on the right hand side does not intersect with $[0,\frac{1}{k+1}) \cup (\frac{k}{k+1},1)$.  
+    Since this holds for every $i$, $\ubf$ has the LR property.
+
+    As there exists a witness time $t=\frac{s}{k+1}+\frac{r}{p}\in\frac{1}{p(k+1)}\Z$, $\ubf$ is $(k,p,k+1)$-proper.
+\end{proof}
 
 \section{Implementation}
 \label{sec:algo}
