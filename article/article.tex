@@ -518,7 +518,7 @@ With this lemma, we finally obtain the headline result that assures eventual pro
     where $C_i:=A_i+B_i$ is in $\set{1,\ldots,k-1}$ when considered modulo $k+1$. 
     Therefore,
     \[\fracpart{tu_i}=\fracpart*{\frac{su_i}{k+1}+\frac{ri}{p}}\in\left[\frac{C_i}{k+1},\frac{C_i+1}{k+1}\right)\]
-    and in particular the set on the right hand side does not intersect with $[0,\frac{1}{k+1}) \cup (\frac{k}{k+1},1)$.  
+    and in particular the set on the right-hand side does not intersect with $[0,\frac{1}{k+1}) \cup (\frac{k}{k+1},1)$.  
     Since this holds for every $i$, $\ubf$ has the LR property.
 
     As there exists a witness time $t=\frac{s}{k+1}+\frac{r}{p}\in\frac{1}{p(k+1)}\Z$, $\ubf$ is $(k,p,k+1)$-proper.
@@ -526,6 +526,7 @@ With this lemma, we finally obtain the headline result that assures eventual pro
 
 \section{Implementation}
 \label{sec:algo}
+
 \subsection{Equivalence of speed tuples}
 \label{subsec:equiv}
 It is clear that some speed tuples in an ansatz are essentially the same, so we only need to verify properness for one of them.
@@ -547,39 +548,90 @@ The first two actions are used in the implementation of \cite{Rosenfeld} and \ci
 but the last is our new addition. For completeness, we show that each of the action above preserves eventual properness.
 
 \begin{proposition}
-    Let $p$ be prime and $\ubf,\vbf\in\Int{p,1}^k$ be equivalent.
-    If $\ubf$ is eventually $(k,p)$-proper, then so is $\vbf$.
+  \label{prop:equivproper}
+  Let $p$ be prime and $\ubf,\vbf\in\Int{p,1}^k$ be equivalent.
+  If $\ubf$ is eventually $(k,p)$-proper, then so is $\vbf$.
 \end{proposition}
 \begin{proof}
-    We only need to show that each of the above actions preserves eventual properness.
-    For permuting it is trivial.
-    Suppose $\ubf$ is eventually proper and $l$ is the integer for which every element in $\pi^{-1}(\ubf)$ is proper,
-    where $\pi:=\pi_{lp\rightarrow p}$. Now let $\vbf'\in\pi(\vbf)$.
+  We only need to show that each of the above actions preserves eventual properness.
+  For permuting it is trivial.
+  Suppose $\ubf$ is eventually proper and $l$ is the integer for which every element in $\pi^{-1}(\ubf)$ is proper,
+  where $\pi:=\pi_{lp\rightarrow p}$. Now let $\vbf'\in\pi(\vbf)$.
 
-    If $\vbf=(u_1,\ldots,-u_i,\ldots,u_k)$, 
-    then $\vbf'=(a_1p+u_1,\ldots,a_ip-u_i,\ldots,a_kp+u_k)$ for some integers $a_1,\ldots,a_k$. 
-    In this case, pick 
-    \[\ubf':=(a_1p+u_1,\ldots,(l-a_i)p+u_i,\ldots,a_kp+u_k)\in\pi^{-1}(\ubf).\]
+  If $\vbf=(u_1,\ldots,-u_i,\ldots,u_k)$, 
+  then $\vbf'=(a_1p+u_1,\ldots,a_ip-u_i,\ldots,a_kp+u_k)$ for some integers $a_1,\ldots,a_k$. 
+  In this case, pick 
+  \[\ubf':=(a_1p+u_1,\ldots,(l-a_i)p+u_i,\ldots,a_kp+u_k)\in\pi^{-1}(\ubf).\]
 
-    If $\vbf=a\ubf$ for some $a\in\Unit{p}$, 
-    then by Chinese Remainder Theorem there is $b\in\Int{lp}$ such that $b\equiv a^{-1} \pmod{p}$ and $b\equiv1\pmod{l}$. 
-    In particular, $b\in\Unit{lp}$ and 
-    \[\ubf':=b\vbf'\in\pi^{-1}(\ubf)\]
-    because $\pi(b\vbf')=\pi(b)\pi(\vbf')=a^{-1}(a\ubf)=\ubf$.
+  If $\vbf=a\ubf$ for some $a\in\Unit{p}$, 
+  then by Chinese Remainder Theorem there is $b\in\Int{lp}$ such that $b\equiv a^{-1} \pmod{p}$ and $b\equiv1\pmod{l}$. 
+  In particular, $b\in\Unit{lp}$ and 
+  \[\ubf':=b\vbf'\in\pi^{-1}(\ubf)\]
+  because $\pi(b\vbf')=\pi(b)\pi(\vbf')=a^{-1}(a\ubf)=\ubf$.
 
-    Then, whichever way $\ubf'$ satisfies properness,
-    it can be checked that $\vbf'$ also satisfies properness in the same way
-    (we need $b$ to be a unit because if a time $t$ is a witness for $\ubf$, then the time $b^{-1}t$ is a witness for $\vbf$). 
-    Therefore every speed tuple in $\pi(\vbf)$ is proper, and thus $\vbf$ is eventually proper.
+  Then, whichever way $\ubf'$ satisfies properness,
+  it can be checked that $\vbf'$ also satisfies properness in the same way
+  (we need $b$ to be a unit because if a time $t$ is a witness for $\ubf$, then the time $b^{-1}t$ is a witness for $\vbf$). 
+  Therefore every speed tuple in $\pi(\vbf)$ is proper, and thus $\vbf$ is eventually proper.
 \end{proof}
 
 Therefore, we may only verify the eventual properness for a single element in an equivalence class. 
-We implement this by fixing by ordering the speeds ascendingly, 
-limiting the speeds to be in the first half of residues modulo $p$,
-and fixing $v_1$ to be $1$. In other words, we check all tuples of integers $(v_1,\ldots,v_k)$ with 
+We choose the lexicographically smallest tuple as a representative of each equivalence class. 
+
+\subsection{Verification algorithms}
+\label{subsec:algo}
+
+Recall from the established results that, we need to find large sets of primes $P_k$ for each of the $k \in \set{10, 11, 12}$ 
+and verify that $J(k, p) = \emptyset$ for each $p \in P_k$.
+
+To do so, we gradually reduces upper bound of $J(k, p)$ by first choosing a large upper bound $S_1$ such that $J(k, p) \subset \pi_p S_1$ 
+and uses strategies described in Section~\ref{sec:sieves} to form a better upper bound $S_n$ where the condition 
+$J(k, p) \subset \pi_p S_n$ still holds.
+We will use \emph{lifting diagrams} to explain the algorithm for each $k$.
+In the diagrams, two kinds of arrows correspond to two actions from Section~\ref{sec:sieves}:
+\begin{itemize}
+    \item $S_n\xrightarrow{\times c}S_{n+1}$ indicates lifting from $S_n$ to $S_{n+1}$ with constant $c$.
+    \item $S_n\xrightarrow{\div d}S_{n+1}$ indicates projecting with $\pi_{dp\rightarrow p}$ (this is as same as $\pi_p$).
+\end{itemize}
+Since we only perform these two actions, Proposition~\ref{prop:liftproj} inductively asserts that 
+$J(k,p) \subseteq \pi_p S_n$ for every $n$. 
+
+From Propositions~\ref{prop:equivproper} and the inclusion $J(k, p) \subset I(k, p, 1)$, we may choose $S_1$ as the 
+set of representatives of equivalence classes in $I(k, p, 1)$.
+
+For $k=11$, since $k+1=12$ only has small prime factors $2$ and $3$, 
+it is convenient to lift through its prime factors.
+Hence, the lifting diagram is
+\[S_1\xrightarrow{\times 2}S_2\xrightarrow{\times 2}S_3\xrightarrow{\times 2}S_4\xrightarrow{\times 2}S_5\xrightarrow{\div 16}S_6\xrightarrow{\times 3}S_7\xrightarrow{\times 3}S_8.\]
+If $S_8$ is empty, we conclude that $J(k,p)\subseteq\pi_pS_8$ is empty.
+
+For $k\in\{10,12\}$, $k+1$ is prime. By having only primes $p \ge k^2+k$ in the set $P_k$, 
+Proposition~\ref{prop:corlarge} asserts that $\onetok \notin J(k, p)$, which can let use avoid lifting with $c = k+1$.
+\footnote{
+  In fact, we are able to use $p = 103, 107, 109$ for $k = 10$ and $p = 149, 151$ for $k = 12$
+  by immitating the proof of Lemma~\ref{lem:resolvep} for these specific primes.
+}
+Knowing this, we remove $\onetok$ from $S_1$ and use the following lifting diagram
+\[S_1\xrightarrow{\times 2}S_2\xrightarrow{\times 2}S_3\xrightarrow{\times 2}S_4\xrightarrow{\div 8}S_5\xrightarrow{\times 3}S_6\xrightarrow{\times 3}S_7\xrightarrow{\div 9}S_8\]
+which in particular does not contain a $c=11$ or $c=13$ lift.
+
+\subsection{Further particulars}
+We implement the algorithms in Subsection \ref{subsec:algo} in C++. 
+In comparison to Rosenfeld's \cite{rosenfeldcode} and the second author's \cite{tanupatcode} 
+original implementations, we improve the practical aspect by refactoring the implementation to support parallel
+execution and utilizing more memory-efficient data structures. The development of our codes is assisted by AI-based tools.
+
+In computing $S_1$, we modified the depth-first-search technique developed by \cite{rosenfeldcode} to account for the equivalent relation
+mentioned in Subsection~\ref{subsec:equiv}. 
+Notice that each representative tuple, which is the lexicographically smallest tuple among the equivalents, will have 1 in its first coordinate. 
+Therefore it is legal to fix the first coordinate to one and start the search from the second coordinate. 
+The remaining coordniates are filled in using the same method used in \cite{Trakulthongchai}.
+In particular, we check all tuples of integers $(v_1,\ldots,v_k)$ with 
 \[1=v_1\leq v_2\leq\cdots\leq v_k\leq\frac{p-1}{2}.\] 
-This implementation results in $k$ speed tuples per equivalence class,
-so there is a possibility to improve the run time by a factor of $k$.
+
+However, due to the interactions between permutations and independent sign changes, 
+the implementation results in $k$ speed tuples per equivalence class,
+so there is a possibility to improve the run time by another factor of $k$.
 However, we are unable to find a way to generate a single element from each equivalence class  
 
 We should stress that this reduction is essential to obtaining our results. 
@@ -589,51 +641,12 @@ approximately \[\binom{p/2}{k-1}\approx\frac{p^k}{2^k(k-1)!}.\]
 Compared to the implementation of \cite{Rosenfeld} and \cite{Trakulthongchai}, 
 we reduce the number of tuples to check by a factor of approximately $p/k$. 
 
-\subsection{Verification algorithms}
-\label{subsec:algo}
-Fix $k\in\{10,11,12\}$ and a prime $p$. 
-We aim to verify that $J(k,p)=\emptyset$ in order to can apply Corollary \ref{cor:evenpropdivp}.
-To do this, we use a verification algorithm that consists of two phases: computing $I(k, p, 1)$ and repeated lifting.
-
-The first phase is done by choosing representative speed tuples as described in the previous subsection.
-We use lifting diagram to explain the second phase. 
-In a lifting diagram, the first set $S_1$ is always the precomputed $I(k,p,1)$.
-Two kinds of arrows correspond to two actions from Section \ref{sec:sieves}:
-\begin{itemize}
-    \item $S_n\xrightarrow{\times c}S_{n+1}$ indicates lifting from $S_n$ to $S_{n+1}$ with constant $c$.
-    \item $S_n\xrightarrow{\div d}S_{n+1}$ indicates projecting with $\pi_{dp\rightarrow p}$ (this is as same as $\pi_p$).
-\end{itemize}
-If we only perform these two actions, since $J(k,p)\subseteq\pi_pI(k,p,1)$,
-by Proposition \ref{prop:liftproj} we know that $J(k,p)\subseteq S_n$ for every $n$. 
-
-For $k=11$, since $k+1=12$ only has small prime factors $2$ and $3$, 
-it is convenient to lift through its prime factors.
-Hence, the lifting diagram is
-\[S_1\xrightarrow{\times 2}S_2\xrightarrow{\times 2}S_3\xrightarrow{\times 2}S_4\xrightarrow{\times 2}S_5\xrightarrow{\div 16}S_6\xrightarrow{\times 3}S_7\xrightarrow{\times 3}S_8.\]
-If $S_8$ is empty, we conclude that $J(k,p)\subseteq\pi_pS_8$ is empty.
-
-For $k\in\{10,12\}$, $k+1$ is prime. In order to avoid the lift with $c=k+1$,
-we lower the goal of the lifting phase from showing that the final set is empty to 
-showing that it only consists of equivalents of $\onetok$. 
-Therefore, the lifting diagram for both cases is
-\[S_1\xrightarrow{\times 2}S_2\xrightarrow{\times 2}S_3\xrightarrow{\times 2}S_4\xrightarrow{\div 8}S_5\xrightarrow{\times 3}S_6\xrightarrow{\times 3}S_7\xrightarrow{\div 9}S_8\]
-which in particular does not contain a $c=11$ or $c=13$ lift.
-
-As $k+1$ is prime, Proposition \ref{prop:corlarge} asserts that $\onetok\notin J(k,p)$ if $p\geq k^2+k$. 
-This is why we only use $p\geq k^2+k$ for $k\in\{10,12\}$. 
-Therefore, if there are only speed tuples equivalent to $\onetok$ remaining in $S_8$, we can verify the emptiness of $J(k,p)$.
-
-\subsection{Further particulars}
-We implement the algorithms in Subsection \ref{subsec:algo} in C++. 
-In comparison to Rosenfeld's \cite{rosenfeldcode} and the second author's \cite{tanupatcode} 
-original implementations, we improve the practical aspect by refactoring the implementation to support parallel
-execution and utilizing more memory-efficient data structures. The development of our codes is assisted by AI-based tools.
-
 These refinements dramatically improve runtime. We proved $k=8$ in 4 seconds (15 minutes using \cite{tanupatcode}), 
 $k=9$ in 90 seconds (23 hours using \cite{tanupatcode}), and $k=10$ in 45 minutes on a 10-core Apple M4 processor
 (excluding compilation time). 
 The proofs of $k=11$ and $k=12$ were run in multiple batches, with multiple versions, 
 and on multiple machines, making the exact time taken incomparable to other cases. 
+
 The source of the computation, along with the log files, can be found in the first author's GitHub repository \cite{mycode}.
 
 \section{Proof of Theorem \ref{thm:main}}
