@@ -62,11 +62,11 @@
 \begin{abstract}
     Wills conjectured that, for any integers $u_1,\ldots,u_k$, 
     there is a real number $t$ such that, for all $i=1,\ldots,k$, \[\norm{tu_i}\geq\frac{1}{k+1},\] 
-    where $\norm{x}$ is the distance from $x$ to the closest integer. This statement is the Lonely Runner Conjecture.
+    where $\norm{x}$ is the distance from $x$ to the closest integer. This statement is known as the Lonely Runner Conjecture.
     A computational method developed by Rosenfeld and the second author verified the conjecture for $k\leq9$.
-    We further refine this method with new sieving techniques. Moreover, we establish a polynomial technique to show that
-    any $(u_1,\ldots,u_k)\equiv\onetok\pmod{p}$ with $\gcd(u_1,\ldots,u_k)=1$ satisfies the conjecture if $k+1\geq3$ and $p>k^2+k$ 
-    are primes. Ultimately, we provide a computer-assisted proof of the Lonely Runner Conjecture for $k\in\{10,11,12\}$.
+    We further refine this method with new sieving techniques and employ a polynomial technique to show that
+    any $(u_1,\ldots,u_k)\equiv\onetok\pmod{p}$ with $\gcd(u_1,\ldots,u_k)=1$ satisfies the conjecture for $k+1$ and $p > k^2+k$ 
+    are odd primes. Ultimately, we provide a computer-assisted proof of the Lonely Runner Conjecture for $k\in\{10,11,12\}$.
 \end{abstract}
 \maketitle
 
@@ -75,8 +75,8 @@ The Lonely Runner Conjecture arose in the study of Diophantine approximation \ci
 though it has been reinterpreted in the context of view obstruction and billiard trajectories 
 \cite{cusick1984view}, covering radii of zonotopes \cite{henze_covering_2017}, and the chromatic number of a 
 unit-distance graph \cite{zhu2002circular}. 
-It was conjectured independently by Wills \cite{Wills} in 1967 and Cusick \cite{cusick1984view} in 1984 and can be stated as follows,
-if we let $\norm{x}=\min(x-\lfloor x\rfloor, \lceil x\rceil-x)$.
+It was conjectured independently by Wills \cite{Wills} in 1967 and Cusick \cite{cusick1984view} in 1984 and can be stated as follows.
+We let $\norm{x}=\min(x-\lfloor x\rfloor, \lceil x\rceil-x)$, the distance from $x$ to the closest integer.
 
 \begin{conjecture} \label{lonelyconj}
   Let $u_1,\ldots,u_{k+1}$ be distinct real numbers. For each $i \in\{1,\ldots,k+1\}$, there is a real number $t$ such that
@@ -123,21 +123,21 @@ during implementation to reduce the verification necessary.
 These were enough to prove $k=11$. 
 Furthermore, we employ the polynomial method to establish the following proposition that finishes the proof for $k\in\{10,12\}$.
 \begin{proposition} \label{prop:onetokintro}
-    Let $(u_1,\ldots,u_k)\in\Z_{>0}^k$ and $p>k^2+k$ where both $p$ and $k+1\geq3$ are primes. 
+    Let $(u_1,\ldots,u_k)\in\Z_{>0}^k$, and both $k+1$ and $p>k^2+k$ be odd primes. 
     If $\gcd(u_1,\cdots,u_k)=1$ and \[u_i\equiv i\pmod{p} \quad \text{for all } i = 1,\dots,k,\] then 
     $(u_1,\ldots,u_k)$ has the LR property.
 \end{proposition}
 
 Our proof strategy is outlined in the next section. 
 Section \ref{sec:sieves} discusses the intermediate sieves technique and 
-Section \ref{sec:onetok} is devoted to proving Proposition \ref{prop:onetokintro}. 
+Section \ref{sec:onetok} is devoted to proving Proposition~\ref{prop:onetokintro}. 
 We describe the verification algorithms and their implementation in Section \ref{sec:algo}, 
 the results of which establish Theorem \ref{thm:main} in Section \ref{sec:result}.
 Lastly, we discuss in Section~\ref{sec:further} how this method may be further extended. 
 
 We make the following choices for notation. We define $aS=\{as:s\in S\}$ for $a\in\R$ and $S\subseteq\R$. 
 The additive group modulo $n$ is denoted $\Int{n}$, the multiplicative group modulo $n$ is $\Unit{n}$, and 
-\[\Int{p, l}:=\Int{p,l}\setminus p\Int{l}.\]
+\[\Int{p, l}:=\Int{pl}\setminus p\Int{l}.\]
 Let $\pi_{m \to n}:\Int{m} \to \Int{n}$ denote the natural projection map when $n\mid m$
 and $\pi_n: \Z \to \Int{n}$ denote the projection modulo $n$ of integers.
 The fractional part of $x\in\R$ is denoted by $\fracpart{x}$.
@@ -145,8 +145,7 @@ The fractional part of $x\in\R$ is denoted by $\fracpart{x}$.
 We use boldface letters for vectors, subscripts to indicate coordinates of a vector, 
 and $\widehat{\cdot}$ to indicate the omission of a certain coordinate in a vector. 
 For example, $u_i$ is the $i$th coordinate of the vector $\ubf$.
-Sometimes we refer to a vector $\ubf$ or $\vbf$ as a \emph{speed tuple} to match the conjecture's settings 
-and emphasize the invariance under permutation of coordinates of the LR property. 
+We refer to a vector $\ubf$ or $\vbf$ as a \emph{speed tuple} to match the conjecture's settings. 
 The application of a scalar function to vectors is coordinate-wise. 
 
 \section{Proof strategy}
@@ -161,7 +160,7 @@ then one of the speed in a counterexample to $LRC(k)$ must be divisible by $p$.
 The following definition and lemma summarize what we need to check.
 
 \begin{definition}[Definition 3.1, \cite{Trakulthongchai}]\label{def:improper}
-    Let $p$ be a prime and $k\geq2,l$ be positive integers.
+    Let $p$ be prime, $k \geq 2$ and $l$ be positive integers.
     A speed tuple $\vbf\in\Int{p,l}^k$ is $(k,p,l)$-\emph{proper} if one of the following conditions holds: 
   \begin{itemize}
     \item there exists $i$ such that $\gcd(l, v_1, \dots, \widehat{v_{i}}, \dots, v_k) > 1$.
@@ -169,6 +168,9 @@ The following definition and lemma summarize what we need to check.
   \end{itemize}
    If $\vbf$ is not proper, it is \emph{improper}. Moreover, let $I(k,p,l)$ denote the set of all improper speed tuples.
 \end{definition}
+
+A subtle different from the definition given in \cite{Trakulthongchai} is that the first condition, the gcd condition, includes $l$ instead of $lp$. 
+This definition is equivalent to the one given in \cite{Trakulthongchai} as $p$ is chosen to be prime in this work.
 
 \begin{lemma}[Lemma 3.3, \cite{Trakulthongchai}] \label{lem:divp}
     For $k\geq3$, if $LRC(k-1)$ is true and $I(k,p,l)$ is empty for some $l$, then any counterexample
@@ -183,16 +185,16 @@ so we introduce a new terminology to simplify our discussion and implementation.
   Let $k\geq2$ be an integer and $p$ be a prime. A speed tuple $\vbf \in \Int{p,1}^k$ is said to be \emph{eventually $(k,p)$-proper}
   if there is $l$ such 
   that \[ \vbf \notin \pi_{lp \to p} I(k, p, l). \]
-Let $J(k,p)$ denotes the set of all $\vbf$ which are not eventually $(k,p)$-improper.
+  Let $J(k,p)$ denotes the set of all $\vbf \in \Z_{p,1}^k$ which are not eventually $(k,p)$-proper.
 \end{definition}
 
 It seems at first that eventual properness is a local property for each $\vbf$, 
-but it turns out that if every $\vbf$ is eventually proper, 
-then we can conclude the global property that there is an $l$ such that $I(k,p,l)=\emptyset$.
+but it turns out that having eventual properness for each $\vbf$ is enough to conclude 
+the global property that there is an $l$ such that $I(k,p,l)=\emptyset$.
 
 \begin{lemma}
 \label{lem:evenprop}
-    Fix $k$ and $p$. Then, $J(k,p)=\emptyset$ if and only if $I(k,p,l)=\emptyset$ for some $l$.
+    For fixed $k$ and $p$, $J(k,p)=\emptyset$ if and only if $I(k,p,l)=\emptyset$ for some $l$.
 \end{lemma}
 \begin{proof}
     The backward direction is immediate from the definition. 
@@ -204,6 +206,7 @@ then we can conclude the global property that there is an $l$ such that $I(k,p,l
     Let $\vbf=\pi_{lp\rightarrow p}\ubf$ and $\vbf'=\pi_{lp\rightarrow l_\vbf p}\ubf$,
     so we can write \[\ubf=(a_1l_\vbf p+v_1',\ldots,a_kl_\vbf p+v_k')\] for some integers $a_1,\ldots,a_k$. 
     
+    Notice that $\pi_{l_{\vbf}p \to p} \vbf' = \vbf$. 
     By definition of $l_\vbf$, $\vbf'$ is $(k,p,l_\vbf)$-proper. 
     If $\vbf'$ satisfies the gcd condition,
     then there is $i$ such that there is $d:=\gcd(l_\vbf, v'_1, \dots, \widehat{v'_{i}}, \dots, v'_k) > 1$. 
@@ -217,7 +220,7 @@ then we can conclude the global property that there is an $l$ such that $I(k,p,l
     Therefore, $I(k,p,l)=\emptyset$.
 \end{proof}
 
-As a consequence, the emptiness of $J(k,p)$ and $I(k,p,l)$ may be discussed interchangeably.
+As a consequence, the emptiness of $J(k,p)$ and $I(k,p,l)$ at some $l$ may be discussed interchangeably.
 We may also restate Lemma \ref{lem:divp} in a more usable form for the proof of our main Theorem \ref{thm:main}.
 \begin{corollary}\label{cor:evenpropdivp}
     Let $k \ge 3$ and assume that $LRC(k-1)$ is true.
@@ -236,8 +239,10 @@ we can conclude the speeds in a counterexample is too large.
 For convenience, we package our verification task into the next proposition.
 \begin{proposition}
 \label{prop:verify}
-    Let $k \ge 3$ and $P$ be a set of primes such that $J(k,p)=\emptyset$ for all $p\in P$. Moreover, we need that
-    \[\prod_{p \in P} p\geq B_k.\] Then, $LRC(k)$ is true provided that $LRC(k-1)$ is true.
+    Let $k \ge 3$ and $P$ be a set of primes such that $J(k,p)=\emptyset$ for all $p\in P$. 
+    If $LRC(k-1)$ holds and
+    \[\prod_{p \in P} p\geq B_k.\] 
+    Then, $LRC(k)$ is true.
 \end{proposition}
 \begin{proof}
     Assume that there exists a counterexample $\ubf$ to $LRC(k)$. 
@@ -248,7 +253,7 @@ For convenience, we package our verification task into the next proposition.
 \end{proof}
 
 \section{Sieving techniques} \label{sec:sieves}
-In order to carry out our proof strategy, we need to verify that $J(k,p)=\emptyset$. 
+Recall that our strategy relies on verifying that $J(k,p)=\emptyset$. 
 The first approach is to check all tuples in the $\Z^{k}_{pl}$ to verify that $I(k,p,l)=\emptyset$,
 but this entails checking approximately $(pl)^k$ tuples. 
 Moreover, for reasons to be given in Remark \ref{rem:tightset},
@@ -290,11 +295,10 @@ Now, we will motivate each of them by their applications.
 
 \subsection{Lifting}
 \label{subsec:efflift}
-Fix $k,p$ and assume that the computational cost of checking each speed tuple is $1$. 
-
 Lifting is the main innovation of \cite{Trakulthongchai}. 
-The process is described in the construction of $S'$ in Proposition \ref{prop:liftproj}: suppose we have a tuple in $\Z^k_{pl}$,
+The process is described in the construction of $S'$ in Proposition~\ref{prop:liftproj}: suppose we have a tuple in $\Z^k_{pl}$,
 we can \emph{lift} it to the preimage in $\Z^k_{pcl}$, and then discard all proper speed tuples.
+
 \begin{remark}
 \label{rem:tightset}
     The speed tuple $\onetok$ is lonely precisely when $t=\frac{s}{k+1}, \gcd(s,k+1)=1$. 
@@ -305,25 +309,29 @@ we can \emph{lift} it to the preimage in $\Z^k_{pcl}$, and then discard all prop
     we need to lift with $k+1$ (or a multiple of $k+1$, but this would be unoptimal)
     at least once because we can only eliminate $\onetok$ only once we get to $\Z^{k}_{p(k+1)}$
 \end{remark}
+
 Even though it is impossible that $I(k,p,1)=\emptyset$, in view of applying Proposition \ref{prop:liftproj}, 
-we may compute $I(k,p,1)$ first.
-This is because it is by far the easiest superset of $J(k,p)$ to compute as the computational cost is only $p^k$.
-Then, we can lift with a factor $c$ of $k+1$.
-Observe that the computational cost of lifting a set of tuples $S$ with a multiple $c$ is 
-\[c^k\cdot|S|\]
-because we need to check every speed tuple in $\pi^{-1}_{clp\rightarrow lp}S$. As $S$ is empirically found to be smaller as we lift
+we may still compute $I(k,p,1)$ first.
+This is because $I(k, p, 1)$ is an \emph{upperbound}, a superset, of $J(k, p)$ 
+that is easy enough to compute as it only requires checking $O(p^k)$ speed tuples.
+After obtaining that, we can lift with a divisor of $k+1$ to obtain a better upperbound.
+
+Observe that lifting a set $S$ of tuples with a multiplier $c$ requires checking
+\[ O\left( \abs{ \pi^{-1}_{clp \to lp} S }\right) = O(c^k\cdot|S|) \]
+speed tuples.
+As $S$ is empirically found to be smaller as we lift
 \footnote{
   Even though lifting increases the number of speed tuples to be checked,
-  it seems that the increased precision of the allowed time in the ansatz has a greater effect \cite{Trakulthongchai}.
+  it seems that the increased precision of the allowed time in the lifted ansatz has a greater effect \cite{Trakulthongchai}.
 }, we should take $c$ to be small at first. 
 Furthermore, as $k$ gets larger, the value of $c$ has greater effect on the computational cost, 
 and the $c=2$ lift becomes comparatively cheaper
 \footnote{
-  For example, when $k=11$, lifting with $c=5$ is $5\cdot10^4$ times more computationally expensive than lifting with $c=2$.
+  For example, when $k=11$, lifting with $c=5$ is $(5/2)^11$, approximately $2 \times 10^4$ times more computationally expensive than lifting with $c=2$.
 }.
 
 The key improvement from \cite{Trakulthongchai} is noting that, in fact, we can take this idea to the extreme.
-Since the $c=2$ lift is so computationally cheap, 
+Since the $c=2$ lift is computationally cheaper to compute, 
 we can apply a $c=2$ lift first (and successively) whether or not $2$ is a prime factor of $k$.
 This is done to trim down the number of speed tuples in $S$ when we apply a more computationally expensive, but necessary lift.
 Even better, doing this will never increase the number of speed tuples at the end because we can always project backward,
@@ -331,23 +339,23 @@ as to be explained next.
  
 \subsection{Backward projection}
 \label{subsec:backproj}
-Backward projection is just the applying of $\pi_p$ to pull back the speed tuples back to $\Z^k_{p}$
+Backward projection is just the application of $\pi_p$ to pull back the speed tuples back to $\Z^k_{p}$
 Just as lifting can reduce the size of the search space, projection achieves a similar effect as, for any set $S$,
 \[\abs{\pi_p S}\leq\abs{S}.\]
 The only time projecting becomes counterproductive is if we lift afterwards with a constant $c$ that was previous used,
 because then we are intersecting with the same improper speed tuple and hence we can never eliminate any more speed tuples. 
 
-Therefore, in general, we should lift with $c=2$ successively, then project back, 
-the lift with $c=3$ successively and project back, and so on. 
-This is the strategy that we use in our verification algorithms in Subsection \ref{subsec:algo}.
+Therefore, in general, we can lift with $c=2$ successively, then project back, 
+then lift with $c=3$ successively and project back, and so on. 
+This is the strategy that we use in our verification algorithms to be described in Subsection~\ref{subsec:algo}.
 
 \section{Eventual properness of
   \texorpdfstring{$(1, 2,\ldots, k)$}{(1, 2, ..., k)}
 } \label{sec:onetok}
 According to Remark \ref{rem:tightset}, when $k+1$ is prime, we have to lift with the multiple $c=k+1$. 
-This lift is extremely computationally expensive: for $k=12$, the $c=k+1$ lift is $5\cdot10^9$ 
-times more computationally expensive than the $c=2$ lift. If we are to verify the conjecture for $k\in\{10,12\}$ in a reasonable time,
-we need to avoid this lift computationally.
+This lift is extremely computationally expensive: for $k=12$, the $c=k+1$ lift is $(13/2)^12$, approximately $5\cdot10^9$ 
+times more computationally expensive than the $c=2$ lift.
+If we are to verify the conjecture for $k\in\{10,12\}$ in a reasonable time, we need to avoid doing this lift computationally.
 It helps that, for many primes $p$, after lifting $I(10,p,1)$ with $c=2,3$ for a few times and projecting back,
 only equivalents
 \footnote{
@@ -419,7 +427,7 @@ For convenient, we write
     However, this implies $v_i = 0$ for all $i$, that is, $\vbf = \mathbf{0}$.
 \end{proof}
 
-The strategy we will later use to prove Proposition~\ref{prop:corlarge} is that we want to decouple and limit dependency of the prime $p$. 
+The strategy we will later use to prove Lemma~\ref{lem:corlarge} is that we want to decouple and limit dependency of the prime $p$. 
 Instead of considering times of the form $t=\frac{a}{(k+1)p}$ we decompose them into the partial fractions $t=\frac{s}{k+1}+\frac{r}{p}$.
 The former term has no dependence of $p$ and to limit the effect of $p$ of the latter term, we define 
 \[ \rbf_k(t)=\left( \floor{ (k+1) \fracpart{t}}, \; \floor{ (k+1)\fracpart{2t} }, \; \ldots, \; \floor{ (k+1) \fracpart{kt}} \right) \] 
@@ -488,11 +496,10 @@ from Proposition~\ref{prop:nullstellensatz} allows the extension of the result t
 
 With this lemma, we finally obtain the headline result that assures eventual properness of $\onetok$ for $p \geq k(k+1)$.
 
-\begin{proposition}[Restatement of Proposition \ref{prop:onetokintro}]
-    \label{prop:corlarge}
-    Let $k+1\geq3$ be prime.
-    Then $\onetok$ is eventually $(k,p)$-proper for all primes $p\geq k(k+1)$.
-\end{proposition}
+\begin{lemma}
+    \label{lem:corlarge}
+    Let $k+1$ be an odd prime. Then, $\onetok$ is eventually $(k,p)$-proper for all primes $p \geq k(k+1)$.
+\end{lemma}
 \begin{proof}
     We will show that every $\ubf \in \pi_{p(k+1) \to p}^{-1}\onetok$ is $(k,p,k+1)$-proper, 
     and hence $\onetok$ is eventually $(k,p)$-proper.
@@ -522,6 +529,18 @@ With this lemma, we finally obtain the headline result that assures eventual pro
     Since this holds for every $i$, $\ubf$ has the LR property.
 
     As there exists a witness time $t=\frac{s}{k+1}+\frac{r}{p}\in\frac{1}{p(k+1)}\Z$, $\ubf$ is $(k,p,k+1)$-proper.
+\end{proof}
+
+Although Lemma~\ref{lem:corlarge} is enough for later usages, we provide the extension of said lemma to prove Proposition~\ref{prop:onetokintro}.
+
+\begin{proof}[Proof of Proposition~\ref{prop:onetokintro}]
+  Let $k+1$ and $p > k^2 + k$ be odd primes. 
+  Let $\ubf \in \Z_{>0}^k$, $\gcd(u_1, \dots, u_k) = 1$ and 
+  \[u_i\equiv i\pmod{p} \quad \text{for all } i = 1,\dots,k .\] 
+  Notice that $\onetok = \pi_{p} \ubf$ is $(k, p, l)$-proper for some $l$ by Lemma~\ref{lem:corlarge} 
+  and $\onetok$ cannot satisfies the gcd condition, thus there exists 
+  $t \in \Z$ such that $\norm{\tfrac{ti}{lp}} \geq \frac{1}{k+1}$ for all $i$.
+  Then \[ \norm*{\frac{tu_i}{lp}} = \norm*{\frac{ti + ta_ip}{lp}} \]
 \end{proof}
 
 \section{Implementation}
@@ -580,7 +599,6 @@ We choose the lexicographically smallest tuple as a representative of each equiv
 
 \subsection{Verification algorithms}
 \label{subsec:algo}
-
 Recall from the established results that, we need to find large sets of primes $P_k$ for each of the $k \in \set{10, 11, 12}$ 
 and verify that $J(k, p) = \emptyset$ for each $p \in P_k$.
 
@@ -606,7 +624,7 @@ Hence, the lifting diagram is
 If $S_8$ is empty, we conclude that $J(k,p)\subseteq\pi_pS_8$ is empty.
 
 For $k\in\{10,12\}$, $k+1$ is prime. By having only primes $p \ge k^2+k$ in the set $P_k$, 
-Proposition~\ref{prop:corlarge} asserts that $\onetok \notin J(k, p)$, which can let use avoid lifting with $c = k+1$.
+Lemma~\ref{lem:corlarge} asserts that $\onetok \notin J(k, p)$, which can let use avoid lifting with $c = k+1$.
 \footnote{
   In fact, we are able to use $p = 103, 107, 109$ for $k = 10$ and $p = 149, 151$ for $k = 12$
   by immitating the proof of Lemma~\ref{lem:resolvep} for these specific primes.
@@ -614,6 +632,7 @@ Proposition~\ref{prop:corlarge} asserts that $\onetok \notin J(k, p)$, which can
 Knowing this, we remove $\onetok$ from $S_1$ and use the following lifting diagram
 \[S_1\xrightarrow{\times 2}S_2\xrightarrow{\times 2}S_3\xrightarrow{\times 2}S_4\xrightarrow{\div 8}S_5\xrightarrow{\times 3}S_6\xrightarrow{\times 3}S_7\xrightarrow{\div 9}S_8\]
 which in particular does not contain a $c=11$ or $c=13$ lift.
+
 
 \subsection{Further particulars}
 We implement the algorithms in Subsection \ref{subsec:algo} in C++. 
@@ -651,12 +670,13 @@ The source of the computation, along with the log files, can be found in the fir
 
 \section{Proof of Theorem \ref{thm:main}}
 \label{sec:result}
-Computer verification shows that, for each $k\in\{10,11,12\}$, $P_k$ in the table below is a set of primes such that
+Computer verification shows that, for each $k\in\{10,11,12\}$, $P_k$ in Table~\ref{tab:primes} below is a set of primes such that
 $J(k,p)$ is empty for every $p\in P_k$ and moreover $\prod_{p \in P} p\geq B_k$. 
 Since $LRC(9)$ holds \cite{Trakulthongchai},
 we may apply Proposition \ref{prop:verify} thrice and conclude $LRC(k)$ for $k\in\{10,11,12\}$.
 
-\begin{center}
+\begin{table}[ht]
+\centering
 \begin{tabular}{|c|l|c|c|}
 \hline
 $k$ & \multicolumn{1}{c|}{$P_k$}  
@@ -690,7 +710,10 @@ $k$ & \multicolumn{1}{c|}{$P_k$}
     727 
       \end{tabular} & $>550$ & $<545.3$ \\ \hline
 \end{tabular}
-\end{center}
+\vspace{5pt}
+\caption{Set of primes used in computer-verification of $LRC(k)$}
+\label{tab:primes}
+\end{table}
 
 \section{Concluding remarks}
 \label{sec:further}
@@ -709,3 +732,4 @@ The second author acknowledges the support from the King's Scholarship (Thailand
 \bibliography{ref}
 
 \end{document}
+
