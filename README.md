@@ -17,4 +17,5 @@
     - this is entirely AI generated... but it is fine as 
     - this is for sanity check only
     - the problem this script solves is trivial enough
+- `Remarks.md` explanation of this work in more detail
 - `article/` the source of the article.
