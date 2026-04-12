@@ -119,20 +119,16 @@ The main objective of this paper is to prove $LRC(k)$ for $k\in\{10,11,12\}$.
 
 In order to carry out the proof, we improve upon the framework of \cite{Rosenfeld} and \cite{Trakulthongchai}
 both mathematically and computationally. We refine the sieving scheme with extra intermediate sieves and exploit a modulo $p$ symmetry 
-during implementation to reduce the verification necessary. 
+during implementation to reduce the necessary verifications. 
 These were enough to prove $k=11$. 
-Furthermore, we employ the polynomial method to establish the following proposition that finishes the proof for $k\in\{10,12\}$.
-\begin{proposition} \label{prop:onetokintro}
-    Let $(u_1,\ldots,u_k)\in\Z_{>0}^k$, and both $k+1$ and $p>k^2+k$ be odd primes. 
-    If $\gcd(u_1,\cdots,u_k)=1$ and \[u_i\equiv i\pmod{p} \quad \text{for all } i = 1,\dots,k,\] then 
-    $(u_1,\ldots,u_k)$ has the LR property.
-\end{proposition}
+Furthermore, we employ a polynomial method to rule out $\onetok$ as a possible counterexample speed tuple to the conjecture,
+which finishes the proof for $k \in \set{10, 12}$.
 
 Our proof strategy is outlined in the next section. 
-Section \ref{sec:sieves} discusses the intermediate sieves technique and 
-Section \ref{sec:onetok} is devoted to proving Proposition~\ref{prop:onetokintro}. 
-We describe the verification algorithms and their implementation in Section \ref{sec:algo}, 
-the results of which establish Theorem \ref{thm:main} in Section \ref{sec:result}.
+Section~\ref{sec:sieves} discusses the intermediate sieves technique and 
+Section~\ref{sec:onetok} is devoted to proving Lemma~\ref{lem:onetokintro}. 
+We describe the verification algorithms and their implementation in Section~\ref{sec:algo}, 
+the results of which establish Theorem~\ref{thm:main} in Section~\ref{sec:result}.
 Lastly, we discuss in Section~\ref{sec:further} how this method may be further extended. 
 
 We make the following choices for notation. We define $aS=\{as:s\in S\}$ for $a\in\R$ and $S\subseteq\R$. 
@@ -144,19 +140,18 @@ The fractional part of $x\in\R$ is denoted by $\fracpart{x}$.
 
 We use boldface letters for vectors, subscripts to indicate coordinates of a vector, 
 and $\widehat{\cdot}$ to indicate the omission of a certain coordinate in a vector. 
-For example, $u_i$ is the $i$th coordinate of the vector $\ubf$.
+For example, $u_i$ is the $i^\text{th}$ coordinate of the vector $\ubf$.
 We refer to a vector $\ubf$ or $\vbf$ as a \emph{speed tuple} to match the conjecture's settings. 
 The application of a scalar function to vectors is coordinate-wise. 
 
 \section{Proof strategy}
-%In summary, our proof strategy follows that of \cite{Rosenfeld} and \cite{Trakulthongchai}, but with an added definition of \emph{eventual properness} of a speed tuple in $\Int{p,1}^k$
 
-Rosenfeld's \cite{Rosenfeld} key insight is that, if $\ubf\equiv\vbf\pmod{lp}$, 
+Rosenfeld's \cite{Rosenfeld} key insight is that if $\ubf\equiv\vbf\pmod{lp}$, 
 then $\norm{tv_i}=\norm{tu_i}$ for every $i$ whenever $t$ is a rational with denominator $lp$. 
 In particular, if we know that $\vbf\in\Int{lp}^k$ has a witness time in the form $t\in\frac{1}{lp}\Z$,
 then every $\ubf\in\pi^{-1}_{lp}(\vbf)$ has the same witness time and thus the LR property.
 If every $\vbf\in\Int{p,l}^k$ has a witness time in the form $t\in\frac{1}{lp}\Z$,
-then one of the speed in a counterexample to $LRC(k)$ must be divisible by $p$.
+then one of the speeds in a counterexample to $LRC(k)$ must be divisible by $p$.
 The following definition and lemma summarize what we need to check.
 
 \begin{definition}[Definition 3.1, \cite{Trakulthongchai}]\label{def:improper}
@@ -169,7 +164,8 @@ The following definition and lemma summarize what we need to check.
    If $\vbf$ is not proper, it is \emph{improper}. Moreover, let $I(k,p,l)$ denote the set of all improper speed tuples.
 \end{definition}
 
-A subtle different from the definition given in \cite{Trakulthongchai} is that the first condition, the gcd condition, includes $l$ instead of $lp$. 
+A minor but important deviation from the definition in \cite{Trakulthongchai} 
+is that the first condition (the gcd condition) involves $l$ rather than $lp$.
 This definition is equivalent to the one given in \cite{Trakulthongchai} as $p$ is chosen to be prime in this work.
 
 \begin{lemma}[Lemma 3.3, \cite{Trakulthongchai}] \label{lem:divp}
@@ -177,7 +173,7 @@ This definition is equivalent to the one given in \cite{Trakulthongchai} as $p$ 
     $\ubf$ to $LRC(k)$ satisfies $p \mid u_1 \cdots u_k$. 
 \end{lemma}
 
-Lemma \ref{lem:divp} translates proving Conjecture \ref{lonelyconjred} to a computer verification task that $I(k,p,l_p)=\emptyset$ 
+Lemma~\ref{lem:divp} translates proving Conjecture \ref{lonelyconjred} to a computer verification task that $I(k,p,l_p)=\emptyset$ 
 for some $l_p$, for many primes $p$. But the choice of $l$ is completely irrelevant to the final conclusion,
 so we introduce a new terminology to simplify our discussion and implementation. 
 \begin{definition}
@@ -185,7 +181,7 @@ so we introduce a new terminology to simplify our discussion and implementation.
   Let $k\geq2$ be an integer and $p$ be a prime. A speed tuple $\vbf \in \Int{p,1}^k$ is said to be \emph{eventually $(k,p)$-proper}
   if there is $l$ such 
   that \[ \vbf \notin \pi_{lp \to p} I(k, p, l). \]
-  Let $J(k,p)$ denotes the set of all $\vbf \in \Z_{p,1}^k$ which are not eventually $(k,p)$-proper.
+  Let $J(k,p)$ denote the set of all $\vbf \in \Z_{p,1}^k$ that are not eventually $(k,p)$-proper.
 \end{definition}
 
 It seems at first that eventual properness is a local property for each $\vbf$, 
@@ -221,22 +217,32 @@ the global property that there is an $l$ such that $I(k,p,l)=\emptyset$.
 \end{proof}
 
 As a consequence, the emptiness of $J(k,p)$ and $I(k,p,l)$ at some $l$ may be discussed interchangeably.
-We may also restate Lemma \ref{lem:divp} in a more usable form for the proof of our main Theorem \ref{thm:main}.
+We may also restate Lemma~\ref{lem:divp} in a more usable form for the proof of our main Theorem \ref{thm:main}.
 \begin{corollary}\label{cor:evenpropdivp}
     Let $k \ge 3$ and assume that $LRC(k-1)$ is true.
     If $J(k,p)$ is empty, then any counterexample $\ubf$ to $LRC(k)$ has $p \mid u_1\cdots u_k$.
 \end{corollary}
 
-Lastly, we need an upper bound for the runners' speeds above which the LR property is guaranteed. 
-The best such bound at present was obtained by Malikiosis,~Santos,~and~Schymura~\cite{Malikiosis}:
+Moreover, we need an upper bound for the runners' speeds above which the LR property is guaranteed. The best such bound at present was obtained by Malikiosis,~Santos,~and~Schymura~\cite{Malikiosis}:
 \begin{lemma}[Corollary 3, \cite{Rosenfeld}] \label{lem:proddivB}
     If $LRC(k-1)$ holds, then any counterexample $\ubf$ to $LRC(k)$ must have
     \[ u_1\cdots u_k < B_k \quad \text{where} \quad B_k := \paren{\frac{\binom{k+1}{2}^{k-1}}{k}}^k. \]
 \end{lemma}
 
 Therefore, if we satisfy the precondition of Corollary \ref{cor:evenpropdivp} for a large number of primes,
-we can conclude the speeds in a counterexample is too large. 
-For convenience, we package our verification task into the next proposition.
+we can obtain a lower bound of the speeds in any counterexamples. 
+Together with stated upper bound, we can conclude the absence of counterexample.
+
+The last piece that allows us to complete this work for $k \in \set{10, 12}$ 
+is the following Lemma~\ref{lem:onetokintro} that ensures that $\onetok$ cannot be
+a counter example for sufficiently large $p$.
+This statement will be proven later in Section~\ref{sec:onetok}
+
+\begin{lemma} \label{lem:onetokintro}
+    Let $k+1$ and $p>k^2+k$ be odd primes. $\onetok \not\in J(k, p)$
+\end{lemma}
+
+Lastly, to conveniently finish the main theorem, we package our verification task into the next proposition.
 \begin{proposition}
 \label{prop:verify}
     Let $k \ge 3$ and $P$ be a set of primes such that $J(k,p)=\emptyset$ for all $p\in P$. 
@@ -496,7 +502,7 @@ from Proposition~\ref{prop:nullstellensatz} allows the extension of the result t
 
 With this lemma, we finally obtain the headline result that assures eventual properness of $\onetok$ for $p \geq k(k+1)$.
 
-\begin{lemma}
+\begin{lemma}[Restatement of Lemma~\ref{lem:onetokintro}]x
     \label{lem:corlarge}
     Let $k+1$ be an odd prime. Then, $\onetok$ is eventually $(k,p)$-proper for all primes $p \geq k(k+1)$.
 \end{lemma}
@@ -529,18 +535,6 @@ With this lemma, we finally obtain the headline result that assures eventual pro
     Since this holds for every $i$, $\ubf$ has the LR property.
 
     As there exists a witness time $t=\frac{s}{k+1}+\frac{r}{p}\in\frac{1}{p(k+1)}\Z$, $\ubf$ is $(k,p,k+1)$-proper.
-\end{proof}
-
-Although Lemma~\ref{lem:corlarge} is enough for later usages, we provide the extension of said lemma to prove Proposition~\ref{prop:onetokintro}.
-
-\begin{proof}[Proof of Proposition~\ref{prop:onetokintro}]
-  Let $k+1$ and $p > k^2 + k$ be odd primes. 
-  Let $\ubf \in \Z_{>0}^k$, $\gcd(u_1, \dots, u_k) = 1$ and 
-  \[u_i\equiv i\pmod{p} \quad \text{for all } i = 1,\dots,k .\] 
-  Notice that $\onetok = \pi_{p} \ubf$ is $(k, p, l)$-proper for some $l$ by Lemma~\ref{lem:corlarge} 
-  and $\onetok$ cannot satisfies the gcd condition, thus there exists 
-  $t \in \Z$ such that $\norm{\tfrac{ti}{lp}} \geq \frac{1}{k+1}$ for all $i$.
-  Then \[ \norm*{\frac{tu_i}{lp}} = \norm*{\frac{ti + ta_ip}{lp}} \]
 \end{proof}
 
 \section{Implementation}
@@ -683,33 +677,33 @@ $k$ & \multicolumn{1}{c|}{$P_k$}
     & $\ln\displaystyle\prod_{p\in P_k}p$ & 
     \begin{tabular} [c]{@{}c@{}}$\ln B_k$\\ (Lemma~\ref{lem:proddivB}) \end{tabular} \\ \hline
 10  & \begin{tabular}[c]{@{}l@{}}
-    103, 107, 109, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, \\ 
-    179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, \\ 
-    251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, \\ 
-    331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, \\ 
-    409, 419, 421, 431, 433, 439, 443, 449, 457 
+    127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, \\
+    193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, \\
+    269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, \\
+    349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, \\
+    431, 433, 439, 443, 449, 457, 461, 463, 467
       \end{tabular}                                       
-    & $>338$  & $<337.7$ \\ \hline
+    & $>342$  & $<337.7$ \\ \hline
 11  & \begin{tabular}[c]{@{}l@{}}
-      23, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, \\ 
-      193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263,\\ 
-      269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347,\\ 
-      349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421,\\ 
+      23, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191,  \\ 
+      193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, \\ 
+      269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, \\ 
+      349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, \\ 
       431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499, \\
       503, 509, 521, 523, 541, 547, 557, 563, 569, 571, 577
       \end{tabular}                                                                              
     & $>435$ & $<434.5$ \\ \hline
 12  & \begin{tabular}[c]{@{}l@{}}
-    149, 151, 167, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, \\ 
-    233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, \\ 
-    311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, \\ 
-    389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, \\ 
-    463, 467, 479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, \\ 
-    563, 569, 571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, \\
-    641, 643, 647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, \\ 
-    727 
-      \end{tabular} & $>550$ & $<545.3$ \\ \hline
+    167, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, \\
+    241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, \\ 
+    317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, \\ 
+    401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, \\ 
+    479, 487, 491, 499, 503, 509, 521, 523, 541, 547, 557, 563, 569, \\ 
+    571, 577, 587, 593, 599, 601, 607, 613, 617, 619, 631, 641, 643, \\ 
+    647, 653, 659, 661, 673, 677, 683, 691, 701, 709, 719, 727, 733
+      \end{tabular} & $>547$ & $<545.3$ \\ \hline
 \end{tabular}
+
 \vspace{5pt}
 \caption{Set of primes used in computer-verification of $LRC(k)$}
 \label{tab:primes}
