@@ -103,16 +103,18 @@ inline std::string print_time()
   return std::format("{:%H:%M:%S}", now);
 }
 
-template <typename Func> void timeit(std::string s, Func&& f)
+template <typename Func> void timeit(const std::string& s, Func&& f)
 {
   using namespace std::chrono;
-  auto start = high_resolution_clock::now();
+  const auto start = high_resolution_clock::now();
 
   f();
 
-  auto end      = high_resolution_clock::now();
-  auto duration = duration_cast<milliseconds>(end - start).count();
-  Log(s, std::format("-- Time elapsed: {}.{} s", duration / 1000, duration % 1000));
+  const auto end = high_resolution_clock::now();
+  const auto us = duration_cast<microseconds>(end - start).count();
+  const auto sec    = us / 1'000'000;
+  const auto rem_us = us % 1'000'000;
+  Log(s, std::format("-- Time elapsed: {}.{:06d} s", sec, rem_us));
 }
 
 template <typename Func> void timeit(Func&& f) { timeit("", f); }

@@ -1,0 +1,19 @@
+Compilation time: 1.304741 s
+Execution start: 2026-04-20T10:41:28+01:00
+now=09:41:28.716408 
+Parameters: p = 137, k = 10 
+[FindCover] Spawning 12 threads for 12 DfsStates 
+[FindCover] Step 1 (l=1): S size = 58087 
+ -- Time elapsed: 0.461389 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 58086 
+ -- Time elapsed: 0.001198 s 
+Step 2.1 
+[2.1] squeezing (l=5): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 1114.629152 s 
+Subproof Mod 137 Done 
+
+All work done -- Time elapsed: 1115.110700 s 
+Compilation time: 1.304741 s
+Execution time: 1115.453476 s

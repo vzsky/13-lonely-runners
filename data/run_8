@@ -1,0 +1,278 @@
+Compilation time: 4.404816 s
+Execution start: 2026-04-18T23:09:17+01:00
+now=22:09:17.466451 
+Parameters: p = 47, k = 8 
+[FindCover] Spawning 5 threads for 5 DfsStates 
+[FindCover] Step 1 (l=1): S size = 1279 
+ -- Time elapsed: 0.004503 s 
+Counter Example Mod 47 
+
+now=22:09:17.472771 
+Parameters: p = 53, k = 8 
+[FindCover] Spawning 5 threads for 5 DfsStates 
+[FindCover] Step 1 (l=1): S size = 191 
+ -- Time elapsed: 0.001390 s 
+Counter Example Mod 53 
+
+now=22:09:17.474307 
+Parameters: p = 59, k = 8 
+[FindCover] Spawning 6 threads for 6 DfsStates 
+[FindCover] Step 1 (l=1): S size = 2015 
+ -- Time elapsed: 0.007715 s 
+Counter Example Mod 59 
+
+now=22:09:17.482386 
+Parameters: p = 61, k = 8 
+[FindCover] Spawning 6 threads for 6 DfsStates 
+[FindCover] Step 1 (l=1): S size = 1023 
+ -- Time elapsed: 0.003585 s 
+Counter Example Mod 61 
+
+now=22:09:17.486165 
+Parameters: p = 67, k = 8 
+[FindCover] Spawning 7 threads for 7 DfsStates 
+[FindCover] Step 1 (l=1): S size = 1216 
+ -- Time elapsed: 0.005367 s 
+Counter Example Mod 67 
+
+now=22:09:17.491768 
+Parameters: p = 71, k = 8 
+[FindCover] Spawning 7 threads for 7 DfsStates 
+[FindCover] Step 1 (l=1): S size = 375 
+ -- Time elapsed: 0.002208 s 
+Counter Example Mod 71 
+
+now=22:09:17.494081 
+Parameters: p = 73, k = 8 
+[FindCover] Spawning 8 threads for 8 DfsStates 
+[FindCover] Step 1 (l=1): S size = 4205 
+ -- Time elapsed: 0.011652 s 
+Counter Example Mod 73 
+
+now=22:09:17.506219 
+Parameters: p = 79, k = 8 
+[FindCover] Spawning 8 threads for 8 DfsStates 
+[FindCover] Step 1 (l=1): S size = 442 
+ -- Time elapsed: 0.002451 s 
+Counter Example Mod 79 
+
+now=22:09:17.508768 
+Parameters: p = 83, k = 8 
+[FindCover] Spawning 9 threads for 9 DfsStates 
+[FindCover] Step 1 (l=1): S size = 2244 
+ -- Time elapsed: 0.007752 s 
+Counter Example Mod 83 
+
+now=22:09:17.516691 
+Parameters: p = 89, k = 8 
+[FindCover] Spawning 9 threads for 9 DfsStates 
+[FindCover] Step 1 (l=1): S size = 259 
+ -- Time elapsed: 0.002807 s 
+Counter Example Mod 89 
+
+now=22:09:17.519543 
+Parameters: p = 97, k = 8 
+[FindCover] Spawning 10 threads for 10 DfsStates 
+[FindCover] Step 1 (l=1): S size = 499 
+ -- Time elapsed: 0.004180 s 
+Counter Example Mod 97 
+
+now=22:09:17.523774 
+Parameters: p = 101, k = 8 
+[FindCover] Spawning 11 threads for 11 DfsStates 
+[FindCover] Step 1 (l=1): S size = 1274 
+ -- Time elapsed: 0.007944 s 
+Counter Example Mod 101 
+
+now=22:09:17.531809 
+Parameters: p = 103, k = 8 
+[FindCover] Spawning 11 threads for 11 DfsStates 
+[FindCover] Step 1 (l=1): S size = 792 
+ -- Time elapsed: 0.006402 s 
+Counter Example Mod 103 
+
+now=22:09:17.538273 
+Parameters: p = 107, k = 8 
+[FindCover] Spawning 11 threads for 11 DfsStates 
+[FindCover] Step 1 (l=1): S size = 159 
+ -- Time elapsed: 0.003315 s 
+Counter Example Mod 107 
+
+now=22:09:17.541610 
+Parameters: p = 109, k = 8 
+[FindCover] Spawning 12 threads for 12 DfsStates 
+[FindCover] Step 1 (l=1): S size = 2670 
+ -- Time elapsed: 0.013480 s 
+Counter Example Mod 109 
+
+now=22:09:17.555200 
+Parameters: p = 113, k = 8 
+[FindCover] Spawning 12 threads for 12 DfsStates 
+[FindCover] Step 1 (l=1): S size = 855 
+ -- Time elapsed: 0.007072 s 
+Counter Example Mod 113 
+
+now=22:09:17.562312 
+Parameters: p = 127, k = 8 
+[FindCover] Spawning 14 threads for 14 DfsStates 
+[FindCover] Step 1 (l=1): S size = 1143 
+ -- Time elapsed: 0.015649 s 
+Counter Example Mod 127 
+
+now=22:09:17.578018 
+Parameters: p = 131, k = 8 
+[FindCover] Spawning 14 threads for 14 DfsStates 
+[FindCover] Step 1 (l=1): S size = 250 
+ -- Time elapsed: 0.012216 s 
+Counter Example Mod 131 
+
+now=22:09:17.590253 
+Parameters: p = 137, k = 8 
+[FindCover] Spawning 15 threads for 15 DfsStates 
+[FindCover] Step 1 (l=1): S size = 454 
+ -- Time elapsed: 0.018653 s 
+Counter Example Mod 137 
+
+now=22:09:17.608931 
+Parameters: p = 139, k = 8 
+[FindCover] Spawning 15 threads for 15 DfsStates 
+[FindCover] Step 1 (l=1): S size = 189 
+ -- Time elapsed: 0.018011 s 
+Counter Example Mod 139 
+
+now=22:09:17.626959 
+Parameters: p = 149, k = 8 
+[FindCover] Spawning 16 threads for 16 DfsStates 
+[FindCover] Step 1 (l=1): S size = 134 
+ -- Time elapsed: 0.017556 s 
+Counter Example Mod 149 
+
+now=22:09:17.644540 
+Parameters: p = 151, k = 8 
+[FindCover] Spawning 16 threads for 16 DfsStates 
+[FindCover] Step 1 (l=1): S size = 67 
+ -- Time elapsed: 0.015263 s 
+Counter Example Mod 151 
+
+now=22:09:17.659820 
+Parameters: p = 157, k = 8 
+[FindCover] Spawning 17 threads for 17 DfsStates 
+[FindCover] Step 1 (l=1): S size = 72 
+ -- Time elapsed: 0.024906 s 
+Counter Example Mod 157 
+
+now=22:09:17.684738 
+Parameters: p = 163, k = 8 
+[FindCover] Spawning 18 threads for 18 DfsStates 
+[FindCover] Step 1 (l=1): S size = 294 
+ -- Time elapsed: 0.043714 s 
+Counter Example Mod 163 
+
+now=22:09:17.728474 
+Parameters: p = 167, k = 8 
+[FindCover] Spawning 18 threads for 18 DfsStates 
+[FindCover] Step 1 (l=1): S size = 46 
+ -- Time elapsed: 0.032207 s 
+Counter Example Mod 167 
+
+now=22:09:17.760695 
+Parameters: p = 173, k = 8 
+[FindCover] Spawning 19 threads for 19 DfsStates 
+[FindCover] Step 1 (l=1): S size = 73 
+ -- Time elapsed: 0.047101 s 
+Counter Example Mod 173 
+
+now=22:09:17.807823 
+Parameters: p = 179, k = 8 
+[FindCover] Spawning 19 threads for 19 DfsStates 
+[FindCover] Step 1 (l=1): S size = 7 
+ -- Time elapsed: 0.032958 s 
+Counter Example Mod 179 
+
+now=22:09:17.840793 
+Parameters: p = 181, k = 8 
+[FindCover] Spawning 20 threads for 20 DfsStates 
+[FindCover] Step 1 (l=1): S size = 93 
+ -- Time elapsed: 0.063908 s 
+Counter Example Mod 181 
+
+now=22:09:17.904714 
+Parameters: p = 191, k = 8 
+[FindCover] Spawning 20 threads for 21 DfsStates 
+[FindCover] Step 1 (l=1): S size = 48 
+ -- Time elapsed: 0.068149 s 
+Counter Example Mod 191 
+
+now=22:09:17.972875 
+Parameters: p = 193, k = 8 
+[FindCover] Spawning 20 threads for 21 DfsStates 
+[FindCover] Step 1 (l=1): S size = 17 
+ -- Time elapsed: 0.059494 s 
+Counter Example Mod 193 
+
+now=22:09:18.032379 
+Parameters: p = 197, k = 8 
+[FindCover] Spawning 20 threads for 21 DfsStates 
+[FindCover] Step 1 (l=1): S size = 15 
+ -- Time elapsed: 0.050311 s 
+Counter Example Mod 197 
+
+now=22:09:18.082702 
+Parameters: p = 199, k = 8 
+[FindCover] Spawning 20 threads for 22 DfsStates 
+[FindCover] Step 1 (l=1): S size = 72 
+ -- Time elapsed: 0.092177 s 
+Counter Example Mod 199 
+
+now=22:09:18.174894 
+Parameters: p = 211, k = 8 
+[FindCover] Spawning 20 threads for 23 DfsStates 
+[FindCover] Step 1 (l=1): S size = 22 
+ -- Time elapsed: 0.091511 s 
+Counter Example Mod 211 
+
+now=22:09:18.266418 
+Parameters: p = 223, k = 8 
+[FindCover] Spawning 20 threads for 24 DfsStates 
+[FindCover] Step 1 (l=1): S size = 4 
+ -- Time elapsed: 0.097333 s 
+Counter Example Mod 223 
+
+now=22:09:18.363765 
+Parameters: p = 227, k = 8 
+[FindCover] Spawning 20 threads for 25 DfsStates 
+[FindCover] Step 1 (l=1): S size = 13 
+ -- Time elapsed: 0.133925 s 
+Counter Example Mod 227 
+
+now=22:09:18.497702 
+Parameters: p = 229, k = 8 
+[FindCover] Spawning 20 threads for 25 DfsStates 
+[FindCover] Step 1 (l=1): S size = 7 
+ -- Time elapsed: 0.123906 s 
+Counter Example Mod 229 
+
+now=22:09:18.621621 
+Parameters: p = 233, k = 8 
+[FindCover] Spawning 20 threads for 25 DfsStates 
+[FindCover] Step 1 (l=1): S size = 1 
+ -- Time elapsed: 0.101578 s 
+Counter Example Mod 233 
+
+now=22:09:18.723211 
+Parameters: p = 239, k = 8 
+[FindCover] Spawning 20 threads for 26 DfsStates 
+[FindCover] Step 1 (l=1): S size = 5 
+ -- Time elapsed: 0.145734 s 
+Counter Example Mod 239 
+
+now=22:09:18.868957 
+Parameters: p = 241, k = 8 
+[FindCover] Spawning 20 threads for 26 DfsStates 
+[FindCover] Step 1 (l=1): S size = 3 
+ -- Time elapsed: 0.147015 s 
+Counter Example Mod 241 
+
+All work done -- Time elapsed: 1.549541 s 
+Compilation time: 4.404816 s
+Execution time: 1.873367 s

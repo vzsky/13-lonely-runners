@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>
 #include <bitset>
 #include <cassert>
@@ -19,13 +21,14 @@ namespace lift
 template <int P, int K, int N> struct Context
 {
   static constexpr int Q = N * P;
-  std::array<std::bitset<Q>, Q> vec;
+
+  const std::bitset<Q>& cover(int i) const { return mCover[i]; }
 
   Context()
   {
     for (int i = 0; i < Q; ++i)
     {
-      auto& B = vec[i];
+      auto& B = mCover[i];
       for (int t = 1; t <= Q; ++t)
       {
         int pos   = Q - t;
@@ -35,9 +38,13 @@ template <int P, int K, int N> struct Context
       }
     }
   }
+
+private:
+  // TODO: make const
+  std::array<std::bitset<Q>, Q> mCover;
 };
 
-template <int P, int K, int N> inline const Context<P, K, N> context{};
+template <int P, int K, int N> static const Context<P, K, N> context{};
 
 template <int P, int K, int N> struct Dfs
 {
@@ -51,7 +58,7 @@ template <int P, int K, int N> struct Dfs
     if (depth == K)
     {
       std::bitset<context<P, K, N>.Q> acc;
-      for (auto v : elem) acc |= context<P, K, N>.vec[v];
+      for (auto v : elem) acc |= context<P, K, N>.cover(v);
       if ((int)acc.count() != context<P, K, N>.Q) return;
       if (elem.subset_gcd_implies_proper(N)) return;
       result.insert(elem.get_sorted_set());

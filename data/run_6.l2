@@ -1,0 +1,596 @@
+Compilation time: 13.836638 s
+Execution start: 2026-04-18T22:14:33+01:00
+now=21:14:34.191505 
+Parameters: p = 47, k = 6 
+[FindCover] Spawning 6 threads for 6 DfsStates 
+[FindCover] Step 1 (l=1): S size = 53 
+ -- Time elapsed: 0.000170 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 52 
+ -- Time elapsed: 0.000004 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 23 
+[2.1] squeezing (l=4): S size = 6 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000323 s 
+Subproof Mod 47 Done 
+
+now=21:14:34.192505 
+Parameters: p = 53, k = 6 
+[FindCover] Spawning 7 threads for 7 DfsStates 
+[FindCover] Step 1 (l=1): S size = 39 
+ -- Time elapsed: 0.000124 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 38 
+ -- Time elapsed: 0.000003 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 20 
+[2.1] squeezing (l=4): S size = 4 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000375 s 
+Subproof Mod 53 Done 
+
+now=21:14:34.193032 
+Parameters: p = 59, k = 6 
+[FindCover] Spawning 8 threads for 8 DfsStates 
+[FindCover] Step 1 (l=1): S size = 72 
+ -- Time elapsed: 0.000195 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 71 
+ -- Time elapsed: 0.000004 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 14 
+[2.1] squeezing (l=4): S size = 6 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000372 s 
+Subproof Mod 59 Done 
+
+now=21:14:34.193634 
+Parameters: p = 61, k = 6 
+[FindCover] Spawning 8 threads for 8 DfsStates 
+[FindCover] Step 1 (l=1): S size = 34 
+ -- Time elapsed: 0.000151 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 33 
+ -- Time elapsed: 0.000003 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 14 
+[2.1] squeezing (l=4): S size = 2 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000318 s 
+Subproof Mod 61 Done 
+
+now=21:14:34.194132 
+Parameters: p = 67, k = 6 
+[FindCover] Spawning 9 threads for 9 DfsStates 
+[FindCover] Step 1 (l=1): S size = 61 
+ -- Time elapsed: 0.000205 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 60 
+ -- Time elapsed: 0.000003 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 12 
+[2.1] squeezing (l=4): S size = 6 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000347 s 
+Subproof Mod 67 Done 
+
+now=21:14:34.194710 
+Parameters: p = 71, k = 6 
+[FindCover] Spawning 10 threads for 10 DfsStates 
+[FindCover] Step 1 (l=1): S size = 129 
+ -- Time elapsed: 0.000288 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 128 
+ -- Time elapsed: 0.000004 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 22 
+[2.1] squeezing (l=4): S size = 2 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.001030 s 
+Subproof Mod 71 Done 
+
+now=21:14:34.196064 
+Parameters: p = 73, k = 6 
+[FindCover] Spawning 10 threads for 10 DfsStates 
+[FindCover] Step 1 (l=1): S size = 58 
+ -- Time elapsed: 0.000219 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 57 
+ -- Time elapsed: 0.000003 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 12 
+[2.1] squeezing (l=4): S size = 6 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000322 s 
+Subproof Mod 73 Done 
+
+now=21:14:34.196632 
+Parameters: p = 79, k = 6 
+[FindCover] Spawning 11 threads for 11 DfsStates 
+[FindCover] Step 1 (l=1): S size = 46 
+ -- Time elapsed: 0.000260 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 45 
+ -- Time elapsed: 0.000004 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 11 
+[2.1] squeezing (l=4): S size = 4 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000281 s 
+Subproof Mod 79 Done 
+
+now=21:14:34.197222 
+Parameters: p = 83, k = 6 
+[FindCover] Spawning 11 threads for 11 DfsStates 
+[FindCover] Step 1 (l=1): S size = 11 
+ -- Time elapsed: 0.000195 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 10 
+ -- Time elapsed: 0.000009 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 2 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000113 s 
+Subproof Mod 83 Done 
+
+now=21:14:34.197561 
+Parameters: p = 89, k = 6 
+[FindCover] Spawning 12 threads for 12 DfsStates 
+[FindCover] Step 1 (l=1): S size = 14 
+ -- Time elapsed: 0.000243 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 13 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 2 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000132 s 
+Subproof Mod 89 Done 
+
+now=21:14:34.197959 
+Parameters: p = 97, k = 6 
+[FindCover] Spawning 13 threads for 13 DfsStates 
+[FindCover] Step 1 (l=1): S size = 8 
+ -- Time elapsed: 0.000273 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 7 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 4 
+[2.1] squeezing (l=4): S size = 2 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000123 s 
+Subproof Mod 97 Done 
+
+now=21:14:34.198386 
+Parameters: p = 101, k = 6 
+[FindCover] Spawning 14 threads for 14 DfsStates 
+[FindCover] Step 1 (l=1): S size = 22 
+ -- Time elapsed: 0.000425 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 21 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 3 
+[2.1] squeezing (l=4): S size = 2 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000161 s 
+Subproof Mod 101 Done 
+
+now=21:14:34.198992 
+Parameters: p = 103, k = 6 
+[FindCover] Spawning 14 threads for 14 DfsStates 
+[FindCover] Step 1 (l=1): S size = 20 
+ -- Time elapsed: 0.000365 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 19 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 8 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000210 s 
+Subproof Mod 103 Done 
+
+now=21:14:34.199590 
+Parameters: p = 107, k = 6 
+[FindCover] Spawning 15 threads for 15 DfsStates 
+[FindCover] Step 1 (l=1): S size = 11 
+ -- Time elapsed: 0.000438 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 10 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 10 
+[2.1] squeezing (l=4): S size = 2 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000200 s 
+Subproof Mod 107 Done 
+
+now=21:14:34.200261 
+Parameters: p = 109, k = 6 
+[FindCover] Spawning 15 threads for 15 DfsStates 
+[FindCover] Step 1 (l=1): S size = 10 
+ -- Time elapsed: 0.000409 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 9 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 6 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000120 s 
+Subproof Mod 109 Done 
+
+now=21:14:34.200809 
+Parameters: p = 113, k = 6 
+[FindCover] Spawning 16 threads for 16 DfsStates 
+[FindCover] Step 1 (l=1): S size = 23 
+ -- Time elapsed: 0.000603 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 22 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 12 
+[2.1] squeezing (l=4): S size = 2 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000225 s 
+Subproof Mod 113 Done 
+
+now=21:14:34.201658 
+Parameters: p = 127, k = 6 
+[FindCover] Spawning 18 threads for 18 DfsStates 
+[FindCover] Step 1 (l=1): S size = 18 
+ -- Time elapsed: 0.000791 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 17 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 5 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000177 s 
+Subproof Mod 127 Done 
+
+now=21:14:34.202645 
+Parameters: p = 131, k = 6 
+[FindCover] Spawning 18 threads for 18 DfsStates 
+[FindCover] Step 1 (l=1): S size = 8 
+ -- Time elapsed: 0.000694 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 7 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 4 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000093 s 
+Subproof Mod 131 Done 
+
+now=21:14:34.203463 
+Parameters: p = 137, k = 6 
+[FindCover] Spawning 19 threads for 19 DfsStates 
+[FindCover] Step 1 (l=1): S size = 4 
+ -- Time elapsed: 0.000841 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 3 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 3 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000079 s 
+Subproof Mod 137 Done 
+
+now=21:14:34.204414 
+Parameters: p = 139, k = 6 
+[FindCover] Spawning 19 threads for 19 DfsStates 
+[FindCover] Step 1 (l=1): S size = 4 
+ -- Time elapsed: 0.000713 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 3 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 1 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000057 s 
+Subproof Mod 139 Done 
+
+now=21:14:34.205213 
+Parameters: p = 149, k = 6 
+[FindCover] Spawning 20 threads for 21 DfsStates 
+[FindCover] Step 1 (l=1): S size = 6 
+ -- Time elapsed: 0.001161 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 5 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 2 
+[2.1] squeezing (l=4): S size = 2 
+[2.1] squeezing (l=8): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000111 s 
+Subproof Mod 149 Done 
+
+now=21:14:34.206514 
+Parameters: p = 151, k = 6 
+[FindCover] Spawning 20 threads for 21 DfsStates 
+[FindCover] Step 1 (l=1): S size = 7 
+ -- Time elapsed: 0.001007 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 6 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 1 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000089 s 
+Subproof Mod 151 Done 
+
+now=21:14:34.207630 
+Parameters: p = 157, k = 6 
+[FindCover] Spawning 20 threads for 22 DfsStates 
+[FindCover] Step 1 (l=1): S size = 11 
+ -- Time elapsed: 0.001322 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 10 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 4 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000130 s 
+Subproof Mod 157 Done 
+
+now=21:14:34.209103 
+Parameters: p = 163, k = 6 
+[FindCover] Spawning 20 threads for 23 DfsStates 
+[FindCover] Step 1 (l=1): S size = 7 
+ -- Time elapsed: 0.001464 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 6 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 4 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000103 s 
+Subproof Mod 163 Done 
+
+now=21:14:34.210690 
+Parameters: p = 167, k = 6 
+[FindCover] Spawning 20 threads for 23 DfsStates 
+[FindCover] Step 1 (l=1): S size = 5 
+ -- Time elapsed: 0.001415 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 4 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 1 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000076 s 
+Subproof Mod 167 Done 
+
+now=21:14:34.212199 
+Parameters: p = 173, k = 6 
+[FindCover] Spawning 20 threads for 24 DfsStates 
+[FindCover] Step 1 (l=1): S size = 3 
+ -- Time elapsed: 0.001366 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 2 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 1 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000057 s 
+Subproof Mod 173 Done 
+
+now=21:14:34.213638 
+Parameters: p = 179, k = 6 
+[FindCover] Spawning 20 threads for 25 DfsStates 
+[FindCover] Step 1 (l=1): S size = 3 
+ -- Time elapsed: 0.001441 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 2 
+ -- Time elapsed: 0.000004 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 1 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000048 s 
+Subproof Mod 179 Done 
+
+now=21:14:34.215158 
+Parameters: p = 181, k = 6 
+[FindCover] Spawning 20 threads for 25 DfsStates 
+[FindCover] Step 1 (l=1): S size = 3 
+ -- Time elapsed: 0.001211 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 2 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000037 s 
+Subproof Mod 181 Done 
+
+now=21:14:34.216433 
+Parameters: p = 191, k = 6 
+[FindCover] Spawning 20 threads for 27 DfsStates 
+[FindCover] Step 1 (l=1): S size = 6 
+ -- Time elapsed: 0.002093 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 5 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000041 s 
+Subproof Mod 191 Done 
+
+now=21:14:34.218586 
+Parameters: p = 193, k = 6 
+[FindCover] Spawning 20 threads for 27 DfsStates 
+[FindCover] Step 1 (l=1): S size = 6 
+ -- Time elapsed: 0.001782 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 5 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000052 s 
+Subproof Mod 193 Done 
+
+now=21:14:34.220451 
+Parameters: p = 197, k = 6 
+[FindCover] Spawning 20 threads for 28 DfsStates 
+[FindCover] Step 1 (l=1): S size = 6 
+ -- Time elapsed: 0.002634 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 5 
+ -- Time elapsed: 0.000002 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 1 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000063 s 
+Subproof Mod 197 Done 
+
+now=21:14:34.223181 
+Parameters: p = 199, k = 6 
+[FindCover] Spawning 20 threads for 28 DfsStates 
+[FindCover] Step 1 (l=1): S size = 5 
+ -- Time elapsed: 0.002351 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 4 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 2 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000074 s 
+Subproof Mod 199 Done 
+
+now=21:14:34.225634 
+Parameters: p = 211, k = 6 
+[FindCover] Spawning 20 threads for 30 DfsStates 
+[FindCover] Step 1 (l=1): S size = 4 
+ -- Time elapsed: 0.002951 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 3 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 2 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000062 s 
+Subproof Mod 211 Done 
+
+now=21:14:34.228674 
+Parameters: p = 223, k = 6 
+[FindCover] Spawning 20 threads for 31 DfsStates 
+[FindCover] Step 1 (l=1): S size = 6 
+ -- Time elapsed: 0.002293 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 5 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000059 s 
+Subproof Mod 223 Done 
+
+now=21:14:34.231057 
+Parameters: p = 227, k = 6 
+[FindCover] Spawning 20 threads for 32 DfsStates 
+[FindCover] Step 1 (l=1): S size = 4 
+ -- Time elapsed: 0.003199 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 3 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 1 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000058 s 
+Subproof Mod 227 Done 
+
+now=21:14:34.234333 
+Parameters: p = 229, k = 6 
+[FindCover] Spawning 20 threads for 32 DfsStates 
+[FindCover] Step 1 (l=1): S size = 5 
+ -- Time elapsed: 0.002877 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 4 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000049 s 
+Subproof Mod 229 Done 
+
+now=21:14:34.237293 
+Parameters: p = 233, k = 6 
+[FindCover] Spawning 20 threads for 33 DfsStates 
+[FindCover] Step 1 (l=1): S size = 6 
+ -- Time elapsed: 0.003588 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 5 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000041 s 
+Subproof Mod 233 Done 
+
+now=21:14:34.240951 
+Parameters: p = 239, k = 6 
+[FindCover] Spawning 20 threads for 34 DfsStates 
+[FindCover] Step 1 (l=1): S size = 7 
+ -- Time elapsed: 0.004325 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 6 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 2 
+[2.1] squeezing (l=4): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000088 s 
+Subproof Mod 239 Done 
+
+now=21:14:34.245394 
+Parameters: p = 241, k = 6 
+[FindCover] Spawning 20 threads for 34 DfsStates 
+[FindCover] Step 1 (l=1): S size = 2 
+ -- Time elapsed: 0.004037 s 
+Step 2.0 
+[2.0] Remove (1..k) for large prime  :: Done ::  S.size() = 1 
+ -- Time elapsed: 0.000001 s 
+Step 2.1 
+[2.1] squeezing (l=2): S size = 0 
+[2.1] Squeeze  :: Done ::  S.size() = 0 
+ -- Time elapsed: 0.000020 s 
+Subproof Mod 241 Done 
+
+All work done -- Time elapsed: 0.057974 s 
+Compilation time: 13.836638 s
+Execution time: 0.478799 s
