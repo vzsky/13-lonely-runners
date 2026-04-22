@@ -108,7 +108,7 @@ settled the case $k=6$ in 2008.
 
 This had remained the largest verified case prior to September 2025, when Rosenfeld~\cite{Rosenfeld} introduced a new 
 framework to handle $k=7$ (and later $k=8$ \cite{rosenfeld2025lonely2}). 
-He demonstrated that, with computer assistance, the conjecture can be verified in a number of small ansatze.
+He demonstrated that, with computer assistance, the conjecture can be verified in a tractable number of ansatze.
 In doing so, he relied on the finite-checking result of Malikiosis, Santos, and Schymura~\cite{Malikiosis}, 
 which follows from a similar result of Giri~and~Kravitz~\cite{giri_structure_2026}. 
 The~second~author~\cite{Trakulthongchai} then, in November 2025, 
@@ -119,9 +119,9 @@ The main objective of this paper is to prove $LRC(k)$ for $k\in\{10,11,12\}$.
     $LRC(k)$ holds for $k\leq12$.
 \end{theorem}
 
-In order to carry out the proof, we improve upon the framework of \cite{Rosenfeld} and \cite{Trakulthongchai} both mathematically and computationally. We refine the sieving scheme with extra intermediate sieves and exploit a modulo $p$ symmetry during implementation to reduce the verification necessary. These were enough to prove $k=11$. Furthermore, we employ the polynomial method to establish the following proposition that finishes the proof for $k\in\{10,12\}$.
+In order to carry out the proof, we improve upon the framework of \cite{Rosenfeld} and \cite{Trakulthongchai} both mathematically and computationally. We refine the sieving scheme by adding intermediate sieves and exploiting a modulo $p$ symmetry during implementation to reduce the verification necessary. These were enough to prove $k=11$. Furthermore, we employ the polynomial method to establish the following proposition that finishes the proof for $k\in\{10,12\}$.
 \begin{proposition} \label{prop:onetokintro}
-    Let $(u_1,\ldots,u_k)\in\Z_{>0}^k$ and $p>k^2+k$ where both $p$ and $k+1\geq3$ are primes. If $\gcd(u_1,\cdots,u_k)=1$ and \[u_i\equiv i\pmod{p} \quad \text{for all } i = 1,\dots,k,\] then $(u_1,\ldots,u_k)$ has the LR property.
+    Let $(u_1,\ldots,u_k)\in\Z_{>0}^k$ and $p>k^2+k$ where both $p$ and $k+1$ are odd primes. If $\gcd(u_1,\cdots,u_k)=1$ and \[u_i\equiv i\pmod{p} \quad \text{for all } i = 1,\dots,k,\] then $(u_1,\ldots,u_k)$ has the LR property.
 \end{proposition}
 
 Our proof strategy is outlined in the next section. Section \ref{sec:sieves} discusses the intermediate sieves technique and Section \ref{sec:onetok} is devoted to proving Proposition \ref{prop:onetokintro}. We describe the verification algorithms and their implementation in Section \ref{sec:algo}, the results of which establish Theorem \ref{thm:main} in Section \ref{sec:result}. Lastly, we discuss in Section~\ref{sec:further} how this method may be further extended.
@@ -149,7 +149,7 @@ If every $\vbf\in\Int{p,l}^k$ has a witness time in the form $t\in\frac{1}{lp}\Z
 then one of the speeds in a counterexample to $LRC(k)$ must be divisible by $p$. The set of speed tuples $\Int{p,l}^k$ together with the set of times $\frac{1}{lp}\Z$ is what we informally call an \emph{ansatz}.
 The following definition and lemma summarize what must be verified.
 
-\begin{definition}[Definition 3.1\footnote{We change $lp$ in the gcd condition of \cite{Trakulthongchai} to $l$, but this changes nothing when $p$ is prime.}, \cite{Trakulthongchai}]\label{def:improper}
+\begin{definition}[Definition 3\footnote{We change $lp$ in the gcd condition of \cite{Trakulthongchai} to $l$, but this changes nothing when $p$ is prime.}, \cite{Trakulthongchai}]\label{def:improper}
     Let $p$ be prime, $k \geq 2$ and $l$ be positive integers.
     A speed tuple $\vbf\in\Int{p,l}^k$ is $(k,p,l)$-\emph{proper} if one of the following conditions holds: 
   \begin{itemize}
@@ -159,7 +159,7 @@ The following definition and lemma summarize what must be verified.
    If $\vbf$ is not proper, it is \emph{improper}. Moreover, let $I(k,p,l)$ denote the set of all improper speed tuples.
 \end{definition}
 
-\begin{lemma}[Lemma 3.3, \cite{Trakulthongchai}] \label{lem:divp}
+\begin{lemma}[Lemma 5, \cite{Trakulthongchai}] \label{lem:divp}
   % k-1 enough?
     For $k\geq3$, if $LRC(k-1)$ is true and $I(k,p,l)$ is empty for some $l$, then any counterexample
     $\ubf$ to $LRC(k)$ satisfies $p \mid u_1 \cdots u_k$. 
@@ -269,7 +269,7 @@ Before we motivate them, let us at once formalize and validate the two technique
         \end{split}
         \] As $J(k,p)$ is a subset of $\pi_pS$ by assumption and a subset of $\pi_pI(k,p,cl)$ by definition, 
         it is also a subset of $\pi_pS'$.\footnote{This proof looks deceptively simple, and perhaps curiously, 
-          does not utilize the lifting lemma (Lemma 3.5 \cite{Trakulthongchai}) anywhere. 
+          does not utilize the lifting lemma (Lemma 7,  \cite{Trakulthongchai}) anywhere. 
           This is because the real work (and the very same work as the lifting lemma) has been done 
           in Lemma~\ref{lem:evenprop} to show that 
           $J(k,p)=\emptyset$ is indeed the same as $I(k,p,l)=\emptyset$ for some $l$. 
@@ -286,27 +286,25 @@ Now, we will motivate each of them by their applications.
 
 \subsection{Lifting}
 \label{subsec:efflift}
-Fix $k,p$ and assume that the computational cost of checking each speed tuple is equal to $1$.
-
 Lifting is the main innovation of \cite{Trakulthongchai}. 
 The process is described in the construction of $S'$ in Proposition~\ref{prop:liftproj}: suppose we have a tuple in $\Z^k_{p,l}$,
 we can \emph{lift} it to the preimage in $\Z^k_{p,cl}$, and then discard all proper speed tuples.
 
 \begin{remark}
 \label{rem:tightset}
-    The speed tuple $\onetok$ is lonely precisely when $t=\frac{s}{k+1}, \gcd(s,k+1)=1$. 
+    The speed tuple $\onetok$ is lonely precisely when $t=\frac{s}{k+1}$ with $\gcd(s,k+1)=1$. 
     Therefore, if $p>k+1$ and $k+1\nmid l$, then there is no such time in $\frac{1}{pl}\Z$,
     so $\onetok\in I(k,p,l)$. 
     In other words, if $p>k+1$, then $I(k,p,l)=\emptyset$ only if $k+1\mid l$. 
     As a consequence, if $k+1$ is prime and we start with tuples in $\Z^k_{p}$
-    we need to lift with $k+1$ (or a multiple of $k+1$, but this would be unoptimal)
+    we need to lift with $k+1$ (or a multiple of $k+1$, but this would be suboptimal)
     at least once because we can only eliminate $\onetok$ only once we get to $\Z^{k}_{p(k+1)}$
 \end{remark}
 
 Even though it is impossible that $I(k,p,1)=\emptyset$, in view of applying Proposition~\ref{prop:liftproj}, 
 we may still compute $I(k,p,1)$ first.
 This is because $I(k, p, 1)$ is a non-trivial \emph{upper bound}, a superset under projection, of $J(k, p)$ 
-that is the easiest to compute as it requires checking only approximately $p^k$ speed tuples.
+that is very easy to compute as it requires checking only approximately $p^k$ speed tuples.
 After obtaining that, we can lift with a divisor of $k+1$ to obtain a better upper bound.
 
 Observe that lifting a set $S$ of tuples with a multiplier $c$ requires checking
@@ -316,13 +314,13 @@ As $S$ is empirically found to be smaller as we lift\footnote{
   Even though lifting increases the number of speed tuples to be checked,
   it seems that the increased precision of the allowed time in the lifted ansatz has a greater effect \cite{Trakulthongchai}.
 }, we should take $c$ to be small at first. 
-Furthermore, as $k$ gets larger, the value of $c$ has greater effect on the computational cost, 
-and the $c=2$ lift becomes comparatively cheaper.
+Furthermore, as $k$ gets larger, the value of $c$ has greater effect on the computational time, 
+and the $c=2$ lift becomes comparatively more effective.
 
 The key improvement from \cite{Trakulthongchai} is noting that, in fact, we can take this idea to the extreme.
-Since the $c=2$ lift is computationally cheaper to compute, 
+Since the $c=2$ lift is much easier to compute, 
 we can apply a $c=2$ lift first (and successively) whether or not $2$ is a prime factor of $k$.
-This is done to trim down the number of speed tuples in $S$ when we apply a more computationally expensive, but necessary lift.
+This is done to trim down the number of speed tuples in $S$ before we apply the necessary lifts with larger multiplier $c>2$.
 Even better, doing this will never increase the number of speed tuples at the end because we can always project backward,
 as we will explain next.
  
@@ -342,9 +340,9 @@ This is the strategy that we use in our verification algorithms in Subsection~\r
 \section{Eventual properness of
   \texorpdfstring{$(1, 2,\ldots, k)$}{(1, 2, ..., k)}
 } \label{sec:onetok}
-According to Remark~\ref{rem:tightset}, when $k+1$ is prime, we have to lift with the multiple $c=k+1$. 
-This lift is extremely computationally expensive: for $k=12$, the $c=k+1$ lift is $(13/2)^{12}\approx5\cdot10^9$ 
-times more computationally expensive than the $c=2$ lift.
+According to Remark~\ref{rem:tightset}, when $k+1$ is prime, we have to lift with the multiplier $c=k+1$. 
+This lift is extremely computationally intensive: for $k=12$, the $c=k+1$ lift requires checking $(13/2)^{12}\approx5\cdot10^9$ 
+times more tuples than the $c=2$ lift (for fixed $p$ and input set).
 If we are to verify the conjecture for $k\in\{10,12\}$ in a reasonable time, we need to avoid doing this lift computationally.
 For many primes $p$, after lifting $I(10,p,1)$ with $c=2,3$ several times and projecting back,
 the only tuples that cannot be shown eventually proper are equivalents\footnote{
@@ -410,12 +408,12 @@ For convenience, we write
     However, this implies $v_i = 0$ for all $i$, that is, $\vbf = \mathbf{0}$.
 \end{proof}
 
-The strategy we will later use to prove Proposition~\ref{prop:corlarge} is that we want to decouple and limit dependency of the prime $p$. 
-Instead of considering times of the form $t=\frac{a}{(k+1)p}$ we decompose them into the partial fractions $t=\frac{s}{k+1}+\frac{r}{p}$.
+The strategy we will later use to prove Proposition~\ref{prop:corlarge} is decoupling and limiting dependency of the prime $p$. 
+Instead of considering times of the form $t=\frac{a}{(k+1)p}$, we decompose them into the partial fractions $t=\frac{s}{k+1}+\frac{r}{p}$.
 The former term has no dependence of $p$. To capture the effect of $p$ of the latter term, we define 
 \[ \rbf_k(t):=\left( \floor{ (k+1) \fracpart{t}}, \; \floor{ (k+1)\fracpart{2t} }, \; \ldots, \; \floor{ (k+1) \fracpart{kt}} \right) \] 
 for $t\in\R$.
-Intuitively, $\rbf_k(t)_i = x$ means that the runner with speed $i$ is the arc 
+Intuitively, $\floor{ (k+1) \fracpart{it}} = x$ means that the runner with speed $i$ is the arc 
 $\left[ \frac{x}{k+1}, \frac{x+1}{k+1} \right)$ of the unit circle.
 With this discretization, we state Lemma~\ref{lem:resolvekplusone}.
 
@@ -425,7 +423,7 @@ With this discretization, we state Lemma~\ref{lem:resolvekplusone}.
     \[ s\vbf + \rbf_k(\tfrac r{k+1}) \in \{1,\ldots,k-1\}^k\] when considered modulo $k+1$.
 \end{lemma}
 \begin{proof}
-  Let $\vbf$ be any speed tuple in $\Zko^k\setminus\{\origin\}$ that contains a zero coordinate.
+  Let $\vbf$ be any speed tuple in $N_k$.
   By Proposition~\ref{prop:polynomial},
   there exist $s,r\in\Unit{k+1}\subseteq\Int{k+1}$ such that
   \[s\vbf + r\onetok  \in \{1,\ldots,k-1\}^k.\] 
@@ -458,10 +456,8 @@ in Proposition~\ref{prop:polynomial} allows us to extend the result to larger pr
     \[ s\vbf + \rbf_k(r/(k+1)) \in \{1,\ldots,k-1\}^k\]
   Thus, it suffices to show that $\rbf_k(\tfrac{1}{k+1} \Z) \subseteq \rbf_k(\tfrac{1}{p} \Z)$ for all $p>k(k+1)$.
 
-  Fix $p$ to be a prime greater than $k(k+1)$.
-
-  Notice that $\rbf_k$ is a piecewise constant function. Moreover, 
-  $x$ is a discontinuity of $\rbf_k$ if and only if it is a discontinuity of $R_{k+1}(ix)$ for some $i$.
+  Fix $p$ to be a prime greater than $k(k+1)$. Notice that $\rbf_k$ is a piecewise constant function. Moreover, 
+  $x$ is a discontinuity of $\rbf_k$ if and only if it is a discontinuity of $\floor{ (k+1) \fracpart{ix}}$ for some $i$.
   Those points of discontinuity are precisely points of the form  $\frac{a}{i(k+1)}$ for integer $a$ and $1 \le i \le k$.
 
   Choose an integer $n$ and denote $x := \tfrac{n}{k+1}$. Observe that $x$ is a discontinuity of $\rbf_k$ and let $y$ be 
@@ -542,7 +538,7 @@ For completeness, we show that this equivalence indeed preserves eventual proper
 \end{proposition}
 \begin{proof}
   We only need to show that each of the aforementioned actions preserves eventual properness.
-  For permuting it is trivial.
+  This is trivial for permuting.
   Suppose $\ubf$ is eventually proper and $l$ is the integer for which every element in $\pi^{-1}(\ubf)$ is proper,
   where $\pi:=\pi_{lp\rightarrow p}$. Now let $\vbf'\in\pi(\vbf)$.
 
@@ -555,15 +551,14 @@ For completeness, we show that this equivalence indeed preserves eventual proper
   then by Chinese Remainder Theorem there is $b\in\Int{lp}$ such that $b\equiv a^{-1} \pmod{p}$ and $b\equiv1\pmod{l}$. 
   In particular, $b\in\Unit{lp}$ and 
   \[\ubf':=b\vbf'\in\pi^{-1}(\ubf)\]
-  because $\pi(b\vbf')=\pi(b)\pi(\vbf')=a^{-1}(a\ubf)=\ubf$.
+  because $\pi(b\vbf')=\pi(b)\pi(\vbf')=a^{-1}(a\ubf)=\ubf$. We need $b$ to be a unit because if a time $t$ is a witness for $\ubf$, then the time $b^{-1}t$ is a witness for $\vbf$.
 
   Then, whichever way $\ubf'$ satisfies properness,
-  it can be checked that $\vbf'$ also satisfies properness in the same way
-  (we need $b$ to be a unit because if a time $t$ is a witness for $\ubf$, then the time $b^{-1}t$ is a witness for $\vbf$). 
+  it can be checked that $\vbf'$ also satisfies properness in the same way.
   Therefore every speed tuple in $\pi(\vbf)$ is proper, and thus $\vbf$ is eventually proper.
 \end{proof}
 
-Therefore, we may only verify the eventual properness for a single element in an equivalence class. We implement this by fixing by ordering the speeds ascendingly, limiting the speeds to be in the first half of residues modulo $p$, and fixing $v_1$ to be $1$. In other words, we check all tuples of integers $(v_1,\ldots,v_k)$ with \[1=v_1\leq v_2\leq\cdots\leq v_k\leq\frac{p-1}{2}.\] This implementation results in $k$ speed tuples per equivalence class, so there is a possibility to improve the run time by a factor of $k$. However, we are unable to find a way to generate a single element from each equivalence class  
+Therefore, we may only verify the eventual properness for a single element in an equivalence class. We implement this by fixing by ordering the speeds ascendingly, limiting the speeds to be in the first half of residues modulo $p$, and fixing $v_1$ to be $1$. In other words, we check all tuples of integers $(v_1,\ldots,v_k)$ with \[1=v_1\leq v_2\leq\cdots\leq v_k\leq\frac{p-1}{2}.\] This implementation results in $k$ speed tuples per equivalence class, so there is a possibility to improve the run time by a factor of $k$. However, we are unable to find a way to generate a single element from each equivalence class.  
 
 We should stress that this reduction is essential to obtaining our results. There are approximately $p^k$ tuples in the $(k,p,1)$-ansatz, but with this reduction we only need to check a much smaller number of approximately \[\binom{p/2}{k-1}\approx\frac{p^k}{2^k(k-1)!}.\] Compared to the implementation of \cite{Rosenfeld} and \cite{Trakulthongchai}, we reduce the number of tuples to check by a factor of approximately $p/k$. 
 
@@ -574,12 +569,12 @@ Fix $k\in\{10,11,12\}$ and a prime $p$. Our goal is to verify that $J(k,p)=\empt
 The first phase is done by choosing representative speed tuples as described in the previous subsection. We use lifting diagram to explain the second phase. In a lifting diagram, the first set $S_1$ is always the precomputed $I(k,p,1)$. Two kinds of arrows correspond to two actions from Section \ref{sec:sieves}:
 \begin{itemize}
     \item $S_n\xrightarrow{\times c}S_{n+1}$ indicates lifting from $S_n$ to $S_{n+1}$ with constant $c$.
-    \item $S_n\xrightarrow{\div d}S_{n+1}$ indicates projecting with $\pi_{dp\rightarrow p}$ (this is as same as $\pi_p$).
+    \item $S_n\xrightarrow{\div d}S_{n+1}$ indicates projecting with $\pi_{dp\rightarrow p}$ (this is the same as applying $\pi_p$).
 \end{itemize}
 Since we only perform these two actions, Proposition~\ref{prop:liftproj} inductively asserts that 
 $J(k,p) \subseteq \pi_p S_n$ for every $n$. 
 
-For $k=11$, since $k+1=12$ only has small prime factors $2$ and $3$, it is convenient to lift through its prime factors. Hence, the lifting diagram is
+For $k=11$, since $k+1=12$ only has small prime factors, namely $2$ and $3$, it is convenient to lift through its prime factors (and some extra sieves). Hence, the lifting diagram is
 \[S_1\xrightarrow{\times 2}S_2\xrightarrow{\times 2}S_3\xrightarrow{\times 2}S_4\xrightarrow{\times 2}S_5\xrightarrow{\times 3}S_6\xrightarrow{\times 3}S_7.\]
 If $S_7$ is empty, we conclude that $J(k,p)\subseteq\pi_pS_7$ is empty.
 
