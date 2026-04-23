@@ -3,510 +3,357 @@ PER-PRIME DETAIL  [result]
 ============================================================
   p=19  k=9
     Prev S=       1  =>  n=  1  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=     132
-    Prev S=     132  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=53  k=9
     Prev S=    4651  =>  n=  1  S=    4651
     Prev S=    4651  =>  n=  2  S=   14668
     Prev S=   14668  =>  n=  4  S=     686
     Prev S=     686  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=      15
-    Prev S=      15  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=59  k=9
     Prev S=     831  =>  n=  1  S=     831
     Prev S=     831  =>  n=  2  S=     687
     Prev S=     687  =>  n=  4  S=      24
     Prev S=      24  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=67  k=9
     Prev S=    6422  =>  n=  1  S=    6422
     Prev S=    6422  =>  n=  2  S=    6638
     Prev S=    6638  =>  n=  4  S=      30
     Prev S=      30  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=      10
-    Prev S=      10  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=71  k=9
     Prev S=   16776  =>  n=  1  S=   16776
     Prev S=   16776  =>  n=  2  S=   17732
     Prev S=   17732  =>  n=  4  S=     234
     Prev S=     234  =>  n=  8  S=       8
-    Prev S=       8  =>  n=  ?  S=       2
-    Prev S=       2  =>  n=  3  S=       6
-    Prev S=       6  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       4
-    Prev S=       4  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       8  =>  n=  3  S=       6
+    Prev S=       6  =>  n=  ?  S=      -1
+    => success
 
   p=73  k=9
     Prev S=    9803  =>  n=  1  S=    9803
     Prev S=    9803  =>  n=  2  S=    3889
     Prev S=    3889  =>  n=  4  S=      16
     Prev S=      16  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       3
-    Prev S=       3  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=79  k=9
     Prev S=    1298  =>  n=  1  S=    1298
     Prev S=    1298  =>  n=  2  S=     229
     Prev S=     229  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       3
-    Prev S=       3  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=83  k=9
     Prev S=   14422  =>  n=  1  S=   14422
     Prev S=   14422  =>  n=  2  S=    2920
     Prev S=    2920  =>  n=  4  S=       6
     Prev S=       6  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=89  k=9
     Prev S=    1382  =>  n=  1  S=    1382
     Prev S=    1382  =>  n=  2  S=      73
     Prev S=      73  =>  n=  4  S=       4
     Prev S=       4  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       3
-    Prev S=       3  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=97  k=9
     Prev S=    1910  =>  n=  1  S=    1910
     Prev S=    1910  =>  n=  2  S=     104
     Prev S=     104  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=101  k=9
     Prev S=   22623  =>  n=  1  S=   22623
     Prev S=   22623  =>  n=  2  S=    2350
     Prev S=    2350  =>  n=  4  S=      14
     Prev S=      14  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       4
-    Prev S=       4  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=103  k=9
     Prev S=   11220  =>  n=  1  S=   11220
     Prev S=   11220  =>  n=  2  S=     666
     Prev S=     666  =>  n=  4  S=       6
     Prev S=       6  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=107  k=9
     Prev S=    2818  =>  n=  1  S=    2818
     Prev S=    2818  =>  n=  2  S=     138
     Prev S=     138  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       3
-    Prev S=       3  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=109  k=9
     Prev S=    1310  =>  n=  1  S=    1310
     Prev S=    1310  =>  n=  2  S=      42
     Prev S=      42  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=113  k=9
     Prev S=    5133  =>  n=  1  S=    5133
     Prev S=    5133  =>  n=  2  S=      94
     Prev S=      94  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=127  k=9
     Prev S=    3256  =>  n=  1  S=    3256
     Prev S=    3256  =>  n=  2  S=      12
     Prev S=      12  =>  n=  4  S=       4
     Prev S=       4  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       3
-    Prev S=       3  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=131  k=9
     Prev S=    8329  =>  n=  1  S=    8329
     Prev S=    8329  =>  n=  2  S=      58
     Prev S=      58  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=137  k=9
     Prev S=     920  =>  n=  1  S=     920
     Prev S=     920  =>  n=  2  S=       5
     Prev S=       5  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=139  k=9
     Prev S=     521  =>  n=  1  S=     521
     Prev S=     521  =>  n=  2  S=       3
     Prev S=       3  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=149  k=9
     Prev S=     413  =>  n=  1  S=     413
     Prev S=     413  =>  n=  2  S=      10
     Prev S=      10  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=151  k=9
     Prev S=    3698  =>  n=  1  S=    3698
     Prev S=    3698  =>  n=  2  S=      21
     Prev S=      21  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       3
-    Prev S=       3  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=157  k=9
     Prev S=     474  =>  n=  1  S=     474
     Prev S=     474  =>  n=  2  S=       5
     Prev S=       5  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=163  k=9
     Prev S=    1007  =>  n=  1  S=    1007
     Prev S=    1007  =>  n=  2  S=       6
     Prev S=       6  =>  n=  4  S=       4
     Prev S=       4  =>  n=  8  S=       4
-    Prev S=       4  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       4  =>  n=  ?  S=      -1
+    => success
 
   p=167  k=9
     Prev S=     220  =>  n=  1  S=     220
     Prev S=     220  =>  n=  2  S=       7
     Prev S=       7  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       3
-    Prev S=       3  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=173  k=9
     Prev S=     478  =>  n=  1  S=     478
     Prev S=     478  =>  n=  2  S=       4
     Prev S=       4  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=179  k=9
     Prev S=      51  =>  n=  1  S=      51
     Prev S=      51  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=181  k=9
     Prev S=     504  =>  n=  1  S=     504
     Prev S=     504  =>  n=  2  S=       4
     Prev S=       4  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=191  k=9
     Prev S=     272  =>  n=  1  S=     272
     Prev S=     272  =>  n=  2  S=       6
     Prev S=       6  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=193  k=9
     Prev S=     125  =>  n=  1  S=     125
     Prev S=     125  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=197  k=9
     Prev S=      25  =>  n=  1  S=      25
     Prev S=      25  =>  n=  2  S=       3
     Prev S=       3  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=199  k=9
     Prev S=      20  =>  n=  1  S=      20
     Prev S=      20  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=211  k=9
     Prev S=     124  =>  n=  1  S=     124
     Prev S=     124  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=223  k=9
     Prev S=      79  =>  n=  1  S=      79
     Prev S=      79  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=227  k=9
     Prev S=      22  =>  n=  1  S=      22
     Prev S=      22  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=229  k=9
     Prev S=       7  =>  n=  1  S=       7
     Prev S=       7  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=233  k=9
     Prev S=      30  =>  n=  1  S=      30
     Prev S=      30  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=239  k=9
     Prev S=       6  =>  n=  1  S=       6
     Prev S=       6  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=241  k=9
     Prev S=      31  =>  n=  1  S=      31
     Prev S=      31  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=251  k=9
     Prev S=      13  =>  n=  1  S=      13
     Prev S=      13  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=257  k=9
     Prev S=       3  =>  n=  1  S=       3
     Prev S=       3  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=263  k=9
     Prev S=       7  =>  n=  1  S=       7
     Prev S=       7  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=269  k=9
     Prev S=       1  =>  n=  1  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=271  k=9
     Prev S=      16  =>  n=  1  S=      16
     Prev S=      16  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=277  k=9
     Prev S=       2  =>  n=  1  S=       2
     Prev S=       2  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=281  k=9
     Prev S=       6  =>  n=  1  S=       6
     Prev S=       6  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=283  k=9
     Prev S=       7  =>  n=  1  S=       7
     Prev S=       7  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=293  k=9
     Prev S=       5  =>  n=  1  S=       5
     Prev S=       5  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=307  k=9
     Prev S=       8  =>  n=  1  S=       8
     Prev S=       8  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=311  k=9
     Prev S=       4  =>  n=  1  S=       4
     Prev S=       4  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
   p=313  k=9
     Prev S=       3  =>  n=  1  S=       3
     Prev S=       3  =>  n=  2  S=       2
     Prev S=       2  =>  n=  4  S=       2
-    Prev S=       2  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       2  =>  n=  ?  S=      -1
+    => success
 
   p=317  k=9
     Prev S=       2  =>  n=  1  S=       2
     Prev S=       2  =>  n=  2  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       1
-    Prev S=       1  =>  n=  ?  S=       0
-    => S=0  (success)
+    Prev S=       1  =>  n=  ?  S=      -1
+    => success
 
 ============================================================
 PROOF SUMMARY  [result]

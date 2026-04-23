@@ -22,6 +22,7 @@ class PrimeRun:
     counter_example_mod: Optional[int] = None
     counter_example_s_size: Optional[int] = None
     seeds: list = field(default_factory=list)
+    subproof_done: bool = False
 
 # ══════════════════════════════════════════════════════════════════════════════
 # PARSING
@@ -60,9 +61,10 @@ def parse_log(path: str) -> list[PrimeRun]:
         r"trying\s+(\d+):\s*T\s+size\s*=\s*(\d+)\s*=>\s*\([nl]=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
     )
     re_forcing = re.compile(r"Forcing\s+Lift\s+c=(\d+):\s*T\s+size\s*=\s*(\d+)")
+    re_findcover = re.compile(r"^\[FindCover\]\s*(.*)$")
 
     re_step_generic = re.compile(
-        r"Step\s+[\d.]+\s+\([nl]=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
+        r"Step(?:\s+[\d.]+)?\s+\([nl]=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
     )
 
     re_result_simple = re.compile(
@@ -81,9 +83,12 @@ def parse_log(path: str) -> list[PrimeRun]:
     re_seeds = re.compile(r"seeds\s*:(.*)")
 
     re_step_plain = re.compile(r"Step\s+([\d.]+)$")
+
     re_squeezing = re.compile(
         r"\[\d+\.\d+\]\s*squeezing\s*\(l=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
     )
+
+    re_subproof_done = re.compile(r"subproof\s+mod\s+(\d+)\s+done", re.IGNORECASE)
 
     def flush():
         nonlocal pending_trying
@@ -96,6 +101,9 @@ def parse_log(path: str) -> list[PrimeRun]:
             raw = raw.rstrip()
             m = re_thread.match(raw)
             line = m.group(1) if m else raw
+
+            m = re_findcover.match(line)
+            line = m.group(1) if m else line
 
             if not line:
                 continue
@@ -205,6 +213,11 @@ def parse_log(path: str) -> list[PrimeRun]:
                 pending_trying = None
                 continue
 
+            if m := re_subproof_done.search(line):
+                if int(m.group(1)) == current.p:
+                    current.subproof_done = True
+                continue
+
     flush()
     if current is not None:
         runs.append(current)
@@ -281,8 +294,8 @@ def format_run(run: PrimeRun):
         lines.append(f"    Prev S={prev:>8}  =>  n={n_str:>3}  S={s:>8}")
         prev_s = s
 
-    if prev_s == 0:
-        lines.append("    => S=0  (success)")
+    if prev_s == 0 or run.subproof_done:
+        lines.append("    => success")
         return True, "\n".join(lines)
 
     if run.counter_example:

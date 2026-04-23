@@ -7,9 +7,11 @@
 
 template <int K> struct SpeedSet
 {
+private:
   std::array<int, K> mSet{};
   int mSize = 0;
 
+public:
   SpeedSet() = default;
 
   SpeedSet(const std::array<int, K>& v) : mSize{K}
@@ -21,10 +23,17 @@ template <int K> struct SpeedSet
   const auto end() const { return mSet.end(); }
 
   void insert(int x) { mSet[mSize++] = x; }
-  void remove(int x = 0) { --mSize; }
+  void remove(int x)
+  {
+    --mSize;
+    assert(x == mSet[mSize]);
+  }
+
+  int size() const { return mSize; }
 
   SpeedSet get_sorted_set() const
   {
+    assert(mSize == K);
     SpeedSet tmp(*this);
     std::sort(tmp.mSet.begin(), tmp.mSet.begin() + tmp.mSize);
     return tmp;
@@ -40,22 +49,22 @@ template <int K> struct SpeedSet
 
     const auto is_less = [](const auto& a, const auto& b)
     {
-      for (int i = 1; i < K; ++i) // i=0 is always 1, skip it
+      for (int i = 0; i < K; ++i)
         if (a[i] != b[i]) return a[i] < b[i];
       return false;
     };
 
     std::array<int, K> best;
-    long long run = mod_inverse((int)prefix[K - 1], prime);
+    int run = mod_inverse(prefix[K - 1], prime);
     for (int i = K - 1; i >= 0; --i)
     {
-      long long inv = (i > 0) ? run * prefix[i - 1] % prime : run;
+      int inv = (i > 0) ? run * prefix[i - 1] % prime : run;
       if (i > 0) run = run * mSet[i] % prime;
 
       auto tmp = mSet;
       for (int j = 0; j < K; ++j)
       {
-        int v  = (int)((long long)mSet[j] * inv % prime);
+        int v  = static_cast<long long>(mSet[j]) * inv % prime;
         tmp[j] = std::min(v, prime - v);
       }
       std::sort(tmp.begin(), tmp.end());
@@ -68,7 +77,7 @@ template <int K> struct SpeedSet
 
   bool subset_gcd_implies_proper(long long n) const
   {
-    // doesn't require mSet ordering
+    // this doesn't require mSet ordering
     std::array<long long, K> pref, suf;
 
     pref[0] = mSet[0];
@@ -78,7 +87,6 @@ template <int K> struct SpeedSet
     for (int i = K - 2; i >= 0; --i) suf[i] = gcd_fallback(suf[i + 1], (long long)mSet[i]);
 
     if (gcd_fallback(n, suf[1]) != 1) return true;
-
     if (gcd_fallback(n, pref[K - 2]) != 1) return true;
 
     for (int removed = 1; removed < K - 1; ++removed)

@@ -32,8 +32,8 @@ template <int P, int K, int N> struct Context
       for (int t = 1; t <= Q; ++t)
       {
         int pos   = Q - t;
-        int rem   = (int)((1LL * t * i) % Q);
-        bool cond = (1LL * rem * (K + 1) < Q) || (1LL * (Q - rem) * (K + 1) < Q);
+        int rem   = (t * i) % Q;
+        bool cond = (rem * (K + 1) < Q) || ((Q - rem) * (K + 1) < Q);
         if (cond) B.set(pos);
       }
     }
@@ -53,22 +53,23 @@ template <int P, int K, int N> struct Dfs
   std::array<std::vector<int>, K> cand;
   SetOfSpeedSets<K> result;
   Dfs(const std::array<int, K>& ord, const std::array<std::vector<int>, K>& cnd) : order{ord}, cand{cnd} {}
-  void run(int depth)
+
+  void run()
   {
-    if (depth == K)
+    if (elem.size() == K)
     {
       std::bitset<context<P, K, N>.Q> acc;
       for (auto v : elem) acc |= context<P, K, N>.cover(v);
-      if ((int)acc.count() != context<P, K, N>.Q) return;
+      if (acc.count() != context<P, K, N>.Q) return;
       if (elem.subset_gcd_implies_proper(N)) return;
       result.insert(elem.get_sorted_set());
       return;
     }
-    int pos = order[depth];
+    const int pos = order[elem.size()];
     for (int candidate : cand[pos])
     {
       elem.insert(candidate);
-      run(depth + 1);
+      run();
       elem.remove(candidate);
     }
   }
@@ -76,8 +77,8 @@ template <int P, int K, int N> struct Dfs
 
 template <int P, int K, int L, int C> SetOfSpeedSets<K> lift(const SpeedSet<K>& seed)
 {
-  const auto& Ctx = context<P, K, L * C>;
-  auto cand       = [&]
+  static constexpr auto Q = context<P, K, L * C>.Q;
+  auto cand               = [&]
   {
     std::array<std::vector<int>, K> cand{};
     int j = 0;
@@ -85,11 +86,9 @@ template <int P, int K, int L, int C> SetOfSpeedSets<K> lift(const SpeedSet<K>& 
     {
       for (int a = 0; a < C; a++)
       {
-        long long val = (long long)s + (long long)a * (Ctx.Q / C);
-        if (val < Ctx.Q)
-          cand[j].push_back((int)val);
-        else
-          break;
+        long long val = (long long)s + (long long)a * (Q / C);
+        if (val >= Q) break;
+        cand[j].push_back((int)val);
       }
       ++j;
     }
@@ -100,25 +99,25 @@ template <int P, int K, int L, int C> SetOfSpeedSets<K> lift(const SpeedSet<K>& 
   std::iota(order.begin(), order.end(), 0);
   std::sort(order.begin(), order.end(), [&](int A, int B) { return cand[A].size() < cand[B].size(); });
 
-  Dfs<P, K, L * C> runner{order, cand};
-  runner.run(0);
+  // TODO: get rid of order
+  Dfs<P, K, L * C> runner{std::move(order), std::move(cand)};
 
+  runner.run();
   return runner.result;
 }
 
 template <int P, int K, int L, int C>
 SetOfSpeedSets<K> find_lifted_covers_parallel(const SetOfSpeedSets<K>& seeds)
 {
-  size_t N_seeds = seeds.size();
+  const size_t N_seeds = seeds.size();
   if (N_seeds == 0) return {};
 
-  unsigned int nthreads = parallelize_core();
-  if (nthreads > N_seeds) nthreads = (unsigned int)N_seeds;
+  const unsigned int nthreads = std::min(parallelize_core(), N_seeds);
 
   std::vector<SetOfSpeedSets<K>> thread_results(nthreads);
   std::vector<std::thread> threads;
 
-  auto worker = [&](auto begin, auto end, unsigned tid)
+  const auto worker = [&](auto begin, auto end, unsigned tid)
   {
     auto& local_results = thread_results[tid];
     for (auto it = begin; it != end; ++it) local_results.merge(lift<P, K, L, C>(*it));
