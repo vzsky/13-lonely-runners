@@ -21,64 +21,65 @@ namespace lift
 template <int P, int K, int N> struct Context
 {
   static constexpr int Q = N * P;
+  using CoverBitset      = std::bitset<Q>;
 
-  const std::bitset<Q>& cover(int i) const { return mCover[i]; }
-
-  Context()
+  const CoverBitset& cover(int i)
   {
-    for (int i = 0; i < Q; ++i)
+    if (mCover[i].count() != 0) [[likely]]
+      return mCover[i];
+
+    for (int t = 1; t <= Q; ++t)
     {
-      auto& B = mCover[i];
-      for (int t = 1; t <= Q; ++t)
-      {
-        int pos   = Q - t;
-        int rem   = (t * i) % Q;
-        bool cond = (rem * (K + 1) < Q) || ((Q - rem) * (K + 1) < Q);
-        if (cond) B.set(pos);
-      }
+      int pos   = Q - t;
+      int rem   = (t * i) % Q;
+      bool cond = (rem * (K + 1) < Q) || ((Q - rem) * (K + 1) < Q);
+      if (cond) mCover[i].set(pos);
     }
+    return mCover[i];
   }
 
 private:
-  // TODO: make const
-  std::array<std::bitset<Q>, Q> mCover;
+  // NB. ideally this is const after initialization but compile time heavy enough
+  // TODO: see how bad/good is it to move to runtime context
+  std::array<CoverBitset, Q> mCover;
 };
 
-template <int P, int K, int N> static const Context<P, K, N> context{};
+template <int P, int K, int N> static Context<P, K, N> context{};
 
 template <int P, int K, int N> struct Dfs
 {
   SpeedSet<K> elem;
-  std::array<int, K> order;
-  std::array<std::vector<int>, K> cand;
+  Context<P, K, N>::CoverBitset unionCover;
+  std::array<std::vector<int>, K> candidates;
   SetOfSpeedSets<K> result;
-  Dfs(const std::array<int, K>& ord, const std::array<std::vector<int>, K>& cnd) : order{ord}, cand{cnd} {}
+  Dfs(std::array<std::vector<int>, K>&& cnd) : candidates{std::move(cnd)} {}
 
   void run()
   {
     if (elem.size() == K)
     {
-      std::bitset<context<P, K, N>.Q> acc;
-      for (auto v : elem) acc |= context<P, K, N>.cover(v);
-      if (acc.count() != context<P, K, N>.Q) return;
+      if (unionCover.count() != context<P, K, N>.Q) return;
       if (elem.subset_gcd_implies_proper(N)) return;
       result.insert(elem.get_sorted_set());
       return;
     }
-    const int pos = order[elem.size()];
-    for (int candidate : cand[pos])
+
+    for (int candidate : candidates[elem.size()])
     {
+      auto savedCover = unionCover;
       elem.insert(candidate);
+      unionCover |= context<P, K, N>.cover(candidate);
       run();
       elem.remove(candidate);
+      unionCover = savedCover;
     }
   }
 };
 
 template <int P, int K, int L, int C> SetOfSpeedSets<K> lift(const SpeedSet<K>& seed)
 {
-  static constexpr auto Q = context<P, K, L * C>.Q;
-  auto cand               = [&]
+  static constexpr auto Q  = context<P, K, L * C>.Q;
+  const auto makeCandidate = [&]
   {
     std::array<std::vector<int>, K> cand{};
     int j = 0;
@@ -92,16 +93,12 @@ template <int P, int K, int L, int C> SetOfSpeedSets<K> lift(const SpeedSet<K>& 
       }
       ++j;
     }
+
+    std::sort(cand.begin(), cand.end(), [&](const auto& A, const auto& B) { return A.size() < B.size(); });
     return cand;
-  }();
+  };
 
-  std::array<int, K> order;
-  std::iota(order.begin(), order.end(), 0);
-  std::sort(order.begin(), order.end(), [&](int A, int B) { return cand[A].size() < cand[B].size(); });
-
-  // TODO: get rid of order
-  Dfs<P, K, L * C> runner{std::move(order), std::move(cand)};
-
+  Dfs<P, K, L * C> runner{makeCandidate()};
   runner.run();
   return runner.result;
 }

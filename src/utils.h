@@ -62,7 +62,7 @@ inline size_t parallelize_core()
 }
 
 // Fallback GCD for subset-gcd checking (used in sieve condition)
-template <typename T> inline T gcd_fallback(T a, T b)
+template <typename T> T gcd_fallback(T a, T b)
 {
   a = std::abs(a);
   b = std::abs(b);
@@ -75,7 +75,7 @@ template <typename T> inline T gcd_fallback(T a, T b)
   return a;
 }
 
-template <typename T, typename... Ts> inline T gcd_fallback(T a, T b, Ts... rest)
+template <typename T, typename... Ts> T gcd_fallback(T a, T b, Ts... rest)
 {
   return gcd_fallback(gcd_fallback(a, b), rest...);
 }
@@ -99,7 +99,7 @@ inline int mod_inverse(int a, int p) { return mod_pow(a, p - 2, p); }
 
 inline std::string print_time()
 {
-  auto now = std::chrono::system_clock::now();
+  const auto now = std::chrono::system_clock::now();
   return std::format("{:%H:%M:%S}", now);
 }
 
@@ -110,8 +110,8 @@ template <typename Func> void timeit(const std::string& s, Func&& f)
 
   f();
 
-  const auto end = high_resolution_clock::now();
-  const auto us = duration_cast<microseconds>(end - start).count();
+  const auto end    = high_resolution_clock::now();
+  const auto us     = duration_cast<microseconds>(end - start).count();
   const auto sec    = us / 1'000'000;
   const auto rem_us = us % 1'000'000;
   Log(s, std::format("-- Time elapsed: {}.{:06d} s", sec, rem_us));

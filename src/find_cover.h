@@ -39,7 +39,8 @@ template <int K, int P> struct Context
   const CoveredBitset& cover(int i) const { return mCover[i]; }
 
 private:
-  // TODO: make const
+  // NB. ideally this is const after initialization but compile time heavy enough
+  // TODO: see how bad/good is it to move to runtime context
   CovArray mCover{};
 };
 

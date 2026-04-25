@@ -16,7 +16,7 @@ ns_to_s() {
 }
 
 compile_start=$(now_ns)
-g++ -std=c++23 -O3 "$SRC" -o run_binary
+clang++ -std=c++23 -march=native -O3 "$SRC" -o run_binary
 compile_status=$?
 compile_end=$(now_ns)
 
