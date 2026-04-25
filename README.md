@@ -16,6 +16,7 @@
     - this is for sanity check only
     - the problem this script solves is trivial enough
 - `article/` the source of the article.
+- `freezer/` some regression tests.
 
 ## Implementation Details
 We split this into small parts with three main components: 

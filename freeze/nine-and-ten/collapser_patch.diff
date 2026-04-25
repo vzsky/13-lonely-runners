@@ -1,0 +1,93 @@
+diff --git a/lrc_for_nine_runners.cpp b/lrc_for_nine_runners.cpp
+old mode 100644
+new mode 100755
+index ff7e2c7..7ef295f
+--- a/lrc_for_nine_runners.cpp
++++ b/lrc_for_nine_runners.cpp
+@@ -3,6 +3,7 @@
+ // The method lifts covers over moduli n = 1 -> 3 -> 9 using bitset representations and subset-GCD sieving.
+ // Parallelization is used over seed tuples for efficiency.
+ 
++#include <cassert>
+ #include <iostream>
+ #include <vector>
+ #include <string>
+@@ -31,6 +32,58 @@ using u64 = uint64_t;
+ constexpr int P_CONST = PRIME;
+ constexpr int K_CONST = K;
+ 
++inline int mod_pow(int a, int e, int p)
++{
++  int res = 1 % p;
++  a %= p;
++
++  while (e > 0)
++  {
++    if (e & 1) res = (int)((long long)res * a % p);
++    a = (int)((long long)a * a % p);
++    e >>= 1;
++  }
++
++  return res;
++}
++
++inline int mod_inverse(int a, int p) { return mod_pow(a, p - 2, p); }
++
++vector<int> get_canonical_representation(int prime, vector<int> speeds)
++{
++  assert(speeds.size() == K);
++  std::array<long long, K> prefix;
++  prefix[0] = speeds[0];
++  for (int i = 1; i < K; ++i) prefix[i] = prefix[i - 1] * speeds[i] % prime;
++
++  const auto is_less = [](const auto& a, const auto& b)
++  {
++    for (int i = 0; i < K; ++i)
++      if (a[i] != b[i]) return a[i] < b[i];
++    return false;
++  };
++
++  vector<int> best;
++  int run = mod_inverse(prefix[K - 1], prime);
++  for (int i = K - 1; i >= 0; --i)
++  {
++    int inv = (i > 0) ? run * prefix[i - 1] % prime : run;
++    if (i > 0) run = run * speeds[i] % prime;
++
++    auto tmp = speeds;
++    for (int j = 0; j < K; ++j)
++    {
++      int v  = static_cast<long long>(speeds[j]) * inv % prime;
++      tmp[j] = std::min(v, prime - v);
++    }
++    std::sort(tmp.begin(), tmp.end());
++
++    if (i == K - 1 || is_less(tmp, best)) best = tmp;
++  }
++
++  return best;
++}
++
+ // Fallback GCD for subset-gcd checking (used in sieve condition)
+ static inline long long gcd_fallback(long long a, long long b) {
+     if (a < 0) a = -a;
+@@ -342,6 +395,12 @@ int main(){
+     cout << "Step1 (n=1): S size = " << S.size() << "  (time " << time1 << " s)\n";
+     if (S.empty()) { cout << "S empty; terminating.\n"; return 0; }
+ 
++    cout << "Collapsing duplicate tuples" << endl;
++    set<vector<int>> new_S;
++    for (auto v : S) new_S.insert(get_canonical_representation(p, v));
++    S = vector<vector<int>> (new_S.begin(), new_S.end());
++    cout << "Step1.5 (n=1): S size = " << S.size() << "  (time " << time1 << " s)\n";
++
+     // Step 2: Lift each seed from S using multiplier p, m = 3 (to n = 3)
+     auto t2s = clk::now();
+     Context C2 = make_context(p, k, 3, true);
+@@ -370,4 +429,4 @@ int main(){
+ 
+     cout << "Total times: step1=" << time1 << " s, step2=" << time2 << " s, step3=" << time3 << " s\n";
+     return 0;
+-}
+\ No newline at end of file
++}
