@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>
 #include <cassert>
 #include <format>
@@ -5,16 +7,16 @@
 #include <tuple>
 #include <utility>
 
-#include "speedset.h"
 #include "lift.h"
+#include "speedset.h"
 
 // ============================================================================
 // State
 // ============================================================================
 
-template <int K, int L> struct State
+template <int L, int P, int K> struct State
 {
-  SetOfSpeedSets<K> S;
+  SetOfSpeedSets<K> ansatz;
 };
 
 // ============================================================================
@@ -25,9 +27,9 @@ template <int Arg> struct Force
 {
   friend std::ostream& operator<<(std::ostream& os, const Force&) { return os << "Force " << Arg; }
 
-  template <int P, int K, int L> State<K, L * Arg> operator()(State<K, L> st) const
+  template <int L, int P, int K> State<L * Arg, P, K> operator()(State<L, P, K> st) const
   {
-    auto T = lift::find_lifted_covers_parallel<P, K, L, Arg>(st.S);
+    auto T = lift::find_lifted_covers_parallel<Arg, L, P, K>(st.ansatz);
     Log(std::format("Forcing Lift c={}: T size = {}", Arg, T.size()));
     return {std::move(T)};
   }
@@ -37,10 +39,10 @@ struct Project
 {
   friend std::ostream& operator<<(std::ostream& os, const Project&) { return os << "Project"; }
 
-  template <int P, int K, int L> State<K, 1> operator()(State<K, L> st) const
+  template <int L, int P, int K> State<1, P, K> operator()(State<L, P, K> st) const
   {
     SetOfSpeedSets<K> T;
-    for (auto s : st.S) T.insert(s.project(P).get_sorted_set());
+    for (auto s : st.ansatz) T.insert(s.project(P).get_sorted_set());
     Log("Projected down");
     return {std::move(T)};
   }
@@ -50,12 +52,15 @@ template <int Limit = 0> struct Print
 {
   friend std::ostream& operator<<(std::ostream& os, const Print&) { return os << "Print"; }
 
-  template <int P, int K, int L> State<K, L> operator()(State<K, L> st) const
+  template <int L, int P, int K> State<L, P, K> operator()(State<L, P, K> st) const
   {
-    if (st.S.size() == 0)
+    Log(std::format("ansatz: K={}, P={}, L={}", K, P, L));
+    if (st.ansatz.size() == 0)
       Log("seeds: empty");
-    else if (Limit == 0 || st.S.size() <= Limit)
-      Log("seeds: ", st.S);
+    else if (Limit == 0 || st.ansatz.size() <= Limit)
+      Log("seeds: ", st.ansatz);
+    else
+      Log("seeds: too many");
     return st;
   }
 };
@@ -67,14 +72,15 @@ struct TightLargePrime
     return os << "Remove (1..k) for large prime";
   }
 
-  template <int P, int K, int L> State<K, L> operator()(State<K, L> st) const
+  template <int L, int P, int K> State<L, P, K> operator()(State<L, P, K> st) const
   {
-    if (P < K * (K + 1)) {
+    if (P < K * (K + 1))
+    {
       Log("Prime too small -- (1..k) not removed");
       return st;
     }
 
-    st.S.erase([]
+    st.ansatz.erase([]
     {
       SpeedSet<K> onetok{};
       for (int i = 1; i <= K; i++) onetok.insert(i);
@@ -90,56 +96,48 @@ template <int Arg, int MaxIter = 3> struct Squeeze
   friend std::ostream& operator<<(std::ostream& os, const Squeeze&) { return os << "Squeeze"; }
 
 private:
-  template <int P, int K, int CurL, int Remaining>
-  static SetOfSpeedSets<K> loop(SetOfSpeedSets<K> lifted, SetOfSpeedSets<K> last)
+  template <int Remaining, int CurL, int P, int K>
+  static State<1, P, K> iterate(State<CurL, P, K> lifted, State<1, P, K> last)
   {
-    if (last.size() == 0) return last;
-    SetOfSpeedSets<K> U;
-    for (auto s : lifted) U.insert(s.project(P).get_sorted_set());
+    if (last.ansatz.empty()) return last;
+    State<1, P, K> projected = Project{}(lifted);
+    if (projected.ansatz.size() == last.ansatz.size()) return last;
 
-    if (U.size() == last.size()) return last;
-
-    Log(std::format("squeezing (l={}): S size = {}", CurL, lifted.size()));
-
-    if constexpr (Remaining == 0)
-      return U;
+    if constexpr (Remaining != 0)
+      return iterate<Remaining - 1>(Force<Arg>{}(lifted), std::move(projected));
     else
-    {
-      SetOfSpeedSets<K> next = lift::find_lifted_covers_parallel<P, K, CurL, Arg>(lifted);
-      return loop<P, K, CurL * Arg, Remaining - 1>(std::move(next), std::move(U));
-    }
+      return projected;
   }
 
 public:
-  template <int P, int K, int L> State<K, 1> operator()(State<K, L> st) const
+  template <int L, int P, int K> State<1, P, K> operator()(State<L, P, K> st) const
   {
-    SetOfSpeedSets<K> lifted = lift::find_lifted_covers_parallel<P, K, L, Arg>(st.S);
-    return {loop<P, K, L * Arg, MaxIter - 1>(std::move(lifted), std::move(st.S))};
+    static_assert(MaxIter > 0);
+    return iterate<MaxIter - 1>(Force<Arg>{}(st), std::move(st));
   }
 };
 
 // ============================================================================
-// Tuple visitor
+// Tuple visitor: 
+// tuples of functions represent functions composition
 // ============================================================================
 
-// tuples of functions represent functions composition
-template <int P, int K, std::size_t I = 0, typename Tuple, typename S> auto apply_config(S st, const Tuple& t)
+template <typename Tuple, std::size_t I = 0, int L, int P, int K> auto apply_config(State<L, P, K>&& st)
 {
   if constexpr (I < std::tuple_size_v<Tuple>)
   {
-    decltype(std::get<I>(t).template operator()<P, K>(st)) result;
+    const bool shouldLog = st.ansatz.size() != 0;
+    if (shouldLog) Log(std::format("Step 2.{}", I));
 
-    if (st.S.size() == 0)
-      return decltype(apply_config<P, K, I + 1>(result, t)) {}; // empty return
-
-    Log(std::format("Step 2.{}", I));
-    timeit([&]
+    auto result = timeit([&]
     {
       PushLogScope(std::format("2.{}", I));
-      result = std::get<I>(t).template operator()<P, K>(st);
-      Log(std::get<I>(t), " :: Done :: ", "S.size() =", result.S.size());
+      auto config = std::tuple_element_t<I, Tuple>{};
+      auto r      = config(st);
+      if (shouldLog) Log(config, " :: Done :: ", "S.size() =", r.ansatz.size());
+      return r;
     });
-    return apply_config<P, K, I + 1>(result, t);
+    return apply_config<Tuple, I + 1>(std::move(result));
   }
   else
     return st;

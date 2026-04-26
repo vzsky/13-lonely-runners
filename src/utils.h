@@ -103,21 +103,32 @@ inline std::string print_time()
   return std::format("{:%H:%M:%S}", now);
 }
 
-template <typename Func> void timeit(const std::string& s, Func&& f)
+template <typename Func> auto timeit(const std::string& s, Func&& f)
 {
   using namespace std::chrono;
-  const auto start = high_resolution_clock::now();
+  const auto start    = high_resolution_clock::now();
+  const auto log_time = [&]
+  {
+    const auto us     = duration_cast<microseconds>(high_resolution_clock::now() - start).count();
+    const auto sec    = us / 1'000'000;
+    const auto rem_us = us % 1'000'000;
+    Log(s, std::format("-- Time elapsed: {}.{:06d} s", sec, rem_us));
+  };
 
-  f();
-
-  const auto end    = high_resolution_clock::now();
-  const auto us     = duration_cast<microseconds>(end - start).count();
-  const auto sec    = us / 1'000'000;
-  const auto rem_us = us % 1'000'000;
-  Log(s, std::format("-- Time elapsed: {}.{:06d} s", sec, rem_us));
+  if constexpr (std::is_void_v<std::invoke_result_t<Func>>)
+  {
+    f();
+    log_time();
+  }
+  else
+  {
+    auto result = f();
+    log_time();
+    return result;
+  }
 }
 
-template <typename Func> void timeit(Func&& f) { timeit("", f); }
+template <typename Func> auto timeit(Func&& f) { return timeit("", f); }
 
 template <int I, int N, typename F> constexpr void For(F&& f)
 {

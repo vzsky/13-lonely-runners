@@ -6,6 +6,14 @@ if [ "$#" -lt 1 ]; then
 fi
 
 SRC=$1
+OPTIM="-O3"
+
+for arg in "$@"; do
+  if [ "$arg" = "--debug" ]; then
+    OPTIM="-O0"
+    break
+  fi
+done
 
 now_ns() {
   date +%s%N
@@ -16,7 +24,7 @@ ns_to_s() {
 }
 
 compile_start=$(now_ns)
-clang++ -std=c++23 -march=native -O3 "$SRC" -o run_binary
+clang++ -std=c++23 -march=native "$OPTIM" "$SRC" -o run_binary
 compile_status=$?
 compile_end=$(now_ns)
 

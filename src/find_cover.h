@@ -20,7 +20,7 @@
 namespace find_cover
 {
 
-template <int K, int P> struct Context
+template <int P, int K> struct Context
 {
   using CoveredBitset = std::bitset<P / 2>;
   using CovArray      = std::array<CoveredBitset, P / 2>;
@@ -40,16 +40,15 @@ template <int K, int P> struct Context
 
 private:
   // NB. ideally this is const after initialization but compile time heavy enough
-  // TODO: see how bad/good is it to move to runtime context
   CovArray mCover{};
 };
 
-template <int K, int P> static const Context<K, P> context{};
+template <int P, int K> static const Context<P, K> context{};
 
-template <int K, int P> struct Dfs
+template <int P, int K> struct Dfs
 {
   static constexpr int bitlen = P / 2;
-  using CoveredBitset         = typename Context<K, P>::CoveredBitset;
+  using CoveredBitset         = typename Context<P, K>::CoveredBitset;
 
   struct State
   {
@@ -62,7 +61,6 @@ template <int K, int P> struct Dfs
   } state;
 
   SetOfSpeedSets<K> solutions{};
-  // const typename Context<K, P>::CovArray& cov = context<K, P>.cov;
 
   void run()
   {
@@ -81,11 +79,11 @@ template <int K, int P> struct Dfs
     for (int i = 0; i < P / 2; ++i)
     {
       if (state.choice.isEliminated(i)) continue;
-      if (nextToCover == -1 || context<K, P>.cover(i)[nextToCover])
+      if (nextToCover == -1 || context<P, K>.cover(i)[nextToCover])
       {
         state.elems.insert(i + 1);
         CoveredBitset mem = state.covered;
-        state.covered |= context<K, P>.cover(i);
+        state.covered |= context<P, K>.cover(i);
 
         run();
 
@@ -115,9 +113,9 @@ private:
     for (int i = 0; i < P / 2; ++i)
     {
       if (state.choice.isEliminated(i)) continue;
-      int c        = (nextC & context<K, P>.cover(i)).count();
+      int c        = (nextC & context<P, K>.cover(i)).count();
       bestCovering = std::max(bestCovering, c);
-      if (context<K, P>.cover(i)[nextToCover]) bestCovering_next = std::max(bestCovering_next, c + 1);
+      if (context<P, K>.cover(i)[nextToCover]) bestCovering_next = std::max(bestCovering_next, c + 1);
     }
 
     const int slots = K - state.elems.size();
@@ -125,16 +123,16 @@ private:
   }
 };
 
-template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
+template <int P, int K> static SetOfSpeedSets<K> find_all_covers_parallel()
 {
   // Fix first coordinate to 1 and generate all second coordinate per worker thread.
-  using CoveredBitset = typename Dfs<K, P>::CoveredBitset;
+  using CoveredBitset = typename Dfs<P, K>::CoveredBitset;
 
-  typename Dfs<K, P>::State::AvailableChoice base_choice;
+  typename Dfs<P, K>::State::AvailableChoice base_choice;
   CoveredBitset first_covered;
   SpeedSet<K> elems{};
   elems.insert(1);
-  first_covered |= context<K, P>.cover(0);
+  first_covered |= context<P, K>.cover(0);
 
   int nextToCover1 = base_choice.get_next_to_cover(first_covered);
 
@@ -142,13 +140,13 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
   { // all possible second coordinate
     std::vector<int> v;
     for (int i = 0; i < P / 2; ++i)
-      if (nextToCover1 == -1 || context<K, P>.cover(i)[nextToCover1]) v.push_back(i);
+      if (nextToCover1 == -1 || context<P, K>.cover(i)[nextToCover1]) v.push_back(i);
     return v;
   }();
   const size_t ncands = coord2_candidates.size();
   const std::vector choices = [&]
   { // precompute the choices after using each candidate
-    std::vector<typename Dfs<K, P>::State::AvailableChoice> v(ncands + 1);
+    std::vector<typename Dfs<P, K>::State::AvailableChoice> v(ncands + 1);
     v[0] = base_choice;
     for (size_t idx = 0; idx < ncands; ++idx)
     {
@@ -179,8 +177,8 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
         SpeedSet<K> local_elems = elems;
         local_elems.insert(i + 1);
 
-        Dfs<K, P> d(
-            typename Dfs<K, P>::State{first_covered | context<K, P>.cover(i), local_elems, choices[idx]});
+        Dfs<P, K> d(
+            typename Dfs<P, K>::State{first_covered | context<P, K>.cover(i), local_elems, choices[idx]});
         d.run();
         thread_results[t].merge(d.solutions);
       }
@@ -195,7 +193,7 @@ template <int K, int P> static SetOfSpeedSets<K> find_all_covers_parallel()
   return base_solutions;
 }
 
-template <int K, int P> struct Dfs<K, P>::State::AvailableChoice
+template <int P, int K> struct Dfs<P, K>::State::AvailableChoice
 {
 private:
   using ElimArray   = std::array<char, P / 2>;
@@ -208,7 +206,7 @@ public:
   {
     for (int i = 0; i < P / 2; ++i)
       for (int pos = 0; pos < bitlen; ++pos)
-        if (context<K, P>.cover(i)[pos]) _remaining[pos]++;
+        if (context<P, K>.cover(i)[pos]) _remaining[pos]++;
   }
 
   bool isEliminated(size_t i) const { return _eliminated[i]; }
@@ -231,7 +229,7 @@ public:
   {
     _eliminated[i] = 1;
     for (int pos = 0; pos < bitlen; ++pos)
-      if (context<K, P>.cover(i)[pos]) _remaining[pos]--;
+      if (context<P, K>.cover(i)[pos]) _remaining[pos]--;
   }
 };
 

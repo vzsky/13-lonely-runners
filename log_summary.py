@@ -62,6 +62,8 @@ def parse_log(path: str) -> list[PrimeRun]:
     )
     re_forcing = re.compile(r"Forcing\s+Lift\s+c=(\d+):\s*T\s+size\s*=\s*(\d+)")
     re_findcover = re.compile(r"^\[FindCover\]\s*(.*)$")
+    re_lift = re.compile(r"^\[Lift\]\s*(.*)$")
+    re_substep = re.compile(r"^\[\d+\.\d+\]\s*(.*)$")
 
     re_step_generic = re.compile(
         r"Step(?:\s+[\d.]+)?\s+\([nl]=(\d+)\):\s*S\s+size\s*=\s*(\d+)"
@@ -76,7 +78,7 @@ def parse_log(path: str) -> list[PrimeRun]:
     )
 
     re_strategy_size = re.compile(
-        r"(?:Squeeze|Force\s+\d+|Resolve\s+\w+|Print(?:\s+\d+)?)\s+S\.size\(\)\s*=\s*(\d+)"
+        r"(?:Squeeze|Force\s+\d+|Resolve\s+\w+|Print(?:\s+\d+)?).*?S\.size\(\)\s*=\s*(\d+)"
     )
 
     re_counter = re.compile(r"Counter\s+Example\s+Mod\s+(\d+)")
@@ -104,6 +106,13 @@ def parse_log(path: str) -> list[PrimeRun]:
 
             m = re_findcover.match(line)
             line = m.group(1) if m else line
+
+            m = re_lift.match(line)
+            if m:
+                line = m.group(1)
+                m2 = re_substep.match(line)
+                if m2:
+                    line = m2.group(1)
 
             if not line:
                 continue
