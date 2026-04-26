@@ -48,11 +48,12 @@ template <int N, int P, int K> static Context<N, P, K> context{};
 
 template <int N, int P, int K> struct Dfs
 {
+  Dfs(std::array<std::vector<int>, K>&& cnd) : candidates{std::move(cnd)} {}
+
   SpeedSet<K> elem;
   Context<N, P, K>::CoverBitset unionCover;
   std::array<std::vector<int>, K> candidates;
   SetOfSpeedSets<K> result;
-  Dfs(std::array<std::vector<int>, K>&& cnd) : candidates{std::move(cnd)} {}
 
   void run()
   {
