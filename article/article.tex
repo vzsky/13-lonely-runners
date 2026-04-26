@@ -89,10 +89,9 @@ constant speeds around a unit-length track, each of them will be \emph{lonely} a
 Being lonely means being at least $\tfrac{1}{k+1}$ away from other runners. 
 However, most advances work with one fewer runner and only positive integer speeds, 
 possible due to \cite{Bohman} and \cite{henze_covering_2017} that showed a reduction from Conjecture \ref{lonelyconj}
-to a simpler Conjecture~\ref{lonelyconjred}.
+to a simpler Conjecture~\ref{lonelyconjred}:
 
-% TODO: flow a bit awkward
-First, we say that a tuple $(u_1, \dots, u_k)$ has the \emph{LR property} if there is a real number $t$ such that 
+We say that a tuple $(u_1, \dots, u_k)$ has the \emph{LR property} if there is a real number $t$ such that 
 \[\norm{tu_i}\geq\frac{1}{k+1} \quad \text{for all } i = 1,\dots,k.\]
 Such time $t$ where the inequalities hold is called a \emph{witness} of the LR property of $(u_1, \dots,u_k)$.
 
@@ -179,7 +178,7 @@ The following definition and lemma summarize what must be verified.
 \end{lemma}
 
 Lemma~\ref{lem:divp} translates proving Conjecture \ref{lonelyconjred} to the computer verification task
-of showing that for many primes $p$, $I(k,p,l_p)=\emptyset$ for some $l_p$.
+of showing that, for many primes $p$, $I(k,p,l_p)=\emptyset$ for some $l_p$.
 Since the choice of $l$ is irrelevant to the final conclusion, 
 we introduce a new terminology to simplify our discussion and implementation. 
 \begin{definition}
@@ -227,7 +226,7 @@ We may also restate Lemma~\ref{lem:divp} in a more usable form for the proof of 
 \begin{corollary}\label{cor:evenpropdivp}
   % TODO: check that everything works for k+1 = 3 is prime.
   Let $k \ge 3$ and $p$ be prime.
-  If $LRC(k)$ is true and $J(k,p)$ is empty, then any counterexample $\ubf$ to $LRC(k)$ has $p \mid u_1\cdots u_k$.
+  If $LRC(k)$ is true and $J(k,p)$ is empty, then any counterexample $\ubf$ to $LRC(k)$ has the property that $p \mid u_1\cdots u_k$.
 \end{corollary}
 
 Finally, we require an upper bound on the runners' speeds beyond which the LR property is guaranteed.
@@ -303,7 +302,7 @@ Now, we will motivate each of them by their applications.
 \label{subsec:efflift}
 Lifting is the main innovation of \cite{Trakulthongchai}. 
 The process is described in the first construction of $S'$ in Proposition~\ref{prop:liftproj}: suppose we have a tuple in $\Z^k_{p,l}$,
-we can \emph{lift} it to the preimage in $\Z^k_{p,cl}$, and then discard all proper speed tuples.
+we can \emph{lift} it to the fiber in $\Z^k_{p,cl}$, and then discard all proper speed tuples.
 
 \begin{remark}
 \label{rem:tightset}
@@ -359,8 +358,8 @@ According to Remark~\ref{rem:tightset}, when $k+1$ is prime, we have to lift wit
 This lift is extremely computationally intensive: for $k=12$, the $c=k+1$ lift requires checking $(13/2)^{12}\approx5\cdot10^9$ 
 times more tuples than the $c=2$ lift (for fixed $p$ and input set).
 If we are to verify the conjecture for $k\in\{10,12\}$ in a reasonable time, we need to avoid doing this lift computationally.
-For many primes $p$, after lifting $I(10,p,1)$ with $c=2,3$ several times and projecting back,
-the only tuples that cannot be shown eventually proper is (up to symmetry) $( 1, 2, \ldots, 10 )$. 
+For many primes $p$, after lifting $I(10,p,1)$ with $c=2$ several times and projecting back,
+the only tuples that cannot be shown eventually proper is, up to symmetry, $( 1, 2, \ldots, 10 )$. 
 The analogous observation holds when $k=12$.
 
 Therefore, the aim of this section is to determine the eventual properness
@@ -372,7 +371,7 @@ but we do so analytically instead of computationally.
 First, we prove the following Proposition \ref{prop:polynomial} which is the main ingredient used in this section.
 This proposition is combinatorially interesting in its own right.
 For convenience, we write 
-\[ N_{k} := \set{ \vbf \in \Z_{k+1}^k \text{ such that } \vbf \ne \origin \text{ and } \vbf \text{ has at least one zero coordinate } } \]
+\[ N_{k} := \set{ \vbf \in \Z_{k+1}^k : \vbf \ne \origin \text{ and } \vbf \text{ has at least one zero coordinate } } \]
 \begin{proposition}
 \label{prop:polynomial}
     Let $k+1$ be an odd prime. For all vectors $\vbf \in N_k$,
@@ -422,7 +421,7 @@ For convenience, we write
     However, this implies $v_i = 0$ for all $i$, that is, $\vbf = \mathbf{0}$.
 \end{proof}
 
-The strategy we will later use to prove Proposition~\ref{prop:corlarge} is decoupling and limiting dependency of the prime $p$. 
+The strategy we will later use to prove Proposition~\ref{prop:corlarge} is decoupling and limiting dependency on the prime $p$. 
 Instead of considering times of the form $t=\frac{a}{(k+1)p}$, we decompose them into the partial fractions $t=\frac{s}{k+1}+\frac{r}{p}$.
 The former term has no dependence of $p$. To capture the effect of $p$ of the latter term, we define 
 \[ \rbf_k(t):=\left( \floor{ (k+1) \fracpart{t}}, \; \floor{ (k+1)\fracpart{2t} }, \; \ldots, \; \floor{ (k+1) \fracpart{kt}} \right) \] 
@@ -453,7 +452,7 @@ With this discretization, we state Lemma~\ref{lem:resolvekplusone}.
 \end{proof}
 
 A corollary of Lemma~\ref{lem:resolvekplusone} is that $\onetok$ is eventually $(k,k+1)$-proper, but this is trivial.
-Indeed, for $p=k+1$, we only need that \[s\vbf + r\onetok  \in  \{1,\ldots,k\}^k.\] 
+Indeed, for $p=k+1$, we only need that \[s\vbf + r\onetok  \in  \{1,\ldots,k\}^k\] 
 to show eventual $(k, p)$-properness of $\onetok$.
 However, proving the stronger statement that 
 \[s\vbf + r\onetok  \in  \{1,\ldots,k-1\}^k\]
@@ -468,7 +467,7 @@ in Proposition~\ref{prop:polynomial} allows us to extend the result to larger pr
 \end{lemma}
 \begin{proof}
   From Lemma~\ref{lem:resolvekplusone}, we have that there is $s \in \Zko$ and $r \in \Z$ for which
-    \[ s\vbf + \rbf_k(r/(k+1)) \in \{1,\ldots,k-1\}^k\]
+    \[ s\vbf + \rbf_k(r/(k+1)) \in \{1,\ldots,k-1\}^k.\]
   Thus, it suffices to show that $\rbf_k(\tfrac{1}{k+1} \Z) \subseteq \rbf_k(\tfrac{1}{p} \Z)$ for all $p>k(k+1)$.
 
   Fix $p$ to be a prime greater than $k(k+1)$. Notice that $\rbf_k$ is a piecewise constant function. Moreover, 
@@ -508,8 +507,8 @@ With this lemma, we finally obtain the headline result that assures eventual pro
     hence $\ubf$ is $(k,p,k+1)$-proper because it satisfies the gcd condition.
 
     If $\ubf'$ contains no zero coordinate, then pick $r=0$ and $s=1$ and we have 
-    \[ \fracpart{tu_i}=\fracpart*{\frac{u'_i}{k+1}} \]
-    since $u_i \ne 0$, $\norm{tu_i} \ge \frac{1}{k+1}$ for all $i$.
+    \[ \fracpart{tu_i}=\fracpart*{\frac{u'_i}{k+1}}. \]
+    Since $u_i' \ne 0$, $\norm{tu_i} \ge \frac{1}{k+1}$ for all $i$.
 
     Otherwise, $\ubf'\in N_k$, so by Lemma~\ref{lem:resolvep} there is a choice of $r$ and $s$ such that 
     \[ s\ubf' + \rbf_k(r/p) \in \{1,\ldots,k-1\}^k \]
@@ -625,12 +624,12 @@ As $k+1$ is prime, Proposition \ref{prop:corlarge} asserts that $\onetok\notin J
 This is why we only use $p>k^2+k$ for $k\in\{10,12\}$.\footnote{
   In fact, we can use some primes $p<k^2+k$ if $\rbf_k(\frac{1}{k+1}\Z)\subseteq\rbf_k(\frac{1}{p}\Z)$ 
   by imitating the proof of Lemma~\ref{lem:resolvep}.
-  This inclusion holds for $p \in \set{103, 107, 109}$ when $k=10$, and $p \in \set{149, 156}$ when $k=12$,
+  This inclusion holds for $p \in \set{103, 107, 109}$ when $k=10$, and $p \in \set{149,151}$ when $k=12$,
   and we have checked that for these $k,p$, $J(k,p)=\emptyset$.
 } Therefore, if there are only speed tuples equivalent to $\onetok$ remaining in $S_5$, we can verify the emptiness of $J(k,p)$.
 
 \subsection{Further particulars}
-We implement the algorithms of Subsection \ref{subsec:algo} in \texttt{C++}. 
+We implement the algorithms of Subsection \ref{subsec:algo} in \texttt{C++}. %nice
 Compared to the original implementations of \cite{rosenfeldcode} and \cite{tanupatcode},
 we improve practical performance by refactoring to support parallel execution and by using more memory-efficient data structures.
 The development of our code was assisted by AI-based tools, but the process was closely supervised and the code was manually verified.
@@ -703,25 +702,16 @@ $k$ & \multicolumn{1}{c|}{$P_k$}
 \section{Concluding remarks}
 \label{sec:further}
 In Section \ref{sec:onetok}, we mentioned that, 
-surprisingly, we only need to perform $c=2$ and $c=3$ lifts (each more than once) to eliminate all speed tuples apart
+surprisingly, we only need to perform $c=2$ lifts (each more than once) to eliminate all speed tuples apart
 from those whose projection modulo $p$ is $\onetok$, which is a \emph{tight} speed tuple.
-From Goddyn and Wong \cite{goddyn2006tight}, a speed tuple is said to be tight if the strict inequality cannot hold in
+From Goddyn and Wong \cite{goddyn2006tight}, a speed tuple $\vbf\in\Z_{>0}^k$ is said to be tight if the strict inequalities cannot simultaneously hold in
 the statement of Conjecture \ref{lonelyconjred}. 
 
-% TODO: fix conjectures
-An easy continuity argument shows that if $\vbf$ is not tight, then there is an interval $(T,T+\epsilon)$ 
-such that every $t\in(T,T+\epsilon)$ is a witness time for $\vbf$. Therefore, for any non-tight speed tuple $\vbf\in\Int{p,l}^k$, 
-there is $L$ such that for any $l\geq L$ there is a witness time in $\frac{1}{lp}\Z$. 
-Our observation suggests that there is a universal $L$ for every non-tight $\vbf$:
-\begin{conjecture}
-    Fix $p$ prime and $k+1$. There exists a constant $L$ such that, for any integer $l\geq L$, 
-    every non-tight speed tuple $\vbf\in\Int{p,l}^k$ has a witness time in $\frac{1}{lp}\Z$.
-\end{conjecture}
+An easy continuity argument shows that if $\vbf$ is not tight, then there is $T$ and $\epsilon>0$
+such that every $t\in(T,T+\epsilon)$ is a witness time for $\vbf$. Therefore, for any non-tight speed tuple $\vbf$, there is $L$ such that for any $l\geq L$ there is a witness time in $\frac{1}{lp}\Z$. Our observation suggests a far stronger statement, that there is a universal $L$ for every non-tight, coprime $\vbf$.
 
-This might even be a universal bound for the denominator irrespective of the ansatz.
 \begin{conjecture}
-    Let $k+1$ be a positive integer. There exists a constant $D$ such that, for any integer $d\geq D$, 
-    every non-tight speed tuple $\vbf\in\Z_{>0}^k$ has a witness time in $\frac{1}{d}\Z$.
+    Let $k+1$ be a positive integer. There exists a constant $D$ such that, for any integer $d\geq D$, every non-tight speed tuple $\vbf\in\Z_{>0}^k$ with $\gcd(\vbf)=1$ has a witness time in $\frac{1}{d}\Z$.
 \end{conjecture}
 
 On a different note, the algebraic method in Proposition \ref{prop:polynomial} may be extensible to verify Conjecture \ref{lonelyconjred} for other classes of speed tuples.
