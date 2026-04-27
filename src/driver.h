@@ -26,15 +26,16 @@ template <typename Config, int P, int K> void check_prime()
     return {ansatz};
   });
 
+  const auto final_st = [&]
   {
     PushLogScope("Lift");
-    const auto final_st = apply_config<Config>(std::move(st));
-    if (!final_st.ansatz.empty())
-      Log(std::format("Counter Example Mod {}", P));
-    else
-      Log(std::format("Subproof Mod {} Done", P));
-  }
+    return apply_config<Config>(std::move(st));
+  }();
 
+  if (!final_st.ansatz.empty())
+    Log(std::format("Counter Example Mod {}", P));
+  else
+    Log(std::format("Subproof Mod {} Done", P));
   Log();
 }
 
