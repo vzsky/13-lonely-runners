@@ -2,6 +2,8 @@
 
 > each in a group of up to 13 runners will eventually be lonely
 
+[preprint](https://arxiv.org/abs/2604.23906)
+
 ## branches
 
 - `main` contains the polished code, we checked that this proves k <= 10

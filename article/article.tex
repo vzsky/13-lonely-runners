@@ -61,11 +61,11 @@
 \begin{document}
 \begin{abstract}
     Wills conjectured that, for any non-zero integers $u_1,\ldots,u_k$, 
-    there is a real number $t$ such that, for all $i=1,\ldots,k$, \[\norm{tu_i}\geq\frac{1}{k+1},\] 
-    where $\norm{x}$ is the distance from $x$ to the closest integer. This statement is known as the Lonely Runner Conjecture.
+    there is a real number $t$ such that, for all $i=1,\ldots,k$, \[\lVert tu_i\rVert\geq\frac{1}{k+1},\] 
+    where $\lVert x\rVert$ is the distance from $x$ to the closest integer. This statement is known as the Lonely Runner Conjecture.
     A computational method developed by Rosenfeld and the second author verified the conjecture for $k\leq9$.
     We further refine this method with new sieving techniques and employ a polynomial method argument to show that
-    any $(u_1,\ldots,u_k)\equiv\onetok\pmod{p}$ with $\gcd(u_1,\ldots,u_k)=1$ satisfies the conjecture when $k+1$ and $p > k^2+k$ 
+    any $(u_1,\ldots,u_k)\equiv(1,2,\ldots,k)\pmod{p}$ with $\gcd(u_1,\ldots,u_k)=1$ satisfies the conjecture when $k+1$ and $p > k^2+k$ 
     are both odd primes. Ultimately, we provide a computer-assisted proof of the Lonely Runner Conjecture for $k\in\{10,11,12\}$.
 \end{abstract}
 \maketitle
@@ -93,10 +93,11 @@ to a simpler Conjecture~\ref{lonelyconjred}:
 
 We say that a tuple $(u_1, \dots, u_k)$ has the \emph{LR property} if there is a real number $t$ such that 
 \[\norm{tu_i}\geq\frac{1}{k+1} \quad \text{for all } i = 1,\dots,k.\]
-Such time $t$ where the inequalities hold is called a \emph{witness} of the LR property of $(u_1, \dots,u_k)$.
+Such a time $t$ where the inequalities hold is called a \emph{witness} of the LR property of $(u_1, \dots,u_k)$.
 
 \begin{conjecture} \label{lonelyconjred}
-  Every $(u_1,\ldots,u_k)\in\Z_{>0}^k$ has the \emph{LR property}
+  Every $(u_1,\ldots,u_k)\in\Z_{>0}^k$ has the \emph{LR property}.
+
   We denote this statement by $LRC(k)$ or, as customary, the Lonely Runner Conjecture for $k+1$ runners.
 \end{conjecture}
 
@@ -163,10 +164,10 @@ The following definition and lemma summarize what must be verified.
 
 \begin{definition}[Definition 3\footnote{We change $lp$ in the gcd condition of \cite{Trakulthongchai} to $l$,
   but this changes nothing when $p$ is prime.}, \cite{Trakulthongchai}]\label{def:improper}
-    Let $p$ be prime, $k \geq 2$ and $l$ be positive integers.
+    Let $p$ be prime, and $k \geq 2$ and $l$ be positive integers.
     A speed tuple $\vbf\in\Int{p,l}^k$ is $(k,p,l)$-\emph{proper} if one of the following conditions holds: 
   \begin{itemize}
-    \item there exists $i$ such that $\gcd(l, v_1, \dots, \widehat{v_{i}}, \dots, v_k) > 1$.
+    \item there exists $i$ such that $\gcd(l, v_1, \dots, \widehat{v_{i}}, \dots, v_k) > 1$
     \item there exists $t \in\frac{1}{lp}\Z$ such that $\norm{tv_i} \geq \frac{1}{k+1}$ for all $i$.
   \end{itemize}
    If $\vbf$ is not proper, it is \emph{improper}. Moreover, let $I(k,p,l)$ denote the set of all improper speed tuples.
@@ -224,7 +225,6 @@ but having this local property for every $\vbf$ implies the global conclusion th
 As a consequence, the emptiness of $J(k,p)$ and $I(k,p,l)$ at some $l$ may be discussed interchangeably.
 We may also restate Lemma~\ref{lem:divp} in a more usable form for the proof of our main Theorem \ref{thm:main}.
 \begin{corollary}\label{cor:evenpropdivp}
-  % TODO: check that everything works for k+1 = 3 is prime.
   Let $k \ge 3$ and $p$ be prime.
   If $LRC(k)$ is true and $J(k,p)$ is empty, then any counterexample $\ubf$ to $LRC(k)$ has the property that $p \mid u_1\cdots u_k$.
 \end{corollary}
@@ -232,7 +232,7 @@ We may also restate Lemma~\ref{lem:divp} in a more usable form for the proof of 
 Finally, we require an upper bound on the runners' speeds beyond which the LR property is guaranteed.
 The best such bound at present was obtained by Malikiosis,~Santos,~and~Schymura~\cite{Malikiosis}:
 \begin{lemma}[Corollary 3, \cite{Rosenfeld}] \label{lem:proddivB}
-    For $k \ge 3$, If $LRC(k-1)$ holds, then any counterexample $\ubf$ to $LRC(k)$ must have
+    For $k \ge 3$, if $LRC(k-1)$ holds, then any counterexample $\ubf$ to $LRC(k)$ must have
     \[ u_1\cdots u_k < B_k \quad \text{where} \quad B_k := \paren{\frac{\binom{k+1}{2}^{k-1}}{k}}^k. \]
 \end{lemma}
 
@@ -312,7 +312,7 @@ we can \emph{lift} it to the fiber in $\Z^k_{p,cl}$, and then discard all proper
     In other words, if $p>k+1$, then $I(k,p,l)=\emptyset$ only if $k+1\mid l$. 
     As a consequence, if $k+1$ is prime and we start with tuples in $\Z^k_{p}$
     we need to lift with $k+1$ (or a multiple of $k+1$, but this would be suboptimal)
-    at least once because we can eliminate $\onetok$ only once we get to $\Z^{k}_{p(k+1)}$
+    at least once because we can eliminate $\onetok$ only once we get to $\Z^{k}_{p(k+1)}$.
 \end{remark}
 
 Even though it is impossible that $I(k,p,1)=\emptyset$, in view of applying Proposition~\ref{prop:liftproj}, 
@@ -528,7 +528,7 @@ With this lemma, we finally obtain the headline result that assures eventual pro
 Proposition \ref{prop:corlarge} implies Proposition \ref{prop:onetokintro}: 
 suppose that $\gcd(\vbf)=1$ and $\pi_p(\vbf)=\onetok$, then we have shown in Proposition~\ref{prop:corlarge}
 that $\pi_{(k+1)p}(\vbf)$ is $(k,p,k+1)$-proper. 
-If it is proper due to gcd condition, then as $\gcd(\vbf)=1$, by the pre-jump technique (see e.g. Lemma 5, \cite{Rosenfeld}), 
+If it is proper due to the gcd condition, then as $\gcd(\vbf)=1$, by the pre-jump technique (see e.g. Lemma 5, \cite{Rosenfeld}), 
 $\vbf$ has the LR property. 
 Otherwise, there is a time $t\in\frac{1}{(k+1)p}\Z$ such that $\norm{tv_i}\geq\frac{1}{k+1}$ for all $i$.
 
@@ -644,7 +644,6 @@ $k=9$ in 41 seconds (23 hours using \cite{tanupatcode}), and $k=10$ in 45 minute
 The proofs of $k=11$ and $k=12$ were run in multiple batches, with multiple versions, 
 and on multiple machines, making the exact time taken incomparable to other cases. 
 
-% TODO this is not rigorous, trying to frame it as conjecture, not sure if we include the math or not, or just time estimate
 A heuristic estimate from the smaller cases is that the time required to verify the emptiness of $J(k, p)$ 
 grows in proportion to $\frac{p^{(k+1)/2}}{k2^k}$. Interpolating this suggests that completing the proof of $k=11$ will take approximately 
 40 hours, and $k=12$ approximately 40 days, on the same 10-core machine.
@@ -702,7 +701,7 @@ $k$ & \multicolumn{1}{c|}{$P_k$}
 \section{Concluding remarks}
 \label{sec:further}
 In Section \ref{sec:onetok}, we mentioned that, 
-surprisingly, we only need to perform $c=2$ lifts (each more than once) to eliminate all speed tuples apart
+surprisingly, we only need to perform $c=2$ lifts (more than once) to eliminate all speed tuples apart
 from those whose projection modulo $p$ is $\onetok$, which is a \emph{tight} speed tuple.
 From Goddyn and Wong \cite{goddyn2006tight}, a speed tuple $\vbf\in\Z_{>0}^k$ is said to be tight if the strict inequalities cannot simultaneously hold in
 the statement of Conjecture \ref{lonelyconjred}. 
