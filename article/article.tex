@@ -12,25 +12,13 @@
 
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \DeclarePairedDelimiter\fracpart{\{}{\}}
-\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
-\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 
-\newcommand{\set}[1]{\left\{#1\right\}}
-\newcommand{\abs}[1]{\left|#1\right|}
-\newcommand{\paren}[1]{\left(#1\right)}
-\newcommand{\Int}[1]{\mathbb Z_{#1}}
-\newcommand{\Inttilde}[1]{\tilde{\mathbb Z}_{#1}}
-\newcommand{\Unit}[1]{\Int{#1}^\times}
-
+\newcommand{\Unit}[1]{\Z_{#1}^\times}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\Zko}{\Int{k+1}}
-\newcommand{\Zp}{\Int{p}}
 \newcommand{\rbf}{\mathbf{r}}
-\newcommand{\origin}{\mathbf{0}}
 \newcommand{\vbf}{\mathbf{v}}
 \newcommand{\ubf}{\mathbf{u}}
-\newcommand{\nequiv}{\not\equiv}
 \newcommand{\onetok}{(1, 2, \dots, k)}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -38,11 +26,9 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{conjecture}[theorem]{Conjecture}
-
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
-
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{claim}[theorem]{Claim}
@@ -50,10 +36,10 @@
 \title{Eleven, twelve, and thirteen lonely runners}
 \author[T. Sungkawichai]{Touch Sungkawichai}
 \date{\today}
-\address{London, UK}
+\address{London, United Kingdom}
 \email{touchsungkawichai@gmail.com}
 \author[T. Trakulthongchai]{Tanupat Trakulthongchai}
-\address{St John's College, University of Oxford, Oxford, UK}
+\address{St John's College, University of Oxford, Oxford, United Kingdom}
 \email{tanupat.trakulthongchai@sjc.ox.ac.uk}
 \date{\today}
 \subjclass[2020]{11K60}
@@ -75,7 +61,7 @@ The Lonely Runner Conjecture arose in the study of Diophantine approximation \ci
 though it has been reinterpreted in the context of view obstruction and billiard trajectories 
 \cite{cusick1984view}, covering radii of zonotopes \cite{henze_covering_2017}, and the chromatic number of a 
 unit-distance graph \cite{zhu2002circular}. 
-It was conjectured independently by Wills \cite{Wills} in 1967 and Cusick \cite{cusick1984view} in 1984. 
+It was first conjectured by Wills \cite{Wills} in 1967.
 Writing $\norm{x}$ for the distance from $x$ to the closest integer, namely $\norm{x}=\min(x-\lfloor x\rfloor, \lceil x\rceil-x)$, 
 the conjecture can be stated as follows:
 
@@ -140,10 +126,10 @@ the results of which establish Theorem \ref{thm:main} in Section \ref{sec:result
 Lastly, we discuss in Section~\ref{sec:further} how this method may be further extended.
 
 We adopt the following notation. We write $aS=\{as:s\in S\}$ for $a\in\R$ and $S\subseteq\R$. 
-The additive group modulo $n$ is denoted $\Int{n}$, the multiplicative group modulo $n$ is $\Unit{n}$, and 
-\[\Int{p, l}:=\Int{pl}\setminus p\Int{l}.\]
-Let $\pi_{m \to n}:\Int{m} \to \Int{n}$ denote the natural projection map when $n\mid m$
-and $\pi_n: \Z \to \Int{n}$ denote the projection modulo $n$ of integers.
+The additive group modulo $n$ is denoted $\Z_{n}$, the multiplicative group modulo $n$ is $\Unit{n}$, and 
+\[\Z_{p, l}:=\Z_{pl}\setminus p\Z_{l}.\]
+Let $\pi_{m \to n}:\Z_{m} \to \Z_{n}$ denote the natural projection map when $n\mid m$
+and $\pi_n: \Z \to \Z_{n}$ denote the projection modulo $n$ of integers.
 The fractional part of $x\in\R$ is denoted by $\fracpart{x}$.
 
 We use boldface letters for vectors, subscripts to indicate coordinates of a vector, 
@@ -156,16 +142,16 @@ The application of a scalar function to vectors is coordinate-wise.
 
 Rosenfeld's \cite{Rosenfeld} key insight is that if $\ubf\equiv\vbf\pmod{lp}$, 
 then $\norm{tv_i}=\norm{tu_i}$ for every $i$ whenever $t$ is a rational with denominator $lp$. 
-In particular, if we know that $\vbf\in\Int{lp}^k$ has a witness time of the form $t\in\frac{1}{lp}\Z$,
+In particular, if we know that $\vbf\in\Z_{lp}^k$ has a witness time of the form $t\in\frac{1}{lp}\Z$,
 then every $\ubf\in\pi^{-1}_{lp}(\vbf)$ has the same witness time and thus the LR property.
-If every $\vbf\in\Int{p,l}^k$ has a witness time of the form $t\in\frac{1}{lp}\Z$,
-then one of the speeds in any counterexample to $LRC(k)$ must be divisible by $p$. The set of speed tuples $\Int{p,l}^k$ together with the set of times $\frac{1}{lp}\Z$ is what we informally call an \emph{ansatz}.
+If every $\vbf\in\Z_{p,l}^k$ has a witness time of the form $t\in\frac{1}{lp}\Z$,
+then one of the speeds in any counterexample to $LRC(k)$ must be divisible by $p$. The set of speed tuples $\Z_{p,l}^k$ together with the set of times $\frac{1}{lp}\Z$ is what we informally call an \emph{ansatz}.
 The following definition and lemma summarize what must be verified.
 
 \begin{definition}[Definition 3\footnote{We change $lp$ in the gcd condition of \cite{Trakulthongchai} to $l$,
   but this changes nothing when $p$ is prime.}, \cite{Trakulthongchai}]\label{def:improper}
     Let $p$ be prime, and $k \geq 2$ and $l$ be positive integers.
-    A speed tuple $\vbf\in\Int{p,l}^k$ is $(k,p,l)$-\emph{proper} if one of the following conditions holds: 
+    A speed tuple $\vbf\in\Z_{p,l}^k$ is $(k,p,l)$-\emph{proper} if one of the following conditions holds: 
   \begin{itemize}
     \item there exists $i$ such that $\gcd(l, v_1, \dots, \widehat{v_{i}}, \dots, v_k) > 1$
     \item there exists $t \in\frac{1}{lp}\Z$ such that $\norm{tv_i} \geq \frac{1}{k+1}$ for all $i$.
@@ -185,7 +171,7 @@ we introduce a new terminology to simplify our discussion and implementation.
 \begin{definition}
   \label{def:eventualproper}
   Let $k \geq 2$ be an integer and $p$ be a prime. 
-  A speed tuple $\vbf \in \Int{p,1}^k$ is said to be \emph{eventually $(k,p)$-proper}
+  A speed tuple $\vbf \in \Z_{p,1}^k$ is said to be \emph{eventually $(k,p)$-proper}
   if there is $l$ such 
   that \[ \vbf \notin \pi_{lp \to p} I(k, p, l). \]
   Let $J(k,p)$ denote the set of all $\vbf \in \Z_{p,1}^k$ that are not eventually $(k,p)$-proper.
@@ -201,10 +187,10 @@ but having this local property for every $\vbf$ implies the global conclusion th
 \begin{proof}
     The backward direction is immediate from the definition. 
     To prove the forward direction, note that $J(k,p)=\emptyset$ implies that,
-    for each $\vbf\in \Int{p,1}^k$, there is $l_\vbf$ for which $\vbf \notin \pi_{l_\vbf p \to p} I(k, p, l_\vbf)$. 
-    Then pick \[l=\operatorname{lcm}\{l_\vbf:\vbf\in\Int{p,1}^k\}.\] 
+    for each $\vbf\in \Z_{p,1}^k$, there is $l_\vbf$ for which $\vbf \notin \pi_{l_\vbf p \to p} I(k, p, l_\vbf)$. 
+    Then pick \[l=\operatorname{lcm}\{l_\vbf:\vbf\in\Z_{p,1}^k\}.\] 
     
-    Fix $\ubf\in\Int{p,l}^k$. 
+    Fix $\ubf\in\Z_{p,l}^k$. 
     Let $\vbf=\pi_{lp\rightarrow p}\ubf$ and $\vbf'=\pi_{lp\rightarrow l_\vbf p}\ubf$,
     so we can write \[\ubf=(a_1l_\vbf p+v_1',\ldots,a_kl_\vbf p+v_k')\] for some integers $a_1,\ldots,a_k$. 
     
@@ -233,7 +219,7 @@ Finally, we require an upper bound on the runners' speeds beyond which the LR pr
 The best such bound at present was obtained by Malikiosis,~Santos,~and~Schymura~\cite{Malikiosis}:
 \begin{lemma}[Corollary 3, \cite{Rosenfeld}] \label{lem:proddivB}
     For $k \ge 3$, if $LRC(k-1)$ holds, then any counterexample $\ubf$ to $LRC(k)$ must have
-    \[ u_1\cdots u_k < B_k \quad \text{where} \quad B_k := \paren{\frac{\binom{k+1}{2}^{k-1}}{k}}^k. \]
+    \[ u_1\cdots u_k < B_k \quad \text{where} \quad B_k := \left( \frac{\binom{k+1}{2}^{k-1}}{k} \right)^k. \]
 \end{lemma}
 
 Therefore, if we satisfy the precondition of Corollary \ref{cor:evenpropdivp} for a large number of primes,
@@ -268,7 +254,7 @@ Before we motivate them, let us at once formalize and validate the two technique
 \begin{proposition}
 \label{prop:liftproj} 
     Fix an integer $k \ge 2$ and prime $p$.
-    Let $S\subseteq\Int{p,l}^k$ be such that $J(k,p)\subseteq\pi_{p}S$. 
+    Let $S\subseteq\Z_{p,l}^k$ be such that $J(k,p)\subseteq\pi_{p}S$. 
     We also have $J(k,p)\subseteq\pi_pS'$ if $S'$ is constructed in one of the following ways:
     \begin{itemize}
         \item (lifting with $c$) $S'=\{\vbf\in\pi_{clp\rightarrow lp}^{-1}S:\vbf\text{ is $(k,p,cl)$-improper}\}$
@@ -277,7 +263,7 @@ Before we motivate them, let us at once formalize and validate the two technique
     \begin{proof}
         The second case is obvious. In the first case, note that
         \[\begin{split}
-            \pi_pS'&=\pi_p\paren{\pi_{clp\rightarrow lp}^{-1}S\cap I(k,p,cl)} \\
+            \pi_pS'&=\pi_p \left( \pi_{clp\rightarrow lp}^{-1}S\cap I(k,p,cl) \right) \\
                    &=\pi_p\pi_{clp\rightarrow lp}^{-1}S\cap\pi_pI(k,p,cl) \\
                    &=\pi_pS\cap\pi_pI(k,p,cl).
         \end{split} \] 
@@ -322,7 +308,7 @@ that is very easy to compute as it requires checking only approximately $p^k$ sp
 After obtaining that, we can lift with a divisor of $k+1$ to obtain a better upper bound.
 
 Observe that lifting a set $S$ of tuples with a multiplier $c$ requires checking at most
-\[ \abs{ \pi^{-1}_{clp \to lp} S }= c^k\cdot|S| \]
+\[ \left| \pi^{-1}_{clp \to lp} S \right| = c^k\cdot|S| \]
 speed tuples.
 As $S$ is empirically found to be smaller as we lift\footnote{
   Even though lifting increases the number of speed tuples to be checked,
@@ -343,7 +329,7 @@ as we will explain next.
 Backward projection is just the application of $\pi_p$ to pull back the speed tuples to $\Z^k_{p}$.
 Just as lifting can reduce the size of the search space, projection achieves a similar effect. 
 This is due to the fact that for any set $S$,
-\[\abs{\pi_p S}\leq\abs{S}.\]
+\[|\pi_p S| \leq |S|.\]
 The only time projecting becomes counterproductive is if we lift afterwards with the same constant $c$ that was previously used,
 because then we are intersecting with the same improper set and hence no speed tuples can be further eliminated.
 
@@ -371,7 +357,7 @@ but we do so analytically instead of computationally.
 First, we prove the following Proposition \ref{prop:polynomial} which is the main ingredient used in this section.
 This proposition is combinatorially interesting in its own right.
 For convenience, we write 
-\[ N_{k} := \set{ \vbf \in \Z_{k+1}^k : \vbf \ne \origin \text{ and } \vbf \text{ has at least one zero coordinate } } \]
+\[ N_{k} := \{ \vbf \in \Z_{k+1}^k : \vbf \ne \mathbf0 \text{ and } \vbf \text{ has at least one zero coordinate } \} \]
 \begin{proposition}
 \label{prop:polynomial}
     Let $k+1$ be an odd prime. For all vectors $\vbf \in N_k$,
@@ -379,8 +365,8 @@ For convenience, we write
     \[s\vbf + r\onetok  \in  \{1,\ldots,k-1\}^k.\]
 \end{proposition}
 \begin{proof}
-    In this proof, we work in the field $\Int{k+1}$.
-    Define \[V_m = \set{v_i+mi:i\in \set{1,\ldots,k} }\] for $m \in \Unit{k+1}$.
+    In this proof, we work in the field $\Z_{k+1}$.
+    Define \[V_m = \{v_i+mi:i\in \{1,\ldots,k\} \}\] for $m \in \Unit{k+1}$.
     We say $m\in \Unit{k+1}$ is \emph{good} if $0 \notin V_m$ and \emph{bad} otherwise. 
     Let $G$ be the set of good $m$'s.
 
@@ -388,14 +374,14 @@ For convenience, we write
     For each non-zero coordinate $v_i$, there is exactly one choice of $m\in\Unit{k+1}$ such that $v_i + m i = 0$, 
     whereas for each zero coordinate, there cannot be such $m$. 
     Thus, there are at most $k-1$ bad units.
-    This implies that $\abs{G} \ge 1$.
+    This implies that $|G| \ge 1$.
 
     We continue the proof by contrapositive. Assume that for all $r$ and $s$, 
     \[s\vbf + r\onetok  \notin  \{1,\ldots,k-1\}^k,\] then we will show that $\vbf = 0$.
 
     Let $m$ be good and $s\in\Unit{k+1}$. Then $r:=sm\in\Unit{k+1}$ and so, by assumption,
-    \[ s\vbf + r\onetok \not\in \set{1, \dots, k-1}^k. \]
-    Thus, there is an index $i$ such that $s (v_i + m i) \in \set{0, -1}$.
+    \[ s\vbf + r\onetok \not\in \{1, \dots, k-1\}^k. \]
+    Thus, there is an index $i$ such that $s (v_i + m i) \in \{0, -1\}$.
     As $m$ is good and $s\neq0$, it is impossible for the product to be $0$, and so it must be $-1$. Hence, 
     \[ v_i + m i = -s^{-1}. \]
     As $s$ was chosen arbitrarily, $V_m = \Unit{k+1}$.
@@ -410,12 +396,12 @@ For convenience, we write
 
     As $k+1$ is prime, Fermat's Little Theorem gives another indicator function of $G$, which is
     \[ Q(X) := \sum_{m \in G} (1-(X-m)^k), \] 
-    where the sum is not empty as $\abs{G} \ge 1$.
+    where the sum is not empty as $|G| \ge 1$.
     It also follows that $Q$ is a polynomial of degree $k$.
     
     As $P(0) = 0 = Q(0)$, $P$ and $Q$ are polynomials of degree at most $k$ that agree on $k+1$ points, hence $P = Q$.
     In particular, their leading coefficients must be equal, that is 
-    $1 \equiv -\abs{G} \pmod{k+1}$. Since $\abs{G} \le k$ as integers, we must have that $\abs{G} = k$.
+    $1 \equiv -|G| \pmod{k+1}$. Since $|G| \le k$ as integers, we must have that $|G| = k$.
     Therefore, there is no bad $m$. Specifically, for any $i\in\{1,\ldots,k\}$, $v_i+mi \neq 0$
     for all $m\in\Unit{p}$. 
     However, this implies $v_i = 0$ for all $i$, that is, $\vbf = \mathbf{0}$.
@@ -424,30 +410,30 @@ For convenience, we write
 The strategy we will later use to prove Proposition~\ref{prop:corlarge} is decoupling and limiting dependency on the prime $p$. 
 Instead of considering times of the form $t=\frac{a}{(k+1)p}$, we decompose them into the partial fractions $t=\frac{s}{k+1}+\frac{r}{p}$.
 The former term has no dependence of $p$. To capture the effect of $p$ of the latter term, we define 
-\[ \rbf_k(t):=\left( \floor{ (k+1) \fracpart{t}}, \; \floor{ (k+1)\fracpart{2t} }, \; \ldots, \; \floor{ (k+1) \fracpart{kt}} \right) \] 
+\[ \rbf_k(t):=\left( \lfloor (k+1) \fracpart{t} \rfloor, \; \lfloor (k+1)\fracpart{2t} \rfloor, \; \ldots, \; \lfloor  (k+1) \fracpart{kt} \rfloor \right) \] 
 for $t\in\R$.
-Intuitively, $\floor{ (k+1) \fracpart{it}} = x$ means that the runner with speed $i$ is the arc 
+Intuitively, $\lfloor (k+1) \fracpart{it} \rfloor = x$ means that the runner with speed $i$ is the arc 
 $\left[ \frac{x}{k+1}, \frac{x+1}{k+1} \right)$ of the unit circle at time $t$.
 With this discretization, we state Lemma~\ref{lem:resolvekplusone}.
 
 \begin{lemma}
 \label{lem:resolvekplusone}
-    Let $k+1$ be an odd prime. For every $\vbf \in N_k$, there are $s \in \Zko$ and $r \in \Z$ for which 
+    Let $k+1$ be an odd prime. For every $\vbf \in N_k$, there are $s \in \Z_{k+1}$ and $r \in \Z$ for which 
     \[ s\vbf + \rbf_k(\tfrac r{k+1}) \in \{1,\ldots,k-1\}^k\] when considered modulo $k+1$.
 \end{lemma}
 \begin{proof}
   Let $\vbf$ be any speed tuple in $N_k$.
   By Proposition~\ref{prop:polynomial},
-  there exist $s,r\in\Unit{k+1}\subseteq\Int{k+1}$ such that
+  there exist $s,r\in\Unit{k+1}\subseteq\Z_{k+1}$ such that
   \[s\vbf + r\onetok  \in \{1,\ldots,k-1\}^k.\] 
   By definition, \[\begin{split}
       \rbf_k\left(\tfrac{r}{k+1}\right) 
-      &=\left(\floor*{ (k+1)\fracpart*{\tfrac{r}{k+1}} },\floor*{ (k+1)\fracpart*{\tfrac{2r}{k+1}} },\ldots, 
-        \floor*{ (k+1)\fracpart*{\tfrac{kr}{k+1}}} \right)\\
+      &=\left(\left\lfloor (k+1)\fracpart*{\tfrac{r}{k+1}} \right\rfloor,\left\lfloor (k+1)\fracpart*{\tfrac{2r}{k+1}} \right\rfloor,\ldots, 
+        \left\lfloor (k+1)\fracpart*{\tfrac{kr}{k+1}}\right\rfloor \right)\\
       &=(r,2r,\ldots,kr)\\&=r\onetok
   \end{split}\]
   modulo $k+1$. Therefore,
-  \[s\vbf+\rbf_k \paren{\tfrac{r}{k+1}} \in \{1,\ldots,k-1\}^k,\]
+  \[s\vbf+\rbf_k \left( \tfrac{r}{k+1} \right) \in \{1,\ldots,k-1\}^k,\]
   modulo $k+1$.
 \end{proof}
 
@@ -461,17 +447,17 @@ in Proposition~\ref{prop:polynomial} allows us to extend the result to larger pr
 \begin{lemma}
 \label{lem:resolvep}
     Let $k+1$ and $p > k(k+1)$ be odd primes. For every $\vbf \in N_k$,
-    there are $s \in \Zko$ and $r \in \Z$ for which 
+    there are $s \in \Z_{k+1}$ and $r \in \Z$ for which 
     \[ s\vbf + \rbf_k(r/p) \in \{1,\ldots,k-1\}^k .\] 
     when considered modulo $k+1$.
 \end{lemma}
 \begin{proof}
-  From Lemma~\ref{lem:resolvekplusone}, we have that there is $s \in \Zko$ and $r \in \Z$ for which
+  From Lemma~\ref{lem:resolvekplusone}, we have that there is $s \in \Z_{k+1}$ and $r \in \Z$ for which
     \[ s\vbf + \rbf_k(r/(k+1)) \in \{1,\ldots,k-1\}^k.\]
   Thus, it suffices to show that $\rbf_k(\tfrac{1}{k+1} \Z) \subseteq \rbf_k(\tfrac{1}{p} \Z)$ for all $p>k(k+1)$.
 
   Fix $p$ to be a prime greater than $k(k+1)$. Notice that $\rbf_k$ is a piecewise constant function. Moreover, 
-  $x$ is a discontinuity of $\rbf_k$ if and only if it is a discontinuity of $\floor{ (k+1) \fracpart{ix}}$ for some $i$.
+  $x$ is a discontinuity of $\rbf_k$ if and only if it is a discontinuity of $\left\lfloor (k+1) \fracpart{ix} \right\rfloor$ for some $i$.
   Those points of discontinuity are precisely points of the form  $\frac{a}{i(k+1)}$ for integer $a$ and $1 \le i \le k$.
 
   Choose an integer $n$ and denote $x := \tfrac{n}{k+1}$. Observe that $x$ is a discontinuity of $\rbf_k$ and let $y$ be 
@@ -497,13 +483,13 @@ With this lemma, we finally obtain the headline result that assures eventual pro
 \begin{proof}
     We will show that every $\ubf \in \pi_{p(k+1) \to p}^{-1}\onetok$ is $(k,p,k+1)$-proper, 
     and hence $\onetok$ is eventually $(k,p)$-proper.
-    Let $u_i = a_ip+i$ for some $a_i\in\Int{k+1}$ for $i=1,\ldots,k$.
+    Let $u_i = a_ip+i$ for some $a_i\in\Z_{k+1}$ for $i=1,\ldots,k$.
     By considering a time of the form $t=\frac{s}{k+1}+\frac{r}{p}$ for $s\in\Z$ and $r\in\Z$, 
     note that the fractional part of $tu_i$ is given by
     \[ \fracpart{tu_i}=\fracpart*{\left(\frac{s}{k+1}+\frac{r}{p}\right)(a_ip+i)}=\fracpart*{\frac{su'_i}{k+1}+\frac{ri}{p}} \] 
     where $\ubf' := \pi_{p(k+1)\to k+1} \ubf$. 
     
-    If $\ubf'=\origin$, then it follows that $k+1\mid\gcd(\ubf)$, thus \[k+1\mid\gcd(k+1,\ubf)\]
+    If $\ubf'=\mathbf0$, then it follows that $k+1\mid\gcd(\ubf)$, thus \[k+1\mid\gcd(k+1,\ubf)\]
     hence $\ubf$ is $(k,p,k+1)$-proper because it satisfies the gcd condition.
 
     If $\ubf'$ contains no zero coordinate, then pick $r=0$ and $s=1$ and we have 
@@ -516,7 +502,7 @@ With this lemma, we finally obtain the headline result that assures eventual pro
     This means that for each coordinate $i$, there are $A_i$ and $B_i$ such that 
     $\fracpart{\frac{sv_i}{k+1}}=\frac{A_i}{k+1}$ and 
     $\fracpart{\frac{ri}{p}}\in\left[\frac{B_i}{k+1},\frac{B_i+1}{k+1}\right)$ 
-    where $C_i:=A_i+B_i$ is in $\set{1,\ldots,k-1}$ when considered modulo $k+1$. 
+    where $C_i:=A_i+B_i$ is in $\{1,\ldots,k-1\}$ when considered modulo $k+1$. 
     Therefore,
     \[\fracpart{tu_i}=\fracpart*{\frac{su_i}{k+1}+\frac{ri}{p}}\in\left[\frac{C_i}{k+1},\frac{C_i+1}{k+1}\right)\]
     and in particular the set on the right-hand side does not intersect with $[0,\frac{1}{k+1}) \cup (\frac{k}{k+1},1)$.  
@@ -538,7 +524,7 @@ Otherwise, there is a time $t\in\frac{1}{(k+1)p}\Z$ such that $\norm{tv_i}\geq\f
 \subsection{Equivalence of speed tuples}
 \label{subsec:equiv}
 It is clear that some speed tuples in an ansatz are essentially the same, so we only need to verify properness for one of them.
-We say that two speed tuples $\ubf$ and $\vbf$ in $\Int{p,1}^k$ are \emph{equivalent} if $\vbf$ can be obtained from $\ubf$ 
+We say that two speed tuples $\ubf$ and $\vbf$ in $\Z_{p,1}^k$ are \emph{equivalent} if $\vbf$ can be obtained from $\ubf$ 
 by performing a finite number of the following actions:
 \begin{itemize}
     \item Permuting the coordinates of $\ubf$
@@ -551,7 +537,7 @@ For completeness, we show that this equivalence indeed preserves eventual proper
 
 \begin{proposition}
   \label{prop:equivproper}
-  Let $p$ be prime and $\ubf,\vbf\in\Int{p,1}^k$ be equivalent.
+  Let $p$ be prime and $\ubf,\vbf\in\Z_{p,1}^k$ be equivalent.
   If $\ubf$ is eventually $(k,p)$-proper, then so is $\vbf$.
 \end{proposition}
 \begin{proof}
@@ -566,7 +552,7 @@ For completeness, we show that this equivalence indeed preserves eventual proper
   \[\ubf':=(a_1p+u_1,\ldots,(l-a_i)p+u_i,\ldots,a_kp+u_k)\in\pi^{-1}(\ubf).\]
 
   If $\vbf=a\ubf$ for some $a\in\Unit{p}$, 
-  then by Chinese Remainder Theorem there is $b\in\Int{lp}$ such that $b\equiv a^{-1} \pmod{p}$ and $b\equiv1\pmod{l}$. 
+  then by Chinese Remainder Theorem there is $b\in\Z_{lp}$ such that $b\equiv a^{-1} \pmod{p}$ and $b\equiv1\pmod{l}$. 
   In particular, $b\in\Unit{lp}$ and 
   \[\ubf':=b\vbf'\in\pi^{-1}(\ubf)\]
   because $\pi(b\vbf')=\pi(b)\pi(\vbf')=a^{-1}(a\ubf)=\ubf$. We need $b$ to be a unit because if a time $t$ is a witness for $\ubf$, then the time $b^{-1}t$ is a witness for $\vbf$.
@@ -624,7 +610,7 @@ As $k+1$ is prime, Proposition \ref{prop:corlarge} asserts that $\onetok\notin J
 This is why we only use $p>k^2+k$ for $k\in\{10,12\}$.\footnote{
   In fact, we can use some primes $p<k^2+k$ if $\rbf_k(\frac{1}{k+1}\Z)\subseteq\rbf_k(\frac{1}{p}\Z)$ 
   by imitating the proof of Lemma~\ref{lem:resolvep}.
-  This inclusion holds for $p \in \set{103, 107, 109}$ when $k=10$, and $p \in \set{149,151}$ when $k=12$,
+  This inclusion holds for $p \in \{103, 107, 109\}$ when $k=10$, and $p \in \{149,151\}$ when $k=12$,
   and we have checked that for these $k,p$, $J(k,p)=\emptyset$.
 } Therefore, if there are only speed tuples equivalent to $\onetok$ remaining in $S_5$, we can verify the emptiness of $J(k,p)$.
 
@@ -632,7 +618,7 @@ This is why we only use $p>k^2+k$ for $k\in\{10,12\}$.\footnote{
 We implement the algorithms of Subsection \ref{subsec:algo} in \texttt{C++}. %nice
 Compared to the original implementations of \cite{rosenfeldcode} and \cite{tanupatcode},
 we improve practical performance by refactoring to support parallel execution and by using more memory-efficient data structures.
-The development of our code was assisted by AI-based tools, but the process was closely supervised and the code was manually verified.
+The development of our code was assisted by AI-based tools, namely ChatGPT and Claude, but the process was closely supervised and the code was manually verified.
 We also tested our implementation against that of~\cite{tanupatcode} on a number of smaller cases.
 
 In computing $S_1$, we modified the depth-first-search technique developed by \cite{rosenfeldcode} to account for the equivalence relation
