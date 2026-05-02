@@ -44,10 +44,9 @@ template <typename... Ts> void log(Ts&&... xs)
   std::cout << std::endl;
 }
 
+#define Log(...) logging::log(__VA_ARGS__)
 #define PushLogScope(x)                                                                                      \
   logging::EnvGuard _log_env_guard_##__LINE__ { x }
-
-#define Log(...) logging::log(__VA_ARGS__)
 
 } // namespace logging
 
@@ -80,7 +79,15 @@ template <typename T, typename... Ts> T gcd_fallback(T a, T b, Ts... rest)
   return gcd_fallback(gcd_fallback(a, b), rest...);
 }
 
-inline int mod_pow(int a, int e, int p)
+constexpr bool isPrime(int num)
+{
+  if (num < 2) return false;
+  for (int i = 2; i * i <= num; ++i)
+    if (num % i == 0) return false;
+  return true;
+}
+
+constexpr int mod_pow(int a, int e, int p)
 {
   int res = 1 % p;
   a %= p;
@@ -95,7 +102,7 @@ inline int mod_pow(int a, int e, int p)
   return res;
 }
 
-inline int mod_inverse(int a, int p) { return mod_pow(a, p - 2, p); }
+constexpr int mod_inverse(int a, int p) { return mod_pow(a, p - 2, p); }
 
 inline std::string print_time()
 {

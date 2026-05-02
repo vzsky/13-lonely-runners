@@ -9,7 +9,9 @@
 #include "lift_strategy.h"
 #include "utils.h"
 
-template <int...> struct PrimeList
+template <int... nums>
+  requires(isPrime(nums) && ...)
+struct PrimeList
 {
 };
 
